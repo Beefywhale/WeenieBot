@@ -98,7 +98,7 @@ async def on_ready():
     print('------')
     for server in client.servers:
         for member in server.members:
-        print(member)
+            print(member)
     print('------')
 
 
