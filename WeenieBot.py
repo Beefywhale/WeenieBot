@@ -44,6 +44,10 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+    for server in client.servers:
+      for member in server.members:
+        print(member)
+    print('------')
 
 
 @client.event
@@ -88,7 +92,7 @@ async def on_message(message):
             global counter1
             counter1 = len(Quotes_All)
             await client.send_message(message.channel, 'Quote {} Added!'.format(counter1))
-            global counter1
+            counter1
             counter1 = len(Quotes_All)
             Quotes_All.append(test.content)        
             with open("quoteweenie.json", "w+") as outfile:
