@@ -5,7 +5,7 @@ import json
 import time
 import cleverbot 
 
-Quotes_All = [""]
+Quotes_All = []
 admin = [""]
 
 
