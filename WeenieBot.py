@@ -80,10 +80,10 @@ async def user_messages(message):
     counter = 0
     tmp = await client.send_message(message.channel, 'Calculating messages...')
     async for log in client.logs_from(message.channel, limit=500):
-    if log.author == message.author:
-        counter += 1
-        await client.edit_message(tmp, 'You have {} messages.'.format(counter))
-        print(counter)
+        if log.author == message.author:
+            counter += 1
+            await client.edit_message(tmp, 'You have {} messages.'.format(counter))
+            print(counter)
         
 async def quote_amount(message):
     global counter2
