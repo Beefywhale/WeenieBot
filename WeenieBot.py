@@ -73,8 +73,8 @@ async def quoteadd_logic(message):
             Quotes_All.append(test.content)        
             with open("quoteweenie.json", "w+") as outfile:
                 outfile.write(json.dumps(Quotes_All))  
-        elif message.author.id not in admin:
-            await client.send_message(message.channel, 'Only Admins can Add Quotes!')
+    elif message.author.id not in admin:
+        await client.send_message(message.channel, 'Only Admins can Add Quotes!')
             
 async def user_messages(message):
     counter = 0
