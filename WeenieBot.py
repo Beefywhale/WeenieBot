@@ -183,7 +183,8 @@ async def on_message(message):
 !admintest --- check if you are admin!
 !deladmin --- deletes admin by user id
 !addadmin --- adds admin by user id
-!hello --- bot greets you.```''')
+hello weeniebot --- bot greets you.
+WeenieBot (question) --- asks weeniebot a question, that he will do his best to answer :)```''')
 
 
 
