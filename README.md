@@ -15,4 +15,4 @@ If you have any questions, or need help. Feel Free to ask!
 
 
 Made by: Beefywhale @ https://github.com/Beefywhale
-Special thanks to: Dragon5253/Armored-Dragon @https://github.com/Armored-Dragon 
+Special thanks to: Dragon5232/Armored-Dragon @https://github.com/Armored-Dragon 
