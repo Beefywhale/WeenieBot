@@ -200,16 +200,16 @@ async def on_message(message):
     if message.content == '!help':
         await client.send_message(message.channel, '''```[Command List]
 !quote --- picks a random quote to tell everyone.
-!quote (number) --- picks a specific quote to tell everyone.
+!quote <number> --- picks a specific quote to tell everyone.
 !quoteadd --- adds a new quote
-!delquote (number) --- deletes specific quote
+!delquote <number> --- deletes specific quote
 !sleep --- bot goes to sleep for 5 seconds.
 !messages --- tells you how many messages there are in the channel you are in.
 !admintest --- check if you are admin!
 !deladmin --- deletes admin by user id
-!addadmin --- adds admin by user id
+!addadmin <Persons Discord ID>--- adds admin by user id
 hello weeniebot --- bot greets you.
-WeenieBot (question) --- asks weeniebot a question, that he will do his best to answer :)```''')
+WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)```''')
 
 
 
