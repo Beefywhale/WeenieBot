@@ -95,7 +95,7 @@ async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
-    print('------')
+    print('<Members>')
     for server in client.servers:
         for member in server.members:
             print(member)
