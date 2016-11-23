@@ -12,3 +12,7 @@ Next right-click your discord name and click "Copy ID" than open WeenieBot.py an
 now just `run python3 WeenieBot.py`
 For more info on commands, use the !help command once the bot is up and running!
 If you have any questions, or need help. Feel Free to ask!
+
+
+Made by: Beefywhale @ https://github.com/Beefywhale
+Special thanks to: Dragon5253/Armored-Dragon @https://github.com/Armored-Dragon 
