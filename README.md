@@ -9,6 +9,8 @@ by following the steps here: https://discordapp.com/developers/docs/topics/oauth
 # Making the Code work for your bot!
 Next right-click your discord name and click "Copy ID" than open WeenieBot.py and look for `admin = [""]` paste your ID in between the parenthases, and scroll all the way down until you find `client.run('Your-Bot-Token-Here!')` and replace Your-Bot-Token-Here, with your Application's Token, save and exit WeenieBot.py.
 
+For a more in-depth guide on Installing and seting up WeenieBot, go here: https://github.com/Beefywhale/WeenieBot/wiki/WeenieBot's-In-depth-setup
+
 # Thats It!
 now just `run python3 WeenieBot.py`
 For more info on commands, use the !help command once the bot is up and running!
