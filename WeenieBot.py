@@ -46,6 +46,13 @@ async def add_admin_logic(message):
     elif message.author.id not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
+async def purge(message):
+    if message.author.id in admin:
+        deleted = await client.purge_from(message.channel, limit=500, check=None)
+        await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
+    elif message.author.id not in admin:
+        await client.send_message(message.channel, 'Only Admins can Purge channels!')
+        
 async def sleep(message):
     tmp = await client.send_message(message.channel, 'ZzzzzzzZZzzzz...')
     await asyncio.sleep(5)
@@ -105,12 +112,15 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global timer
-    
+    await client.change_nickname(message.server.me, 'WeenieBot')
     if message.content.lower().startswith('weeniebot'):
         await cleverbot_logic(message)
 
     if message.content == '!messages':
         await user_messages(message)
+    
+    if message.content == '!purge'
+        await pure(message)
     
     if message.content == '!good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')        
