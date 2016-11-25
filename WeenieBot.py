@@ -119,7 +119,7 @@ async def on_message(message):
     if message.content == '!messages':
         await user_messages(message)
     
-    if message.content == '!purge'
+    if message.content == '!purge':
         await pure(message)
     
     if message.content == '!good?':
