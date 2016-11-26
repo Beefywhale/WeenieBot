@@ -5,14 +5,6 @@ import json
 import time
 import cleverbot 
 
-Quotes_All = []
-admin = [""]
-
-
-with open("quoteweenie.json", "w+") as outfile:
-   outfile.write(json.dumps(Quotes_All))      
-with open("adminweenie.json", "w+") as outfile:
-    outfile.write(json.dumps(admin))  
 
 with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
