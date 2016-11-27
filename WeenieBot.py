@@ -152,6 +152,22 @@ async def on_message(message):
                 await client.send_message(message.channel, 'ERROR You are not Admin')    
         except:
             pass
+        
+        if message.content.startswith('!editquote'):
+            edit_quote = int(message.content.strip('!editquote '))
+            if message.author.id in admin:
+                try:
+                    await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
+                    msg = await client.wait_for_message(author=message.author)
+                    Quotes_All[edit_quote] = msg.content
+                    await client.send_message(message.channel, 'Quote Edited')
+                    with open("quoteweenie.json", "w+") as outfile:
+                        outfile.write(json.dumps(Quotes_All))
+                except IndexError:
+                    await client.send_message(message.channel, 'That quote doesn\'t exist!')
+            elif message.author.id not in admin:
+                await client.send_message(message.channel, 'ERROR You are not Admin')
+                
     if timer == 0 and message.content.split(' ')[0] == '!quote':
         try:
             open("quoteweenie.json","r")
