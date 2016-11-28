@@ -1,9 +1,9 @@
 import discord
 import asyncio
+import cleverbot 
 import random
 import json
 import time
-import cleverbot 
 
 
 with open("quoteweenie.json","r") as infile:
