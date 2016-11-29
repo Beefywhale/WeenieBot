@@ -172,15 +172,18 @@ async def on_message(message):
                 
     if timer == 0 and message.content.split(' ')[0] == '!quote':
         try:
-            open("quoteweenie.json","r")
-            quote_number = int(message.content.strip('!quote '))
-            print(quote_number)
-            await client.send_message(message.channel, Quotes_All[quote_number])
-            timer = 1
-            await asyncio.sleep(8)
-            timer = 0
-        except IndexError:
-            await client.send_message(message.channel, 'That quote doesn\'t exist!')
+            try:
+                open("quoteweenie.json","r")
+                quote_number = int(message.content.strip('!quote '))
+                print(quote_number)
+                await client.send_message(message.channel, Quotes_All[quote_number])
+                timer = 1
+                await asyncio.sleep(8)
+                timer = 0
+            except IndexError:
+                await client.send_message(message.channel, 'That quote doesn\'t exist!')
+        except ValueError:
+            pass
     elif timer == 1 and message.content.split(' ')[0] == '!quote':
         try:
             try:
