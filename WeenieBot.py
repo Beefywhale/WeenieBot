@@ -35,6 +35,8 @@ async def add_admin_logic(message):
         msg3 = await client.wait_for_message(author=message.author)
         await client.send_message(message.channel, 'Admin Added')
         admin.append(msg3.content)
+        with open("adminweenie.json", "w+") as outfile:
+            outfile.write(json.dumps(admin))  
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
