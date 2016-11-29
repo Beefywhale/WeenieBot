@@ -30,19 +30,19 @@ async def cleverbot_logic(message):
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
 async def add_admin_logic(message):
-    if message.author.id in admin:
+    if message.author.name in admin:
         await client.send_message(message.channel, 'Type the ID you want to make admin.')
         msg3 = await client.wait_for_message(author=message.author)
         await client.send_message(message.channel, 'Admin Added')
         admin.append(msg3.content)
-    elif message.author.id not in admin:
+    elif message.author.name not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
 async def purge(message):
-    if message.author.id in admin:
+    if message.author.name in admin:
         deleted = await client.purge_from(message.channel, limit=500, check=None)
         await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
-    elif message.author.id not in admin:
+    elif message.author.name not in admin:
         await client.send_message(message.channel, 'Only Admins can Purge channels!')
         
 async def sleep(message):
@@ -61,7 +61,7 @@ async def rand_quote(message):
     timer = 1
     
 async def quoteadd_logic(message):
-    if message.author.id in admin:
+    if message.author.name in admin:
             await client.send_message(message.channel, 'Type quote to add.')
             test = await client.wait_for_message(author=message.author)
             global counter1
@@ -72,7 +72,7 @@ async def quoteadd_logic(message):
             Quotes_All.append(test.content)        
             with open("quoteweenie.json", "w+") as outfile:
                 outfile.write(json.dumps(Quotes_All))  
-    elif message.author.id not in admin:
+    elif message.author.name not in admin:
         await client.send_message(message.channel, 'Only Admins can Add Quotes!')
             
 async def user_messages(message):
@@ -140,7 +140,7 @@ async def on_message(message):
     if message.content.startswith('!delquote'):
         try:
             del_quote = int(message.content.strip('!delquote '))
-            if message.author.id in admin:
+            if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
                     del Quotes_All[del_quote]
@@ -148,14 +148,14 @@ async def on_message(message):
                         outfile.write(json.dumps(Quotes_All))                    
                 except IndexError:
                     await client.send_message(message.channel, 'That quote doesn\'t exist!')
-            elif message.author.id not in admin:
+            elif message.author.name not in admin:
                 await client.send_message(message.channel, 'ERROR You are not Admin')    
         except:
             pass
         
         if message.content.startswith('!editquote'):
             edit_quote = int(message.content.strip('!editquote '))
-            if message.author.id in admin:
+            if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
                     msg = await client.wait_for_message(author=message.author)
@@ -165,7 +165,7 @@ async def on_message(message):
                         outfile.write(json.dumps(Quotes_All))
                 except IndexError:
                     await client.send_message(message.channel, 'That quote doesn\'t exist!')
-            elif message.author.id not in admin:
+            elif message.author.name not in admin:
                 await client.send_message(message.channel, 'ERROR You are not Admin')
                 
     if timer == 0 and message.content.split(' ')[0] == '!quote':
@@ -200,19 +200,19 @@ async def on_message(message):
     if message.content.startswith('!deladmin'):
         try:
             del_admin = str(message.content.strip('!deladmin '))
-            if message.author.id in admin:
+            if message.author.name in admin:
                 await client.send_message(message.channel, 'Admin Removed')
                 admin.remove(del_admin)  
-            elif message.author.id not in admin:
+            elif message.author.name not in admin:
                 await client.send_message(message.channel, 'ERROR You are not Admin')    
         except:
             pass
 
     if message.content.startswith('!admintest'):
         open("adminweenie.json","r")
-        if message.author.id in admin:
+        if message.author.name in admin:
             await client.send_message(message.channel, 'Hello Admin!')
-        elif message.author.id not in admin:
+        elif message.author.name not in admin:
             await client.send_message(message.channel, 'Not Admin!')
 
     if message.content == '!help':
