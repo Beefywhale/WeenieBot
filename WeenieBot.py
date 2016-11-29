@@ -130,7 +130,7 @@ async def on_message(message):
         await sleep(message)         
 
     if message.content == '!quotenumber':
-        quote_amount(message)
+        await quote_amount(message)
 
     if timer == 0 and message.content == '!turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
