@@ -118,7 +118,7 @@ async def on_message(message):
         await user_messages(message)
     
     if message.content == '!purge':
-        await pure(message)
+        await purge(message)
         
     if message.content == '!admins':
         await admin_amount(message)
