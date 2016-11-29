@@ -183,14 +183,16 @@ async def on_message(message):
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
     elif timer == 1 and message.content.split(' ')[0] == '!quote':
         try:
-            quote_number = int(message.content.strip('!quote '))
-            print('COOLDOWN')
-            await client.send_message(message.author, '10 second Command Cooldown please be patient and don\'t spam commands! :)')
-            await asyncio.sleep(2)
-            timer = 0
-        except ValueError:
-            pass
-    
+            try:
+                quote_number = int(message.content.strip('!quote '))
+                print('COOLDOWN')
+                await client.send_message(message.author, '10 second Command Cooldown please be patient and don\'t spam commands! :)')
+                await asyncio.sleep(2)
+                timer = 0
+            except ValueError:
+                pass
+        except IndexError:
+            await client.send_message(message.channel, 'That quote doesn\'t exist!')
     
     
     if message.content.lower() == 'hello weeniebot':
