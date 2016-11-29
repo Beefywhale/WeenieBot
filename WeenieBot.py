@@ -90,6 +90,10 @@ async def quote_amount(message):
     global counter2
     counter2 = len(Quotes_All) - 1
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
+
+async def admin_amount(message):
+    if message.author.name in admin:
+        await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))    
     
 @client.event
 async def on_ready():
@@ -115,6 +119,9 @@ async def on_message(message):
     
     if message.content == '!purge':
         await pure(message)
+        
+    if message.content == '!admins':
+        await admin_amount(message)
     
     if message.content == '!good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')        
