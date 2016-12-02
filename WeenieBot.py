@@ -248,7 +248,7 @@ async def on_message(message):
     
     if message.content.startswith('!deladmin'):
         try:
-            del_admin = str(message.content.strip('!deladmin '))
+            del_admin = str(message.content.replace('!deladmin ', ''))
             if message.author.name in admin:
                 if del_admin in admin:
                     await client.send_message(message.channel, 'Admin Removed')
