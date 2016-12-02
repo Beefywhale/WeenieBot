@@ -129,7 +129,12 @@ async def user(message):
                     await client.send_message(message.channel, embed=user_details)
                 else:
                     print(username)
-                    await client.send_message(message.channel, 'Invalid User Name')    
+                    await client.send_message(message.channel, 'Invalid User Name')   
+                    
+async def admin_amount(message):
+    if message.author.name in admin:
+        await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))    
+                
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -154,6 +159,9 @@ async def on_message(message):
     
     if message.content == '!purge':
         await purge(message)
+        
+    if message.content == '~admins':
+        await admin_amount(message)
         
     if message.content == '!admins':
         await admin_amount(message)
