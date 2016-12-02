@@ -13,7 +13,7 @@ with open("adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
 with open("quoteweenie.json", "w+") as outfile:
-   outfile.write(json.dumps(Quotes_All))      
+    outfile.write(json.dumps(Quotes_All))      
 with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))                              
 
@@ -95,6 +95,41 @@ async def admin_amount(message):
     if message.author.name in admin:
         await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))    
     
+async def user(message):
+    if message.content.startswith('~user'):
+        if message.author.name in admin:
+            r = lambda: random.randint(0,255)
+            rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+            try:
+                username = message.content.replace('~user ', '')
+                print(username)
+                roles_member = message.server.get_member_named(username).roles
+                user_details = discord.Embed(title='', description='', colour=int(rr, 16))
+                user_details.add_field(name='Username:', value=message.server.get_member_named(username).name, inline=True)
+                user_details.add_field(name='Nick:', value=message.server.get_member_named(username).nick, inline =True)
+                user_details.add_field(name='Current Status:', value=status[str(message.server.get_member_named(username).status)], inline=True)
+                user_details.add_field(name='Playing:', value=message.server.get_member_named(username).game, inline =True)
+                user_details.add_field(name='Joined Server:', value=message.server.get_member_named(username).joined_at.strftime(x33), inline =True)
+                user_details.add_field(name='User Roles:', value= ', '.join([i.name.replace('@', '') for i in roles_member]), inline=True)
+                user_details.add_field(name='Account Created:', value=message.server.get_member_named(username).created_at.strftime(x33), inline=True)
+                user_details.set_author(name=message.server.get_member_named(username).display_name, icon_url=message.server.get_member_named(username).avatar_url)
+                await client.send_message(message.channel, embed=user_details)
+
+            except AttributeError:
+                if message.content == '~user':
+                    user_details = discord.Embed(title='', description='', colour=int(rr, 16))
+                    user_details.add_field(name='Username:', value=message.author.name, inline=True)
+                    user_details.add_field(name='Nick:', value=message.author.nick, inline =True)
+                    user_details.add_field(name='Current Status:', value=status[str(message.author.status)], inline=True)
+                    user_details.add_field(name='Playing:', value=message.author.game, inline =True)
+                    user_details.add_field(name='Joined Server:', value=message.author.joined_at.strftime(x33), inline =True)
+                    user_details.add_field(name='User Roles:', value= ", ".join([i.name for i in message.author.roles if not i.is_everyone]), inline=True)
+                    user_details.add_field(name='Account Created:', value=message.author.created_at.strftime(x33), inline=True)
+                    user_details.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
+                    await client.send_message(message.channel, embed=user_details)
+                else:
+                    print(username)
+                    await client.send_message(message.channel, 'Invalid User Name')    
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -131,7 +166,7 @@ async def on_message(message):
 
     if message.content == '!quotenumber':
         await quote_amount(message)
-
+        
     if timer == 0 and message.content == '!turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
         timer = 1
@@ -230,7 +265,9 @@ async def on_message(message):
             await client.send_message(message.channel, 'Not Admin!')
 
     if message.content == '!help':
-        await client.send_message(message.channel, '''```[Command List]
+        r = lambda: random.randint(0,255)
+        rr = ('0x%02X%02X%02X' % (r(),r(),r()))        
+        help_details = discord.Embed(title='Commands:', description='''
 !quote --- picks a random quote to tell everyone.
 !quote <number> --- picks a specific quote to tell everyone.
 !quoteadd --- adds a new quote
@@ -241,7 +278,9 @@ async def on_message(message):
 !deladmin --- deletes admin by user id
 !addadmin <Persons Discord ID>--- adds admin by user id
 hello weeniebot --- bot greets you.
-WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)```''')
+WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)''', colour=int(rr, 16))
+        help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
+        await client.send_message(message.channel, embed=help_details)
 
 
 
