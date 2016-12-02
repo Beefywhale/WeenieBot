@@ -117,19 +117,20 @@ async def user(message):
 
             except AttributeError:
                 if message.content == '!user':
+                    roles_member = message.author.roles
                     user_details = discord.Embed(title='', description='', colour=int(rr, 16))
                     user_details.add_field(name='Username:', value=message.author.name, inline=True)
                     user_details.add_field(name='Nick:', value=message.author.nick, inline =True)
                     user_details.add_field(name='Current Status:', value=status[str(message.author.status)], inline=True)
                     user_details.add_field(name='Playing:', value=message.author.game, inline =True)
                     user_details.add_field(name='Joined Server:', value=message.author.joined_at.strftime(x33), inline =True)
-                    user_details.add_field(name='User Roles:', value= ", ".join([i.name for i in message.author.roles if not i.is_everyone]), inline=True)
+                    user_details.add_field(name='User Roles:', value= ', '.join([i.name.replace('@', '') for i in roles_member]), inline=True)
                     user_details.add_field(name='Account Created:', value=message.author.created_at.strftime(x33), inline=True)
                     user_details.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
                     await client.send_message(message.channel, embed=user_details)
                 else:
                     print(username)
-                    await client.send_message(message.channel, 'Invalid User Name')   
+                    await client.send_message(message.channel, 'Invalid User Name')  
                     
 async def admin_amount(message):
     if message.author.name in admin:
