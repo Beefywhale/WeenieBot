@@ -96,12 +96,12 @@ async def admin_amount(message):
         await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))    
     
 async def user(message):
-    if message.content.startswith('~user'):
+    if message.content.startswith('!user'):
         if message.author.name in admin:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             try:
-                username = message.content.replace('~user ', '')
+                username = message.content.replace('!user ', '')
                 print(username)
                 roles_member = message.server.get_member_named(username).roles
                 user_details = discord.Embed(title='', description='', colour=int(rr, 16))
@@ -116,7 +116,7 @@ async def user(message):
                 await client.send_message(message.channel, embed=user_details)
 
             except AttributeError:
-                if message.content == '~user':
+                if message.content == '!user':
                     user_details = discord.Embed(title='', description='', colour=int(rr, 16))
                     user_details.add_field(name='Username:', value=message.author.name, inline=True)
                     user_details.add_field(name='Nick:', value=message.author.nick, inline =True)
@@ -159,6 +159,9 @@ async def on_message(message):
     
     if message.content == '!purge':
         await purge(message)
+    
+    if message.content.startswith('!user'):
+        await user(message)
         
     if message.content == '~admins':
         await admin_amount(message)
