@@ -250,8 +250,11 @@ async def on_message(message):
         try:
             del_admin = str(message.content.strip('!deladmin '))
             if message.author.name in admin:
-                await client.send_message(message.channel, 'Admin Removed')
-                admin.remove(del_admin)  
+                if del_admin in admin:
+                    await client.send_message(message.channel, 'Admin Removed')
+                    admin.remove(del_admin)
+                else:
+                    await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
             elif message.author.name not in admin:
                 await client.send_message(message.channel, 'ERROR You are not Admin')    
         except:
