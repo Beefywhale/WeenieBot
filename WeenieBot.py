@@ -17,6 +17,15 @@ with open("quoteweenie.json", "w+") as outfile:
 with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))                              
 
+status = {
+    'online': 'Online',
+    'offline': 'Offline',
+    'idle': 'Idle',
+    'dnd': 'Do Not Disturb'
+}
+
+x33 = '%m-%d-%Y'    
+    
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
 timer = 0
