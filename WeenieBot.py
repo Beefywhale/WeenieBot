@@ -27,7 +27,7 @@ status = {
 }
 
 x33 = '%m-%d-%Y'    
-    
+
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
 timer = 0
