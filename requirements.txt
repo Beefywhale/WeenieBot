@@ -1,2 +1,4 @@
 discord.py
 cleverbot 
+google
+requests
