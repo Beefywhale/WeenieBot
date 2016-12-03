@@ -1,9 +1,11 @@
 import discord
 import asyncio
-import cleverbot 
 import random
 import json
 import time
+import cleverbot
+import requests
+from google import search
 
 
 with open("quoteweenie.json","r") as infile:
@@ -49,6 +51,34 @@ async def add_admin_logic(message):
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
+
+async def getPokemonData(message):
+    if message.content.startswith('!pokemon'):
+        parsedPokemon = message.content.replace('!pokemon ', '')
+        url = 'http://pokeapi.co/api/v2/pokemon/' + str(parsedPokemon.lower()) + '/'
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            data = json.loads(response.text)
+            print(data['name'].upper())
+            await client.send_message(message.channel, data['name'].title())
+        
+        elif message.content == '!pokemon':
+            randomPokemon = random.randint(0, 700)
+            url = 'http://pokeapi.co/api/v2/pokemon/' + str(randomPokemon) + '/'
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                data = json.loads(response.text)
+                print(data['name'].upper())
+                await client.send_message(message.channel, data['name'].title())
+            else:
+                print('An error occurred querying the API')
+                await client.send_message(message.channel, 'An error occurred querying the API')        
+        else:
+            print('An error occurred querying the API')
+            await client.send_message(message.channel, 'An error occurred querying the API')        
+        
 async def purge(message):
     if message.author.name in admin:
         deleted = await client.purge_from(message.channel, limit=500, check=None)
@@ -94,7 +124,14 @@ async def user_messages(message):
             counter += 1
             await client.edit_message(tmp, 'You have {} messages.'.format(counter))
             print(counter)
-        
+
+async def google_search(message):
+    search_google = message.content.replace('!google ', '')
+    if message.author.name in admin:
+        for url in search(search_google, stop=5):
+            await client.send_message(message.channel, url)
+            break        
+
 async def quote_amount(message):
     global counter2
     counter2 = len(Quotes_All) - 1
@@ -140,8 +177,7 @@ async def user(message):
                 await client.send_message(message.channel, 'Invalid User Name')  
                     
 async def admin_amount(message):
-    if message.author.name in admin:
-        await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))    
+    await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))    
                 
 @client.event
 async def on_ready():
@@ -171,11 +207,14 @@ async def on_message(message):
     if message.content.startswith('!user'):
         await user(message)
         
-    if message.content == '~admins':
-        await admin_amount(message)
-        
     if message.content == '!admins':
         await admin_amount(message)
+        
+    if message.content.startswith('!pokemon'):
+        await getPokemonData(message)
+    
+    if message.content.startswith('!google'):
+        await google_search(message)
     
     if message.content == '!good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')        
