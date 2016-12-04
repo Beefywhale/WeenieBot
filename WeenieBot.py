@@ -311,6 +311,8 @@ async def on_message(message):
                 if del_admin in admin:
                     await client.send_message(message.channel, 'Admin Removed')
                     admin.remove(del_admin)
+                    with open("adminweenie.json", "w+") as outfile:
+                        outfile.write(json.dumps(admin))   
                 else:
                     await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
             elif message.author.name not in admin:
