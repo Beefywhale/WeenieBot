@@ -9,7 +9,7 @@ import git
 import subprocess
 import sys
 import os
-import modules.commands as command
+import modules.commands as commands
 import modules.botToken as botToken
 from google import search
 
@@ -41,47 +41,6 @@ timer = 0
 client = discord.Client()
 cb1 = cleverbot.Cleverbot()
 
-
-async def user(message):
-    if message.content.startswith('!user'):
-        r = lambda: random.randint(0,255)
-        rr = ('0x%02X%02X%02X' % (r(),r(),r()))
-        try:
-            username = message.content.replace('!user ', '')
-            print(username)
-            roles_member = message.server.get_member_named(username).roles
-            user_details = discord.Embed(title='', description='', colour=int(rr, 16))
-            user_details.add_field(name='Username:', value=message.server.get_member_named(username).name, inline=True)
-            user_details.add_field(name='Nick:', value=message.server.get_member_named(username).nick, inline =True)
-            user_details.add_field(name='Current Status:', value=status[str(message.server.get_member_named(username).status)], inline=True)
-            user_details.add_field(name='Playing:', value=message.server.get_member_named(username).game, inline =True)
-            user_details.add_field(name='Joined Server:', value=message.server.get_member_named(username).joined_at.strftime(x33), inline =True)
-            user_details.add_field(name='User Roles:', value= ', '.join([i.name.replace('@', '') for i in roles_member]), inline=True)
-            user_details.add_field(name='Account Created:', value=message.server.get_member_named(username).created_at.strftime(x33), inline=True)
-            user_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
-            user_details.set_author(name=message.server.get_member_named(username).display_name, icon_url=message.server.get_member_named(username).avatar_url)
-            await client.send_message(message.channel, embed=user_details)
-
-        except AttributeError:
-            if message.content == '!user':
-                roles_member = message.author.roles
-                user_details = discord.Embed(title='', description='', colour=int(rr, 16))
-                user_details.add_field(name='Username:', value=message.author.name, inline=True)
-                user_details.add_field(name='Nick:', value=message.author.nick, inline =True)
-                user_details.add_field(name='Current Status:', value=status[str(message.author.status)], inline=True)
-                user_details.add_field(name='Playing:', value=message.author.game, inline =True)
-                user_details.add_field(name='Joined Server:', value=message.author.joined_at.strftime(x33), inline =True)
-                user_details.add_field(name='User Roles:', value= ', '.join([i.name.replace('@', '') for i in roles_member]), inline=True)
-                user_details.add_field(name='Account Created:', value=message.author.created_at.strftime(x33), inline=True)
-                user_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
-                user_details.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
-                await client.send_message(message.channel, embed=user_details)
-            else:
-                print(username)
-                await client.send_message(message.channel, 'Invalid User Name')
-
-
-
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -104,10 +63,10 @@ async def on_message(message):
     await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.lower().startswith('weeniebot'):
-        await command.cleverbot_logic(message)
+        await commands.cleverbot_logic(message)
 
     if message.content == '!messages':
-        await command.user_messages(message)
+        await commands.user_messages(message)
 
     if message.content == '!purge':
         await purge(message)
@@ -119,44 +78,44 @@ async def on_message(message):
         os.execl(sys.executable, sys.executable, *sys.argv)
        
     if message.content.startswith('!user'):
-        await command.user(message)
+        await commands.user(message)
 
     if message.content == '!admins':
-        await command.admin_amount(message)
+        await commands.admin_amount(message)
 
     if message.content.startswith('!pokemon'):
-        await command.getPokemonData(message)
+        await commands.getPokemonData(message)
 
     if message.content.startswith('!google'):
-        await command.google_search(message)
+        await commands.google_search(message)
 
     if message.content == '!good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')
     
     if message.content.startswith('!sleep'):
-        await command.sleep(message)
+        await commands.sleep(message)
 
     if message.content == '!quotenumber':
-        await command.quote_amount(message)
+        await commands.quote_amount(message)
 
     if timer == 0 and message.content == '!turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
         timer = 1
     elif  timer == 1 and message.content == '!turtles':
-        command.cooldown(message)
+        commands.cooldown(message)
 
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
 
 
     if message.content == '!quoteadd':
-        await command.quoteadd_logic(message)
+        await commands.quoteadd_logic(message)
 
 
     if timer == 0 and message.content == '!quote':
-        await command.rand_quote(message)
+        await commands.rand_quote(message)
     elif  timer == 1 and message.content == '!quote':
-        await command.cooldown(message)
+        await commands.cooldown(message)
 
     if message.content.startswith('!delquote'):
         try:
@@ -217,7 +176,7 @@ async def on_message(message):
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
 
     if message.content == '!addadmin':
-        await command.add_admin_logic(message)
+        await commands.add_admin_logic(message)
 
     if message.content.startswith('!deladmin'):
         try:
