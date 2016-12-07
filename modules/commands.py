@@ -36,16 +36,15 @@ x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
 timer = 0
-client = discord.Client()
 cb1 = cleverbot.Cleverbot()
 
-async def cleverbot_logic(message):
+async def cleverbot_logic(message, client):
     global cb1
     question = str(message.content.strip('weeniebot '))
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
-async def add_admin_logic(message):
+async def add_admin_logic(message, client):
     if message.author.name in admin:
         await client.send_message(message.channel, 'Type the ID you want to make admin.')
         msg3 = await client.wait_for_message(author=message.author)
@@ -57,7 +56,7 @@ async def add_admin_logic(message):
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
 
-async def getPokemonData(message):
+async def getPokemonData(message, client):
     if message.content.startswith('!pokemon'):
         parsedPokemon = message.content.replace('!pokemon ', '')
         url = 'http://pokeapi.co/api/v2/pokemon/' + str(parsedPokemon.lower()) + '/'
@@ -84,29 +83,29 @@ async def getPokemonData(message):
             print('An error occurred querying the API')
             await client.send_message(message.channel, 'An error occurred querying the API')
 
-async def purge(message):
+async def purge(message, client):
     if message.author.name in admin:
         deleted = await client.purge_from(message.channel, limit=500, check=None)
         await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'Only Admins can Purge channels!')
 
-async def sleep(message):
+async def sleep(message, client):
     tmp = await client.send_message(message.channel, 'ZzzzzzzZZzzzz...')
     await asyncio.sleep(5)
     await client.edit_message(tmp, 'Done sleeping')
 
-async def cooldown(message):
+async def cooldown(message, client):
     await client.send_message(message.author, '10 second Command Cooldown please be patient and don\'t spam commands! :)')
     await asyncio.sleep(8)
     timer = 0
 
-async def rand_quote(message):
+async def rand_quote(message, client):
     random_quote = random.randint(0, len(Quotes_All) - 1)
     await client.send_message(message.channel, (Quotes_All[random_quote]))
     timer = 1
 
-async def quoteadd_logic(message):
+async def quoteadd_logic(message, client):
     if message.author.name in admin:
             await client.send_message(message.channel, 'Type quote to add.')
             test = await client.wait_for_message(author=message.author)
@@ -121,7 +120,7 @@ async def quoteadd_logic(message):
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'Only Admins can Add Quotes!')
 
-async def user_messages(message):
+async def user_messages(message, client):
     counter = 0
     tmp = await client.send_message(message.channel, 'Calculating messages...')
     async for log in client.logs_from(message.channel, limit=500):
@@ -130,22 +129,22 @@ async def user_messages(message):
             await client.edit_message(tmp, 'You have {} messages.'.format(counter))
             print(counter)
 
-async def google_search(message):
+async def google_search(message, client):
     search_google = message.content.replace('!google ', '')
     if message.author.name in admin:
         for url in search(search_google, stop=5):
             await client.send_message(message.channel, url)
             break
 
-async def quote_amount(message):
+async def quote_amount(message, client):
     global counter2
     counter2 = len(Quotes_All) - 1
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
-async def admin_amount(message):
+async def admin_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))
 
-async def user(message):
+async def user(message, client):
     if message.content.startswith('!user'):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
@@ -181,5 +180,5 @@ async def user(message):
                 print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
 
-async def admin_amount(message):
+async def admin_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))
