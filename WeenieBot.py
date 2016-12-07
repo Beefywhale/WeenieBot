@@ -8,6 +8,7 @@ import requests
 import git
 import subprocess
 import sys
+import os
 import modules.commands as command
 import modules.botToken as botToken
 from google import search
@@ -68,11 +69,11 @@ async def on_message(message):
         await purge(message)
 
     if message.content == '!update':
-        g = git.cmd.Git(git_dir)
+        g = git.cmd.Git()
         g.fetch('--all')
-        git reset --hard origin/master
+        output = subprocess.check_output(["git", "reset", "--hard", "origin/master"])
         u = g.pull('-v')
-        await client.send_message(message.channel, g + ' ' + u)
+        await client.send_message(message.channel, str(g) + ' ' + str(u))
         os.execl(sys.executable, sys.executable, *sys.argv)
        
     if message.content.startswith('!user'):
