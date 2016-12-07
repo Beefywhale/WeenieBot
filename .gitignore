@@ -89,7 +89,7 @@ ENV/
 .ropeproject
 
 # token
-token.py
+modules/token.py
 
 #data storage
 adminweenie.json
