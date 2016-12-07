@@ -142,6 +142,7 @@ async def quote_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
+    open("quoteweenie.json","r")
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(', '.join(admin)))
 
 async def user(message, client):
@@ -179,6 +180,3 @@ async def user(message, client):
             else:
                 print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
-
-async def admin_amount(message, client):
-    await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))
