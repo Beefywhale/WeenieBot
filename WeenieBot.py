@@ -63,13 +63,13 @@ async def on_message(message):
     await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.lower().startswith('weeniebot'):
-        await commands.cleverbot_logic(message)
+        await commands.cleverbot_logic(message, client)
 
     if message.content == '!messages':
-        await commands.user_messages(message)
+        await commands.user_messages(message, client)
 
     if message.content == '!purge':
-        await purge(message)
+        await purge(message, client)
 
     if message.content == '!update':
         g = git.cmd.Git()
@@ -78,44 +78,44 @@ async def on_message(message):
         os.execl(sys.executable, sys.executable, *sys.argv)
        
     if message.content.startswith('!user'):
-        await commands.user(message)
+        await commands.user(message, client)
 
     if message.content == '!admins':
-        await commands.admin_amount(message)
+        await commands.admin_amount(message, client)
 
     if message.content.startswith('!pokemon'):
-        await commands.getPokemonData(message)
+        await commands.getPokemonData(message, client)
 
     if message.content.startswith('!google'):
-        await commands.google_search(message)
+        await commands.google_search(message, client)
 
     if message.content == '!good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')
     
     if message.content.startswith('!sleep'):
-        await commands.sleep(message)
+        await commands.sleep(message, client)
 
     if message.content == '!quotenumber':
-        await commands.quote_amount(message)
+        await commands.quote_amount(message, client)
 
     if timer == 0 and message.content == '!turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
         timer = 1
     elif  timer == 1 and message.content == '!turtles':
-        commands.cooldown(message)
+        commands.cooldown(message, client)
 
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
 
 
     if message.content == '!quoteadd':
-        await commands.quoteadd_logic(message)
+        await commands.quoteadd_logic(message, client)
 
 
     if timer == 0 and message.content == '!quote':
-        await commands.rand_quote(message)
+        await commands.rand_quote(message, client)
     elif  timer == 1 and message.content == '!quote':
-        await commands.cooldown(message)
+        await commands.cooldown(message, client)
 
     if message.content.startswith('!delquote'):
         try:
@@ -176,7 +176,7 @@ async def on_message(message):
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
 
     if message.content == '!addadmin':
-        await commands.add_admin_logic(message)
+        await commands.add_admin_logic(message, client)
 
     if message.content.startswith('!deladmin'):
         try:
