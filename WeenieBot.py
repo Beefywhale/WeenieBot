@@ -70,10 +70,8 @@ async def on_message(message):
 
     if message.content == '!update':
         g = git.cmd.Git()
-        g.fetch('--all')
-        output = subprocess.check_output(["git", "reset", "--hard", "origin/master"])
         u = g.pull('-v')
-        await client.send_message(message.channel, str(g) + ' ' + str(u))
+        await client.send_message(message.channel, str(u))
         os.execl(sys.executable, sys.executable, *sys.argv)
        
     if message.content.startswith('!user'):
