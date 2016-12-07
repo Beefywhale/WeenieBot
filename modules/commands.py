@@ -142,7 +142,7 @@ async def quote_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
-    await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(admin))
+    await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(', '.join(admin)))
 
 async def user(message, client):
     if message.content.startswith('!user'):
