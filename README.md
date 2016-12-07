@@ -7,7 +7,7 @@ Your every day Discord Bot! Included Features: quotes, quote adding/deleting, Cl
 by following the steps here: https://discordapp.com/developers/docs/topics/oauth2 make sure you set your application to bot user, that is very important! Don't forget to add WeenieBot to your server by copying your applications ClientID, than going to this link https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_GOES_HERE&scope=bot&permissions=0 and pasting your Client ID in place of `CLIENT_ID_GOES_HERE`. Make a special Role for your bot, give it ALL permissions, even Administrator.
 
 # Making the Code work for your bot!
-Next copy your discord name **important** your name not nickname! than open adminweenie.json(with your text editor of choice) and look for `[""]` paste your name in between the parenthases, then open WeenieBot.py, scroll all the way down until you find `client.run('Your-Bot-Token-Here!')` and replace Your-Bot-Token-Here, with your Application's Token, save and exit WeenieBot.py.
+Next copy your discord name **important** your name not nickname! than open adminweenie.json(with your text editor of choice) and look for `[""]` paste your name in between the parenthases, then open botToken.py(found in modules folder!), scroll all the way down until you find `token = 'Your-Bot-Token-Here!'` and replace Your-Bot-Token-Here, with your Application's Token, save and exit WeenieBot.py.
 
 For a more in-depth guide on Installing and seting up WeenieBot, go here: https://github.com/Beefywhale/WeenieBot/wiki/WeenieBot's-In-depth-setup
 
