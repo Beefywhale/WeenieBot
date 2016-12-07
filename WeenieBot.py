@@ -9,6 +9,7 @@ import modules.commands as command
 import modules.botToken as botToken
 from google import search
 
+#changes! testing updates
 
 with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
