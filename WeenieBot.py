@@ -119,7 +119,7 @@ async def on_message(message):
         os.execl(sys.executable, sys.executable, *sys.argv)
        
     if message.content.startswith('!user'):
-        await command.user(message)
+        await user(message)
 
     if message.content == '!admins':
         await command.admin_amount(message)
