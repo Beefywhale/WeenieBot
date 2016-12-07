@@ -55,9 +55,8 @@ async def on_ready():
 
 
 @client.event
-async def on_member_join(member, message):
-    await client.send_message(message.channel, member + 'Joined this server!')    
-    
+async def on_member_join(member):
+    await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name}".format(member))    
 @client.event
 async def on_message(message):
     global timer
