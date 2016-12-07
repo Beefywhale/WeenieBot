@@ -5,8 +5,13 @@ import json
 import time
 import cleverbot
 import requests
+import git
+import subprocess
+import sys
+import os
 from google import search
 
+#changes! testing updates heehee
 
 with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
