@@ -55,6 +55,10 @@ async def on_ready():
 
 
 @client.event
+async def on_member_join(member, message):
+    await client.send_message(message.channel, member + 'Joined this server!')    
+    
+@client.event
 async def on_message(message):
     global timer
     await client.change_nickname(message.server.me, 'WeenieBot')
@@ -88,7 +92,7 @@ async def on_message(message):
 
     if message.content == '!good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')
-
+    
     if message.content.startswith('!sleep'):
         await command.sleep(message)
 
