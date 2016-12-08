@@ -46,6 +46,8 @@ async def cleverbot_logic(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
 async def prefixfunc():
+    pfix = prefix["prefix"]
+    open("prefix.json", "r")
     if message.content.startswith(pfix + 'prefix'):
         open("prefix.json", "r")
         print(pfix)
@@ -71,8 +73,8 @@ async def add_admin_logic(message, client):
 
 
 async def getPokemonData(message, client):
-    if message.content.startswith('>pokemon'):
-        parsedPokemon = message.content.replace('>pokemon ', '')
+    if message.content.startswith(pfix + 'pokemon'):
+        parsedPokemon = message.content.replace(pfix + 'pokemon ', '')
         url = 'http://pokeapi.co/api/v2/pokemon/' + str(parsedPokemon.lower()) + '/'
         response = requests.get(url)
 
@@ -81,7 +83,7 @@ async def getPokemonData(message, client):
             print(data['name'].upper())
             await client.send_message(message.channel, data['name'].title())
 
-        elif message.content == '>pokemon':
+        elif message.content == pfix + 'pokemon':
             randomPokemon = random.randint(0, 700)
             url = 'http://pokeapi.co/api/v2/pokemon/' + str(randomPokemon) + '/'
             response = requests.get(url)
@@ -144,7 +146,7 @@ async def user_messages(message, client):
             print(counter)
 
 async def google_search(message, client):
-    search_google = message.content.replace('>google ', '')
+    search_google = message.content.replace(pfix + 'google ', '')
     if message.author.name in admin:
         for url in search(search_google, stop=5):
             await client.send_message(message.channel, url)
@@ -160,11 +162,11 @@ async def admin_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(', '.join(admin)))
 
 async def user(message, client):
-    if message.content.startswith('>user'):
+    if message.content.startswith(pfix + 'user'):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         try:
-            username = message.content.replace('>user ', '')
+            username = message.content.replace(pfix + 'user ', '')
             print(username)
             roles_member = message.server.get_member_named(username).roles
             user_details = discord.Embed(title='', description='', colour=int(rr, 16))
@@ -179,7 +181,7 @@ async def user(message, client):
             await client.send_message(message.channel, embed=user_details)
 
         except AttributeError:
-            if message.content == '>user':
+            if message.content == pfix + 'user':
                 roles_member = message.author.roles
                 user_details = discord.Embed(title='', description='', colour=int(rr, 16))
                 user_details.add_field(name='Username:', value=message.author.name, inline=True)
@@ -194,3 +196,4 @@ async def user(message, client):
             else:
                 print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
+
