@@ -246,6 +246,7 @@ async def on_message(message):
     if message.content.startswith(pfix + 'admintest'):
         with open("adminweenie.json","r") as infile:
             admin = json.loads(infile.read())
+        if message.author.name in admin:
             await client.send_message(message.channel, 'Hello Admin!')
         elif message.author.name not in admin:
             await client.send_message(message.channel, 'Not Admin!')
