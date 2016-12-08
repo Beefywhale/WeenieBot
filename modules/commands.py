@@ -52,7 +52,7 @@ async def cleverbot_logic(message, client):
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
-async def prefixfunc():
+async def prefixfunc(message, client):
     open("prefix.json", "r")
     if message.content.startswith(pfix + 'prefix'):
         open("prefix.json", "r")
