@@ -61,7 +61,7 @@ async def on_ready():
         for member in server.members:
             print(member)
     print('------')
-    await client.change_presence(game='Hangin \'Round', status='dnd', afk=False)
+    await client.change_presence(game=gamet, status='dnd', afk=False)
 
 
 
