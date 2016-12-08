@@ -73,7 +73,17 @@ async def delquote_logic(message, client):
     except:
         pass
 
-
+async def prefix_logic(message, client):
+        open("prefix.json", "r")
+        print(pfix)
+        test = bdel(message.content, pfix + "setprefix ")
+        prefix["prefix"] = test
+        await asyncio.sleep(1)
+        await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
+        print(prefix["prefix"])
+        with open("prefix.json", "w+") as outfile:
+            outfile.write(json.dumps(prefix))  
+    
     
 async def deladmin_logic(message, client):
     open("adminweenie.json","r")
