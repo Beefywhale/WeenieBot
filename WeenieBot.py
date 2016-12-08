@@ -75,6 +75,7 @@ async def on_message(message):
     global timer
     ("prefix.json", "r") 
     pfix = prefix["prefix"]
+    open("prefix.json", "r")
     await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.lower().startswith('weeniebot'):
