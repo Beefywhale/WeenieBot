@@ -71,10 +71,6 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
-    with open("adminweenie.json","r") as infile:
-        admin = json.loads(infile.read())
-    with open("quoteweenie.json","r") as infile:
-        Quotes_All = json.loads(infile.read())
     global timer
     pfix = prefix["prefix"]
     open("prefix.json", "r")
@@ -149,7 +145,6 @@ async def on_message(message):
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
 
-
     if message.content == pfix + 'quoteadd':
         await commands.quoteadd_logic(message, client)
 
@@ -160,10 +155,9 @@ async def on_message(message):
         await commands.cooldown(message, client)
 
     if message.content.startswith(pfix + 'delquote'):
+        open("quoteweenie.json", "r")
         try:
-            del_quote = int(message.content.strip(pfix + 'delquote '))
-            with open("quoteweenie.json","r") as infile:
-                Quotes_All = json.loads(infile.read())            
+            del_quote = int(message.content.strip(pfix + 'delquote '))      
             if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
@@ -178,6 +172,7 @@ async def on_message(message):
             pass
 
         if message.content.startswith(pfix + 'editquote'):    
+            open("quoteweenie.json", "r")
             edit_quote = int(message.content.strip(pfix + 'editquote '))
             if message.author.name in admin:
                 try: 
@@ -193,6 +188,7 @@ async def on_message(message):
                 await client.send_message(message.channel, 'ERROR You are not Admin')
 
     if timer == 0 and message.content.split(' ')[0] == pfix + 'quote':
+        open("quoteweenie.json", "r")
         try:
             try:
                 quote_number = int(message.content.strip(pfix + 'quote '))
@@ -206,6 +202,7 @@ async def on_message(message):
         except ValueError:
             pass
     elif timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
+        open("quoteweenie.json", "r")
         try:
             try:
                 quote_number = int(message.content.strip(pfix + 'quote '))
@@ -222,6 +219,7 @@ async def on_message(message):
         await commands.add_admin_logic(message, client)
 
     if message.content.startswith(pfix + 'deladmin'):
+        open("adminweenie.json","r")
         try:
             del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
             if message.author.name in admin:
@@ -239,7 +237,6 @@ async def on_message(message):
 
     if message.content.startswith(pfix + 'admintest'):
         open("adminweenie.json","r")
-        if message.author.name in admin:
             await client.send_message(message.channel, 'Hello Admin!')
         elif message.author.name not in admin:
             await client.send_message(message.channel, 'Not Admin!')
