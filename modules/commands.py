@@ -9,7 +9,7 @@ import git
 import subprocess
 import sys
 import os
-import WeenieBot..Weeniebot as wb
+import WeenieBot.Weeniebot as wb
 from google import search
 
 #changes! testing updates heehee
