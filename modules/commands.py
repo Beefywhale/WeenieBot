@@ -9,6 +9,7 @@ import git
 import subprocess
 import sys
 import os
+import ..WeenieBot as wb
 from google import search
 
 #changes! testing updates heehee
@@ -32,6 +33,7 @@ status = {
     'dnd': 'Do Not Disturb'
 }
 
+pfix = wb.prefix["prefix"]
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
