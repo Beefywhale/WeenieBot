@@ -60,7 +60,7 @@ async def prefix_logic(message, client):
     open("prefix.json", "r")
     print(pfix)
     test = bdel(message.content, pfix + "setprefix ")
-    pfix = test
+    prefix["prefix"] = test
     await asyncio.sleep(1)
     await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
     print(prefix["prefix"])
