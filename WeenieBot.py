@@ -75,7 +75,7 @@ async def on_message(message):
     global timer
     pfix = prefix["prefix"]
     open("prefix.json", "r")
-    await client.change_nickname(message.server.me, 'WeenieBot')
+    #await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
