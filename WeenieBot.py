@@ -101,10 +101,13 @@ async def on_message(message):
         await client.send_message(message.channel, 'Pong')
         
     if message.content == pfix + 'update':
-        g = git.cmd.Git()
-        u = g.pull('-v')
-        await client.send_message(message.channel, '```' + str(u) + '```')
-        os.execl(sys.executable, sys.executable, *sys.argv)
+        if message.author.name in admin:
+            g = git.cmd.Git()
+            u = g.pull('-v')
+            await client.send_message(message.channel, '```' + str(u) + '```')
+            os.execl(sys.executable, sys.executable, *sys.argv)
+        else:
+            await client.send_message(message.channel, 'Error Didn\'t update maybe you are\'nt an admin?')
        
     if message.content.startswith(pfix + 'user'):
         await commands.user(message, client)
@@ -185,15 +188,19 @@ async def on_message(message):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         help_details = discord.Embed(title='Commands:', description='''
-pfix + quote --- picks a random quote to tell everyone.
-pfix + quote <number> --- picks a specific quote to tell everyone.
-pfix + quoteadd --- adds a new quote
-pfix + delquote <number> --- deletes specific quote
-pfix + sleep --- bot goes to sleep for 5 seconds.
-pfix + messages --- tells you how many messages there are in the channel you are in.
-pfix + admintest --- check if you are admin!
-pfix + deladmin --- deletes admin by user id
-pfix + addadmin <Persons Discord ID>--- adds admin by user id
+!quote --- picks a random quote to tell everyone.
+!quote <number> --- picks a specific quote to tell everyone.
+!quoteadd --- adds a new quote
+!delquote <number> --- deletes specific quote
+!editquote <number> --- next message you send changes the quote you specified
+!sleep --- bot goes to sleep for 5 seconds.
+!jfgi --- just fucking google it.
+!update --- updates bot to newest version! (do this frequently!!!)
+!googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
+!messages --- tells you how many messages there are in the channel you are in.
+!admintest --- check if you are admin!
+!deladmin --- deletes admin by user name.
+!addadmin <Persons Discord Name> --- adds admin by user name.
 hello weeniebot --- bot greets you.
 WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)''', colour=int(rr, 16))
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
