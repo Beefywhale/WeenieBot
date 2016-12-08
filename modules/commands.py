@@ -54,6 +54,12 @@ async def cleverbot_logic(message, client):
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
     
+async def cleverbot_logic2(message, client):
+    global cb1
+    question = str(message.content.strip('wb '))
+    answer = cb1.ask(question)
+    await client.send_message(message.channel, message.author.mention + ' ' + answer)
+    
 async def add_admin_logic(message, client):
     if message.author.name in admin:
         await client.send_message(message.channel, 'Type the ID you want to make admin.')
