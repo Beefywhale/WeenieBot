@@ -32,7 +32,7 @@ status = {
 }
 
 x33 = '%m-%d-%Y'
-
+pfix = prefix["prefix"]
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
 timer = 0
@@ -46,7 +46,6 @@ async def cleverbot_logic(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
 async def prefixfunc():
-    pfix = prefix["prefix"]
     open("prefix.json", "r")
     if message.content.startswith(pfix + 'prefix'):
         open("prefix.json", "r")
