@@ -48,7 +48,7 @@ counter2 = len(Quotes_All) - 1
 timer = 0
 client = discord.Client()
 cb1 = cleverbot.Cleverbot()
-gamet = discord.Game('Hanging \'Round')
+gamet = discord.Game(name='Hanging \'Round')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 
 @client.event
