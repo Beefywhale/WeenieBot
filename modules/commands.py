@@ -48,6 +48,85 @@ pfix = prefix["prefix"]
 BASE_URL = 'http://pokeapi.co'
 
 
+async def prefix_logic(message, client):
+    open("prefix.json", "r")
+    print(pfix)
+    test = bdel(message.content, pfix + "setprefix ")
+    prefix["prefix"] = test
+    await asyncio.sleep(1)
+    await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
+    print(prefix["prefix"])
+    with open("prefix.json", "w+") as outfile:
+        outfile.write(json.dumps(prefix))  
+        
+        
+async def delquote_logic(message, client):
+    open("quoteweenie.json", "r")
+    try:
+        del_quote = int(message.content.strip(pfix + 'delquote '))      
+        if message.author.name in admin:
+            try:
+                await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
+                del Quotes_All[del_quote]
+                with open("quoteweenie.json", "w+") as outfile:
+                    outfile.write(json.dumps(Quotes_All))
+            except IndexError:
+                 await client.send_message(message.channel, 'That quote doesn\'t exist!')
+        elif message.author.name not in admin:
+            await client.send_message(message.channel, 'ERROR You are not Admin')
+    except:
+        pass
+
+
+    
+async deladmin_logic(message, client):
+    open("adminweenie.json","r")
+    try:
+        del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
+        if message.author.name in admin:
+            if del_admin in admin:
+                await client.send_message(message.channel, 'Admin Removed')
+                admin.remove(del_admin)
+                with open("adminweenie.json", "w+") as outfile:
+                    outfile.write(json.dumps(admin))
+            else:
+                await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
+        elif message.author.name not in admin:
+             await client.send_message(message.channel, 'ERROR You are not Admin')
+    except:
+        pass
+    
+async quote_logic(message, client):
+    open("quoteweenie.json", "r")
+    try:
+        try:
+            quote_number = int(message.content.strip(pfix + 'quote '))
+            print(quote_number)
+            await client.send_message(message.channel, Quotes_All[quote_number])
+            timer = 1
+            await asyncio.sleep(8)
+            timer = 0
+        except IndexError:
+            await client.send_message(message.channel, 'That quote doesn\'t exist!')
+    except ValueError:
+        pass
+    
+async def editquote_logic(message, client):
+    open("quoteweenie.json", "r")
+    edit_quote = int(message.content.strip(pfix + 'editquote '))
+    if message.author.name in admin:
+        try: 
+            await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
+            msg = await client.wait_for_message(author=message.author)
+            Quotes_All[edit_quote] = msg.content
+            await client.send_message(message.channel, 'Quote Edited')
+            with open("quoteweenie.json", "w+") as outfile:
+                outfile.write(json.dumps(Quotes_All))
+            except IndexError:
+                await client.send_message(message.channel, 'That quote doesn\'t exist!')
+        elif message.author.name not in admin:
+            await client.send_message(message.channel, 'ERROR You are not Admin')
+
 async def cleverbot_logic(message, client):
     global cb1
     question = str(message.content.strip('weeniebot '))
