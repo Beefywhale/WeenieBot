@@ -162,8 +162,9 @@ async def on_message(message):
     if message.content.startswith(pfix + 'delquote'):
         try:
             del_quote = int(message.content.strip(pfix + 'delquote '))
-            with open("quoteweenie.json", "w+") as outfile:
-                outfile.write(json.dumps(Quotes_All))            if message.author.name in admin:
+            with open("quoteweenie.json","r") as infile:
+                Quotes_All = json.loads(infile.read())            
+            if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
                     del Quotes_All[del_quote]
@@ -177,10 +178,11 @@ async def on_message(message):
             pass
 
         if message.content.startswith(pfix + 'editquote'):
-            with open("quoteweenie.json", "w+") as outfile:
-                outfile.write(json.dumps(Quotes_All))            edit_quote = int(message.content.strip(pfix + 'editquote '))
+            with open("quoteweenie.json","r") as infile:
+                Quotes_All = json.loads(infile.read())      
+            edit_quote = int(message.content.strip(pfix + 'editquote '))
             if message.author.name in admin:
-                try:
+                try: 
                     await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
                     msg = await client.wait_for_message(author=message.author)
                     Quotes_All[edit_quote] = msg.content
@@ -195,8 +197,8 @@ async def on_message(message):
     if timer == 0 and message.content.split(' ')[0] == pfix + 'quote':
         try:
             try:
-                with open("quoteweenie.json", "w+") as outfile:
-                    outfile.write(json.dumps(Quotes_All))
+                with open("quoteweenie.json","r") as infile:
+                    Quotes_All = json.loads(infile.read())
                 quote_number = int(message.content.strip(pfix + 'quote '))
                 print(quote_number)
                 await client.send_message(message.channel, Quotes_All[quote_number])
@@ -224,8 +226,8 @@ async def on_message(message):
         await commands.add_admin_logic(message, client)
 
     if message.content.startswith(pfix + 'deladmin'):
-            with open("adminweenie.json", "w+") as outfile:
-                outfile.write(json.dumps(admin))        try:
+        with open("adminweenie.json","r") as infile:
+            admin = json.loads(infile.read())        try:
             del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
             if message.author.name in admin:
                 if del_admin in admin:
@@ -241,8 +243,8 @@ async def on_message(message):
             pass
 
     if message.content.startswith(pfix + 'admintest'):
-            with open("adminweenie.json", "w+") as outfile:
-                outfile.write(json.dumps(admin))        if message.author.name in admin:
+        with open("adminweenie.json","r") as infile:
+            admin = json.loads(infile.read())
             await client.send_message(message.channel, 'Hello Admin!')
         elif message.author.name not in admin:
             await client.send_message(message.channel, 'Not Admin!')
