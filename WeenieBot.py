@@ -73,7 +73,8 @@ async def on_member_join(member):
 @client.event
 async def on_message(message):
     global timer
-    open("prefix.json", "r")
+    with open("prefix.json", "r") as infile:
+        prefix = json.loads(infile.read())
     pfix = commands.pfix
     await client.change_nickname(message.server.me, 'WeenieBot')
 
