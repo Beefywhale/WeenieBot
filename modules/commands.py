@@ -44,6 +44,19 @@ async def cleverbot_logic(message, client):
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
+async def prefixfunc():
+    if message.content.startswith(pfix + 'prefix'):
+        open("prefix.json", "r")
+        print(pfix)
+        #test = message.content.strip(pfix + 'prefix ')
+        test = bdel(message.content, pfix + "prefix ")
+        prefix["prefix"] = test
+        await asyncio.sleep(1)
+        await client.send_message(message.channel, prefix["prefix"])
+        print(prefix["prefix"])
+        with open("prefix.json", "w+") as outfile:
+            outfile.write(json.dumps(prefix))    
+    
 async def add_admin_logic(message, client):
     if message.author.name in admin:
         await client.send_message(message.channel, 'Type the ID you want to make admin.')
