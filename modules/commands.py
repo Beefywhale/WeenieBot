@@ -75,7 +75,7 @@ async def getPokemonData(message, client):
     return None
 
 
-async def randPokemon(message):
+async def randPokemon(message, client):
     parsedPokemon = random.randint(0, 709)
     try:
         pokemon = await getPokemonData('/api/v1/pokemon/' + str(parsedPokemon), message)
@@ -111,9 +111,8 @@ async def randPokemon(message):
         print(BASE_URL + sprite['image'])
     except TypeError:
         await client.send_message(message.channel, 'ERROR {} is not in the Pokedex! Try using all lowercase!'.format(parsedPokemon))
-
-
-async def getPokemon(message):
+       
+async def getPokemon(message, client):
     try:
         parsedPokemon = message.content.replace('~!pokedex ','')
 
@@ -149,6 +148,14 @@ async def getPokemon(message):
         print(BASE_URL + sprite['image'])
     except TypeError:
         await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))        
+
+async def google_Fight(message, client):
+    if message.author.name in admin:
+        fight = message.content.replace('~!googlefight','')
+        result = fight.split(' ')
+        await client.send_message(message.channel, 'http://www.googlefight.com/{}-vs-{}.php'.format(result[1], result[2]))
+        print(result[1])
+        print(result[2])        
         
 async def purge(message, client):
     if message.author.name in admin:
