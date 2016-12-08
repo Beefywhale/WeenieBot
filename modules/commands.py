@@ -57,7 +57,8 @@ async def admintest(message, client):
 
 async def prefix_logic(message, client):
     global pfix
-    open("prefix.json", "r")
+    with open("prefix.json", "r") as infile:
+        prefix = json.loads(infile.read())
     print(pfix)
     test = bdel(message.content, pfix + "setprefix ")
     prefix["prefix"] = test
