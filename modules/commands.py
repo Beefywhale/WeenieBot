@@ -45,6 +45,8 @@ timer = 0
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 pfix = prefix["prefix"]
+BASE_URL = 'http://pokeapi.co'
+
 
 async def cleverbot_logic(message, client):
     global cb1
@@ -65,32 +67,89 @@ async def add_admin_logic(message, client):
 
 
 async def getPokemonData(message, client):
-    if message.content.startswith(pfix + 'pokemon'):
-        parsedPokemon = message.content.replace(pfix + 'pokemon ', '')
-        url = 'http://pokeapi.co/api/v2/pokemon/' + str(parsedPokemon.lower()) + '/'
-        response = requests.get(url)
+    url = '{0}{1}'.format(BASE_URL, resource_url)
+    response = requests.get(url)
 
-        if response.status_code == 200:
-            data = json.loads(response.text)
-            print(data['name'].upper())
-            await client.send_message(message.channel, data['name'].title())
+    if response.status_code == 200:
+        return json.loads(response.text)
+    return None
 
-        elif message.content == pfix + 'pokemon':
-            randomPokemon = random.randint(0, 700)
-            url = 'http://pokeapi.co/api/v2/pokemon/' + str(randomPokemon) + '/'
-            response = requests.get(url)
 
-            if response.status_code == 200:
-                data = json.loads(response.text)
-                print(data['name'].upper())
-                await client.send_message(message.channel, data['name'].title())
-            else:
-                print('An error occurred querying the API')
-                await client.send_message(message.channel, 'An error occurred querying the API')
-        else:
-            print('An error occurred querying the API')
-            await client.send_message(message.channel, 'An error occurred querying the API')
+async def randPokemon(message):
+    parsedPokemon = random.randint(0, 709)
+    try:
+        pokemon = await getPokemonData('/api/v1/pokemon/' + str(parsedPokemon), message)
 
+        sprite_uri = pokemon['sprites'][0]['resource_uri']
+        description_uri = pokemon['descriptions'][0]['resource_uri']
+        type_uri = pokemon['types'][0]['resource_uri']
+
+
+        sprite = await getPokemonData(sprite_uri, message)
+        description = await getPokemonData(description_uri, message)
+        ptype = await getPokemonData(type_uri, message)
+
+        p_details = discord.Embed(title='', description='', colour=0x1f3A44)
+        p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
+        p_details.add_field(name='National Pokedex ID:', value=pokemon['national_id'], inline=True)
+        p_details.add_field(name='Desc:', value=description['description'], inline=True)
+        p_details.add_field(name='Type:', value=ptype['name'], inline=True)
+        p_details.add_field(name='Defense:', value=pokemon['defense'], inline=True)
+        p_details.add_field(name='Health Points:', value=pokemon['hp'], inline=True)
+        p_details.add_field(name='Attack:', value=pokemon['attack'], inline=True)
+        p_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
+        p_details.set_image(url=BASE_URL + sprite['image'])
+        p_details.set_author(name=pokemon['name'], icon_url=BASE_URL + sprite['image'])
+        await client.send_message(message.channel, embed=p_details)
+        print(pokemon['name'])
+        print(description['description'])
+        print(ptype['name'])
+        print(pokemon['hp'])
+        print(pokemon['defense'])
+        print(pokemon['attack'])
+        print(pokemon['national_id'])
+        print(BASE_URL + sprite['image'])
+    except TypeError:
+        await client.send_message(message.channel, 'ERROR {} is not in the Pokedex! Try using all lowercase!'.format(parsedPokemon))
+
+
+async def getPokemon(message):
+    try:
+        parsedPokemon = message.content.replace('~!pokedex ','')
+
+        pokemon = await getPokemonData('/api/v1/pokemon/' + parsedPokemon, message)
+
+        sprite_uri = pokemon['sprites'][0]['resource_uri']
+        description_uri = pokemon['descriptions'][0]['resource_uri']
+        type_uri = pokemon['types'][0]['resource_uri']
+
+        sprite = await getPokemonData(sprite_uri, message)
+        description = await getPokemonData(description_uri, message)
+        ptype = await getPokemonData(type_uri, message)
+        #print(pokemon['evolutions'])
+        p_details = discord.Embed(title='', description='', colour=0x1f3A44)
+        p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
+        p_details.add_field(name='National Pokedex ID:', value=pokemon['national_id'], inline=True)
+        p_details.add_field(name='Desc:', value=description['description'], inline=True)
+        p_details.add_field(name='Type:', value=ptype['name'], inline=True)
+        p_details.add_field(name='Defense:', value=pokemon['defense'], inline=True)
+        p_details.add_field(name='Health Points:', value=pokemon['hp'], inline=True)
+        p_details.add_field(name='Attack:', value=pokemon['attack'], inline=True)
+        p_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
+        p_details.set_image(url=BASE_URL + sprite['image'])
+        p_details.set_author(name=pokemon['name'], icon_url=BASE_URL + sprite['image'])
+        await client.send_message(message.channel, embed=p_details)
+        print(pokemon['name'])
+        print(description['description'])
+        print(ptype['name'])
+        print(pokemon['hp'])
+        print(pokemon['defense'])
+        print(pokemon['attack'])
+        print(pokemon['national_id'])
+        print(BASE_URL + sprite['image'])
+    except TypeError:
+        await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))        
+        
 async def purge(message, client):
     if message.author.name in admin:
         deleted = await client.purge_from(message.channel, limit=500, check=None)
