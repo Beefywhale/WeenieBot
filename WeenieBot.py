@@ -77,7 +77,15 @@ async def on_message(message):
 
     if message.content.startswith(pfix + 'setprefix'):
         open("prefix.json", "r")
-        await commands.prefixfunc(message, client)
+        print(pfix)
+        test = bdel(message.content, pfix + "setprefix ")
+        prefix["prefix"] = test
+        await asyncio.sleep(1)
+        await client.send_message(message.channel, prefix["prefix"])
+        print(prefix["prefix"])
+        with open("prefix.json", "w+") as outfile:
+            outfile.write(json.dumps(prefix))  
+
         
     if message.content == pfix + 'messages':
         await commands.user_messages(message, client)
