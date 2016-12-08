@@ -28,7 +28,7 @@ with open("quoteweenie.json", "w+") as outfile:
 with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
 
-with open("quoteweenie.json", "w+") as outfile:
+with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))    
     
 status = {
@@ -55,8 +55,8 @@ async def cleverbot_logic(message, client):
 async def prefixfunc(message, client):
     open("prefix.json", "r")
     if message.content.startswith(pfix + 'setprefix'):
+        open("prefix.json", "r")
         print(pfix)
-        #test = message.content.strip(pfix + 'prefix ')
         test = bdel(message.content, pfix + "setprefix ")
         prefix["prefix"] = test
         await asyncio.sleep(1)
