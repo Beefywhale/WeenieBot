@@ -15,6 +15,9 @@ from google import search
 
 #changes! testing updates heehee
 
+with open("prefix.json", "r") as infile:
+    prefix = json.loads(infile.read())
+
 with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
@@ -25,6 +28,8 @@ with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
 with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
+with open("prefix.json", "w+") as outfile:
+    outfile.write(json.dumps(prefix))
 
 status = {
     'online': 'Online',
@@ -40,6 +45,7 @@ counter2 = len(Quotes_All) - 1
 timer = 0
 client = discord.Client()
 cb1 = cleverbot.Cleverbot()
+def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 
 @client.event
 async def on_ready():
@@ -60,66 +66,70 @@ async def on_member_join(member):
 @client.event
 async def on_message(message):
     global timer
+    pfix = prefix["prefix"]
+    open("prefix.json", "r")
     await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
 
-    if message.content == '>messages':
+    if message.content == prefix + 'messages':
         await commands.user_messages(message, client)
 
-    if message.content == '>purge':
+    if message.content.startswith(prefix + 'prefix')
+        
+    if message.content == prefix + 'purge':
         await purge(message, client)
 
-    if message.content == '>update':
+    if message.content == prefix + 'update':
         g = git.cmd.Git()
         u = g.pull('-v')
         await client.send_message(message.channel, str(u))
         os.execl(sys.executable, sys.executable, *sys.argv)
        
-    if message.content.startswith('>user'):
+    if message.content.startswith(prefix + 'user'):
         await commands.user(message, client)
 
-    if message.content == '>admins':
+    if message.content == prefix + 'admins':
         await commands.admin_amount(message, client)
 
-    if message.content.startswith('>pokemon'):
+    if message.content.startswith(prefix + 'pokemon'):
         await commands.getPokemonData(message, client)
 
-    if message.content.startswith('>google'):
+    if message.content.startswith(prefix + 'google'):
         await commands.google_search(message, client)
 
-    if message.content == '>good?':
+    if message.content == prefix + 'good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')
     
-    if message.content.startswith('>sleep'):
+    if message.content.startswith(prefix + 'sleep'):
         await commands.sleep(message, client)
 
-    if message.content == '>quotenumber':
+    if message.content == prefix + 'quotenumber':
         await commands.quote_amount(message, client)
 
-    if timer == 0 and message.content == '>turtles':
+    if timer == 0 and message.content == prefix + 'turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
         timer = 1
-    elif  timer == 1 and message.content == '>turtles':
+    elif  timer == 1 and message.content == prefix + 'turtles':
         commands.cooldown(message, client)
 
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
 
 
-    if message.content == '>quoteadd':
+    if message.content == prefix + 'quoteadd':
         await commands.quoteadd_logic(message, client)
 
 
-    if timer == 0 and message.content == '>quote':
+    if timer == 0 and message.content == prefix + 'quote':
         await commands.rand_quote(message, client)
-    elif  timer == 1 and message.content == '>quote':
+    elif  timer == 1 and message.content == prefix + 'quote':
         await commands.cooldown(message, client)
 
-    if message.content.startswith('>delquote'):
+    if message.content.startswith(prefix + 'delquote'):
         try:
-            del_quote = int(message.content.strip('>delquote '))
+            del_quote = int(message.content.strip(prefix + 'delquote '))
             if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
@@ -133,8 +143,8 @@ async def on_message(message):
         except:
             pass
 
-        if message.content.startswith('>editquote'):
-            edit_quote = int(message.content.strip('>editquote '))
+        if message.content.startswith(prefix + 'editquote'):
+            edit_quote = int(message.content.strip(prefix + 'editquote '))
             if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
@@ -148,11 +158,11 @@ async def on_message(message):
             elif message.author.name not in admin:
                 await client.send_message(message.channel, 'ERROR You are not Admin')
 
-    if timer == 0 and message.content.split(' ')[0] == '>quote':
+    if timer == 0 and message.content.split(' ')[0] == prefix + 'quote':
         try:
             try:
                 open("quoteweenie.json","r")
-                quote_number = int(message.content.strip('>quote '))
+                quote_number = int(message.content.strip(prefix + 'quote '))
                 print(quote_number)
                 await client.send_message(message.channel, Quotes_All[quote_number])
                 timer = 1
@@ -162,10 +172,10 @@ async def on_message(message):
                 await client.send_message(message.channel, 'That quote doesn\'t exist!')
         except ValueError:
             pass
-    elif timer == 1 and message.content.split(' ')[0] == '>quote':
+    elif timer == 1 and message.content.split(' ')[0] == prefix + 'quote':
         try:
             try:
-                quote_number = int(message.content.strip('>quote '))
+                quote_number = int(message.content.strip(prefix + 'quote '))
                 print('COOLDOWN')
                 await client.send_message(message.author, '10 second Command Cooldown please be patient and don\'t spam commands! :)')
                 await asyncio.sleep(2)
@@ -175,12 +185,12 @@ async def on_message(message):
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
 
-    if message.content == '>addadmin':
+    if message.content == prefix + 'addadmin':
         await commands.add_admin_logic(message, client)
 
-    if message.content.startswith('>deladmin'):
+    if message.content.startswith(prefix + 'deladmin'):
         try:
-            del_admin = str(message.content.replace('>deladmin ', ''))
+            del_admin = str(message.content.replace(prefix + 'deladmin ', ''))
             if message.author.name in admin:
                 if del_admin in admin:
                     await client.send_message(message.channel, 'Admin Removed')
@@ -194,14 +204,14 @@ async def on_message(message):
         except:
             pass
 
-    if message.content.startswith('>admintest'):
+    if message.content.startswith(prefix + 'admintest'):
         open("adminweenie.json","r")
         if message.author.name in admin:
             await client.send_message(message.channel, 'Hello Admin!')
         elif message.author.name not in admin:
             await client.send_message(message.channel, 'Not Admin!')
 
-    if message.content == '>help':
+    if message.content == prefix + 'help':
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         help_details = discord.Embed(title='Commands:', description='''
