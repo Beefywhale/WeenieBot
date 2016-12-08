@@ -171,7 +171,7 @@ async def on_message(message):
         await commands.deladmin_logic(message, client)
 
     if message.content.startswith(pfix + 'admintest'):
-        await commands.admintest(message, cleint)
+        await commands.admintest(message, client)
 
     if message.content == pfix + 'help':
         r = lambda: random.randint(0,255)
