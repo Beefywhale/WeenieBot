@@ -78,7 +78,7 @@ async def on_message(message):
         await commands.cleverbot_logic(message, client)
 
     if message.content.startswith(pfix + 'setprefix'):
-        #open("prefix.json", "r")
+        open("prefix.json", "r")
         await commands.prefixfunc(message, client)
         
     if message.content == pfix + 'messages':
