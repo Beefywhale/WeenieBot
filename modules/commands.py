@@ -75,7 +75,8 @@ async def delquote_logic(message, client):
 
 async def prefix_logic(message, client):
     with open("prefix.json", "r") as infile:
-        prefix = json.loads(infile.read())        print(pfix)
+        prefix = json.loads(infile.read())        
+    print(pfix)
     test = bdel(message.content, pfix + "setprefix ")
     prefix["prefix"] = test
     await asyncio.sleep(1)
