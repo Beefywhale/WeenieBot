@@ -44,7 +44,6 @@ counter2 = len(Quotes_All) - 1
 timer = 0
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
-pfix = prefix["prefix"]
 BASE_URL = 'http://pokeapi.co'
 
 
@@ -56,9 +55,7 @@ async def admintest(message, client):
         await client.send_message(message.channel, 'Not Admin!')
 
 async def prefix_logic(message, client):
-    global pfix
-    with open("prefix.json", "r") as infile:
-        prefix = json.loads(infile.read())
+    open("prefix.json", "r")
     print(pfix)
     test = bdel(message.content, pfix + "setprefix ")
     prefix["prefix"] = test
@@ -67,9 +64,9 @@ async def prefix_logic(message, client):
     print(prefix["prefix"])
     with open("prefix.json", "w+") as outfile:
         outfile.write(json.dumps(prefix))  
-        print(pfix)
     with open("prefix.json", "r") as infile:
         prefix = json.loads(infile.read())
+    print(pfix)
         
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
