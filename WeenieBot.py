@@ -51,6 +51,7 @@ client = discord.Client()
 cb1 = cleverbot.Cleverbot()
 gamet = discord.Game(name='Hanging \'Round')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
+pfix = commands.pfix
 
 @client.event
 async def on_ready():
