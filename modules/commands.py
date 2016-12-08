@@ -55,7 +55,6 @@ async def cleverbot_logic(message, client):
 async def prefixfunc(message, client):
     open("prefix.json", "r")
     if message.content.startswith(pfix + 'setprefix'):
-        open("prefix.json", "r")
         print(pfix)
         #test = message.content.strip(pfix + 'prefix ')
         test = bdel(message.content, pfix + "setprefix ")
