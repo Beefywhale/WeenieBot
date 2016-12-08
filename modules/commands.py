@@ -122,8 +122,8 @@ async def editquote_logic(message, client):
             await client.send_message(message.channel, 'Quote Edited')
             with open("quoteweenie.json", "w+") as outfile:
                 outfile.write(json.dumps(Quotes_All))
-            except IndexError:
-                await client.send_message(message.channel, 'That quote doesn\'t exist!')
+        except IndexError:
+            await client.send_message(message.channel, 'That quote doesn\'t exist!')
         elif message.author.name not in admin:
             await client.send_message(message.channel, 'ERROR You are not Admin')
 
