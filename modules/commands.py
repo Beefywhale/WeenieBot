@@ -160,14 +160,14 @@ async def getPokemon(message, client):
 
 
 async def google_Fight(message, client):
-    if message.author.name in admin:
-        fight = message.content.replace(pfix + 'googlefight','')
-        result = fight.split(' ')
-        await client.send_message(message.channel, 'http://www.googlefight.com/{}-vs-{}.php'.format(result[1], result[2]))
-        print(result[1])
-        print(result[2])        
+    fight = message.content.replace(pfix + 'googlefight','')
+    result = fight.split(' ')
+    await client.send_message(message.channel, 'http://www.googlefight.com/{}-vs-{}.php'.format(result[1], result[2]))
+    print(result[1])
+    print(result[2])        
         
 async def purge(message, client):
+    open("adminweenie.json","r")
     if message.author.name in admin:
         deleted = await client.purge_from(message.channel, limit=500, check=None)
         await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
@@ -190,6 +190,8 @@ async def rand_quote(message, client):
     timer = 1
 
 async def quoteadd_logic(message, client):
+    open("quoteweenie.json","r")
+    open("adminweenie.json","r")
     if message.author.name in admin:
             await client.send_message(message.channel, 'Type quote to add.')
             test = await client.wait_for_message(author=message.author)
@@ -215,10 +217,9 @@ async def user_messages(message, client):
 
 async def google_search(message, client):
     search_google = message.content.replace(pfix + 'google ', '')
-    if message.author.name in admin:
-        for url in search(search_google, stop=5):
-            await client.send_message(message.channel, url)
-            break
+    for url in search(search_google, stop=5):
+        await client.send_message(message.channel, url)
+        break
 
 async def quote_amount(message, client):
     global counter2
