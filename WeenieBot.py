@@ -70,14 +70,15 @@ async def on_member_join(member):
 @client.event
 async def on_message(message):
     global timer
-    pfix = prefix["prefix"]
     open("prefix.json", "r")
+    pfix = prefix["prefix"]
     await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
 
     if message.content.startswith(pfix + 'setprefix'):
+        #open("prefix.json", "r")
         await commands.prefixfunc(message, client)
         
     if message.content == pfix + 'messages':
