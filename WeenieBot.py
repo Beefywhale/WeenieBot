@@ -109,12 +109,21 @@ async def on_message(message):
     if message.content == pfix + 'admins':
         await commands.admin_amount(message, client)
 
-    if message.content.startswith(pfix + 'pokemon'):
-        await commands.getPokemonData(message, client)
+    if message.content.startswith(pfix + 'pokedex'):
+        await commands.getPokemon(message, client)
+
+    if message.content == pfix + 'pokemon':
+        await commands.randPokemon(message, client)
 
     if message.content.startswith(pfix + 'google'):
         await commands.google_search(message, client)
 
+    if message.content.startswith(pfix + 'googlefight'):
+        await commands.google_Fight(message, client)
+
+    if message.content == pfix + 'jfgi':
+        await client.send_message(message.channel, 'http://www.justfuckinggoogleit.com/')
+        
     if message.content == pfix + 'good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')
     
