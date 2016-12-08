@@ -15,22 +15,22 @@ from google import search
 
 #changes! testing updates heehee
 
-with open("prefix.json", "r") as infile:
+with open("/WeenieBot/db/prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
-with open("quoteweenie.json","r") as infile:
+with open("/WeenieBot/db/quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
-with open("adminweenie.json","r") as infile:
+with open("/WeenieBot/db/adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
-with open("quoteweenie.json", "w+") as outfile:
+with open("/WeenieBot/db/quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
 
-with open("adminweenie.json", "w+") as outfile:
+with open("/WeenieBot/db/adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
     
-with open("prefix.json", "w+") as outfile:
+with open("/WeenieBot/db/prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
 
 
@@ -73,7 +73,7 @@ async def on_member_join(member):
 async def on_message(message):
     global timer
     pfix = prefix["prefix"]
-    open("prefix.json", "r")
+    open("/WeenieBot/db/prefix.json", "r")
     #await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.lower().startswith('weeniebot'):
@@ -83,14 +83,14 @@ async def on_message(message):
         await commands.cleverbot_logic2(message, client)
 
     if message.content.startswith(pfix + 'setprefix'):
-        open("prefix.json", "r")
+        open("/WeenieBot/db/prefix.json", "r")
         print(pfix)
         test = bdel(message.content, pfix + "setprefix ")
         prefix["prefix"] = test
         await asyncio.sleep(1)
         await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
         print(prefix["prefix"])
-        with open("prefix.json", "w+") as outfile:
+        with open("/WeenieBot/db/prefix.json", "w+") as outfile:
             outfile.write(json.dumps(prefix))  
 
         
@@ -155,14 +155,14 @@ async def on_message(message):
         await commands.cooldown(message, client)
 
     if message.content.startswith(pfix + 'delquote'):
-        open("quoteweenie.json", "r")
+        open("/WeenieBot/db/quoteweenie.json", "r")
         try:
             del_quote = int(message.content.strip(pfix + 'delquote '))      
             if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
                     del Quotes_All[del_quote]
-                    with open("quoteweenie.json", "w+") as outfile:
+                    with open("/WeenieBot/db/quoteweenie.json", "w+") as outfile:
                         outfile.write(json.dumps(Quotes_All))
                 except IndexError:
                     await client.send_message(message.channel, 'That quote doesn\'t exist!')
@@ -172,7 +172,7 @@ async def on_message(message):
             pass
 
         if message.content.startswith(pfix + 'editquote'):    
-            open("quoteweenie.json", "r")
+            open("/WeenieBot/db/quoteweenie.json", "r")
             edit_quote = int(message.content.strip(pfix + 'editquote '))
             if message.author.name in admin:
                 try: 
@@ -180,7 +180,7 @@ async def on_message(message):
                     msg = await client.wait_for_message(author=message.author)
                     Quotes_All[edit_quote] = msg.content
                     await client.send_message(message.channel, 'Quote Edited')
-                    with open("quoteweenie.json", "w+") as outfile:
+                    with open("/WeenieBot/db/quoteweenie.json", "w+") as outfile:
                         outfile.write(json.dumps(Quotes_All))
                 except IndexError:
                     await client.send_message(message.channel, 'That quote doesn\'t exist!')
@@ -188,7 +188,7 @@ async def on_message(message):
                 await client.send_message(message.channel, 'ERROR You are not Admin')
 
     if timer == 0 and message.content.split(' ')[0] == pfix + 'quote':
-        open("quoteweenie.json", "r")
+        open("/WeenieBot/db/quoteweenie.json", "r")
         try:
             try:
                 quote_number = int(message.content.strip(pfix + 'quote '))
@@ -202,7 +202,7 @@ async def on_message(message):
         except ValueError:
             pass
     elif timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
-        open("quoteweenie.json", "r")
+        open("/WeenieBot/db/quoteweenie.json", "r")
         try:
             try:
                 quote_number = int(message.content.strip(pfix + 'quote '))
@@ -219,14 +219,14 @@ async def on_message(message):
         await commands.add_admin_logic(message, client)
 
     if message.content.startswith(pfix + 'deladmin'):
-        open("adminweenie.json","r")
+        open("/WeenieBot/db/adminweenie.json","r")
         try:
             del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
             if message.author.name in admin:
                 if del_admin in admin:
                     await client.send_message(message.channel, 'Admin Removed')
                     admin.remove(del_admin)
-                    with open("adminweenie.json", "w+") as outfile:
+                    with open("/WeenieBot/db/adminweenie.json", "w+") as outfile:
                         outfile.write(json.dumps(admin))
                 else:
                     await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
@@ -236,7 +236,7 @@ async def on_message(message):
             pass
 
     if message.content.startswith(pfix + 'admintest'):
-        open("adminweenie.json","r")
+        open("/WeenieBot/db/adminweenie.json","r")
         if message.author.name in admin:
             await client.send_message(message.channel, 'Hello Admin!')
         elif message.author.name not in admin:
