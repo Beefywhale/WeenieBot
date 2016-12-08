@@ -19,7 +19,7 @@ from google import search
 textfiles = glob.glob(os.path.join(rootdir, '*.txt'))
 jsonfiles = glob.glob(os.path.join(rootdir, 'subdue', '*.json'))
 
-with open("WeenieBot/db/prefix.json", "r") as infile:
+with open("../prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
 with open("WeenieBot/db/quoteweenie.json","r") as infile:
