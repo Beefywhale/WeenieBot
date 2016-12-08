@@ -38,7 +38,6 @@ status = {
     'dnd': 'Do Not Disturb'
 }
 
-pfix = wb.prefix["prefix"]
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
