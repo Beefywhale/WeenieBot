@@ -45,6 +45,7 @@ timer = 0
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
+pfix = prefix["prefix"]
 
 async def admintest(message, client):
     open("adminweenie.json","r")
