@@ -9,7 +9,6 @@ import git
 import subprocess
 import sys
 import os
-import glob
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
@@ -134,7 +133,7 @@ async def on_message(message):
     if message.content.startswith(pfix + 'sleep'):
         await commands.sleep(message, client)
 
-    if message.content == pfix + 'quotenumber':
+    if message.content == pfix + 'quotes':
         await commands.quote_amount(message, client)
 
     if timer == 0 and message.content == pfix + 'turtles':
