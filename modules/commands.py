@@ -152,6 +152,7 @@ async def getPokemon(message, client):
         await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
       
 
+
 async def google_Fight(message, client):
     if message.author.name in admin:
         fight = message.content.replace(pfix + 'googlefight','')
