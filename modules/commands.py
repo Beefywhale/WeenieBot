@@ -84,6 +84,7 @@ async def prefix_logic(message, client):
     print(prefix["prefix"])
     with open("prefix.json", "w+") as outfile:
         outfile.write(json.dumps(prefix))  
+    pfix = prefix["prefix"]
     
     
 async def deladmin_logic(message, client):
