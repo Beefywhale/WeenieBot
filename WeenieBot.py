@@ -26,7 +26,7 @@ with open("adminweenie.json","r") as infile:
 with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
 
-    with open("adminweenie.json", "w+") as outfile:
+with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
 
 with open("prefix.json", "w+") as outfile:
