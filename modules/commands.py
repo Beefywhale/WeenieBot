@@ -48,6 +48,13 @@ pfix = prefix["prefix"]
 BASE_URL = 'http://pokeapi.co'
 
 
+async def admintest(message, client):
+    open("adminweenie.json","r")
+    if message.author.name in admin:
+        await client.send_message(message.channel, 'Hello Admin!')
+    elif message.author.name not in admin:
+        await client.send_message(message.channel, 'Not Admin!')
+
 async def prefix_logic(message, client):
     open("prefix.json", "r")
     print(pfix)
