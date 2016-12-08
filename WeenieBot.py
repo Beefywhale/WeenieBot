@@ -98,7 +98,7 @@ async def on_message(message):
     if message.content == pfix + 'update':
         g = git.cmd.Git()
         u = g.pull('-v')
-        await client.send_message(message.channel, str(u))
+        await client.send_message(message.channel, '```' + str(u) + '```')
         os.execl(sys.executable, sys.executable, *sys.argv)
        
     if message.content.startswith(pfix + 'user'):
