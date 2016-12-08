@@ -238,8 +238,8 @@ async def on_message(message):
     if message.content.startswith(pfix + 'admintest'):
         open("adminweenie.json","r")
         await client.send_message(message.channel, 'Hello Admin!')
-        elif message.author.name not in admin:
-            await client.send_message(message.channel, 'Not Admin!')
+    elif message.author.name not in admin:
+        await client.send_message(message.channel, 'Not Admin!')
 
     if message.content == pfix + 'help':
         r = lambda: random.randint(0,255)
