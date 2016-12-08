@@ -158,6 +158,7 @@ async def on_message(message):
     if message.content.startswith(pfix + 'delquote'):
         try:
             del_quote = int(message.content.strip(pfix + 'delquote '))
+            open("quoteweenie.json","r")
             if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
@@ -172,6 +173,7 @@ async def on_message(message):
             pass
 
         if message.content.startswith(pfix + 'editquote'):
+            open("quoteweenie.json","r")
             edit_quote = int(message.content.strip(pfix + 'editquote '))
             if message.author.name in admin:
                 try:
@@ -217,6 +219,7 @@ async def on_message(message):
         await commands.add_admin_logic(message, client)
 
     if message.content.startswith(pfix + 'deladmin'):
+        open("adminweenie.json","r")
         try:
             del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
             if message.author.name in admin:
