@@ -22,7 +22,7 @@ with open("./prefix.json", "r") as infile:
 with open("./quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
-with open("open("./adminweenie.json","r")adminweenie.json","r") as infile:
+with open("./adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
 with open("./quoteweenie.json", "w+") as outfile:
