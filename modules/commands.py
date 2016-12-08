@@ -124,8 +124,8 @@ async def editquote_logic(message, client):
                 outfile.write(json.dumps(Quotes_All))
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
-        elif message.author.name not in admin:
-            await client.send_message(message.channel, 'ERROR You are not Admin')
+    elif message.author.name not in admin:
+        await client.send_message(message.channel, 'ERROR You are not Admin')
 
 async def cleverbot_logic(message, client):
     global cb1
