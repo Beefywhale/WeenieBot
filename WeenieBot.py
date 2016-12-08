@@ -71,6 +71,8 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
+    open("adminweenie.json","r")
+    open("quoteweenie.json", "w+")
     global timer
     pfix = prefix["prefix"]
     open("prefix.json", "r")
