@@ -94,3 +94,4 @@ modules/botToken.py
 #data storage
 adminweenie.json
 quoteweenie.json
+prefix.json
