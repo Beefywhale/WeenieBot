@@ -77,7 +77,7 @@ async def on_message(message):
     pfix = prefix["prefix"]
     await client.change_nickname(message.server.me, 'WeenieBot')
 
-    if message.content.startswith(pfix + "setprefix")
+    if message.content.startswith(pfix + "setprefix"):
         open("prefix.json", "r")
         print(pfix)
         test = bdel(message.content, pfix + "setprefix ")
