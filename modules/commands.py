@@ -56,6 +56,9 @@ async def admintest(message, client):
         await client.send_message(message.channel, 'Not Admin!')
 
         
+async def get_prefix(message, client):
+    await client.send_message(message.channel, 'Current command prefix ' + pfix)
+
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
     try:
