@@ -66,7 +66,7 @@ async def add_admin_logic(message, client):
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
 
-async def getPokemonData(resource_url, message, client):
+async def getPokemonData(resource_url, message):
     url = '{0}{1}'.format(BASE_URL, resource_url)
     response = requests.get(url)
 
@@ -74,8 +74,7 @@ async def getPokemonData(resource_url, message, client):
         return json.loads(response.text)
     return None
 
-
-async def randPokemon(message, client):
+async def randPokemon(message):
     parsedPokemon = random.randint(0, 709)
     try:
         pokemon = await getPokemonData('/api/v1/pokemon/' + str(parsedPokemon), message)
@@ -111,7 +110,10 @@ async def randPokemon(message, client):
         print(BASE_URL + sprite['image'])
     except TypeError:
         await client.send_message(message.channel, 'ERROR {} is not in the Pokedex! Try using all lowercase!'.format(parsedPokemon))
-       
+
+
+
+
 async def getPokemon(message, client):
     try:
         parsedPokemon = message.content.replace(pfix + 'pokedex ','')
@@ -147,7 +149,8 @@ async def getPokemon(message, client):
         print(pokemon['national_id'])
         print(BASE_URL + sprite['image'])
     except TypeError:
-        await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))        
+        await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
+      
 
 async def google_Fight(message, client):
     if message.author.name in admin:
