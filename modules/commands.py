@@ -46,7 +46,7 @@ cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
 prefix = prefix
-
+pfix = prefix["prefix"]
 
 async def admintest(message, client):
     open("adminweenie.json","r")
@@ -57,6 +57,7 @@ async def admintest(message, client):
 
 async def prefix_logic(message, client):
     global prefix
+    global pfix
     open("prefix.json", "r")
     print(pfix)
     test = bdel(message.content, pfix + "setprefix ")
