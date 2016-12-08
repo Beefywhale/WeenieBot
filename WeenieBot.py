@@ -14,7 +14,6 @@ import modules.botToken as botToken
 from google import search
 
 #changes! testing updates heehee
-
 with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
@@ -26,10 +25,15 @@ with open("adminweenie.json","r") as infile:
 
 with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
-with open("adminweenie.json", "w+") as outfile:
+
+    with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
+
 with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
+
+    
+
 
 status = {
     'online': 'Online',
@@ -75,8 +79,6 @@ async def on_message(message):
 
     if message.content == prefix + 'messages':
         await commands.user_messages(message, client)
-
-    if message.content.startswith(prefix + 'prefix')
         
     if message.content == prefix + 'purge':
         await purge(message, client)
@@ -215,15 +217,15 @@ async def on_message(message):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         help_details = discord.Embed(title='Commands:', description='''
->quote --- picks a random quote to tell everyone.
->quote <number> --- picks a specific quote to tell everyone.
->quoteadd --- adds a new quote
->delquote <number> --- deletes specific quote
->sleep --- bot goes to sleep for 5 seconds.
->messages --- tells you how many messages there are in the channel you are in.
->admintest --- check if you are admin!
->deladmin --- deletes admin by user id
->addadmin <Persons Discord ID>--- adds admin by user id
+prefix + quote --- picks a random quote to tell everyone.
+prefix + quote <number> --- picks a specific quote to tell everyone.
+prefix + quoteadd --- adds a new quote
+prefix + delquote <number> --- deletes specific quote
+prefix + sleep --- bot goes to sleep for 5 seconds.
+prefix + messages --- tells you how many messages there are in the channel you are in.
+prefix + admintest --- check if you are admin!
+prefix + deladmin --- deletes admin by user id
+prefix + addadmin <Persons Discord ID>--- adds admin by user id
 hello weeniebot --- bot greets you.
 WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)''', colour=int(rr, 16))
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
