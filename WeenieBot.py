@@ -77,6 +77,9 @@ async def on_message(message):
     if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
 
+    if message.content.startswith(pfix + 'setprefix'):
+        await commands.prefixfunc(message, client)
+        
     if message.content == pfix + 'messages':
         await commands.user_messages(message, client)
         
