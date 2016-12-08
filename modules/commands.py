@@ -13,22 +13,22 @@ from google import search
 
 #changes! testing updates heehee
 
-with open("././prefix.json", "r") as infile:
+with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
-with open("././quoteweenie.json","r") as infile:
+with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
-with open("././adminweenie.json","r") as infile:
+with open("adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
-with open("././quoteweenie.json", "w+") as outfile:
+with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
     
-with open("././adminweenie.json", "w+") as outfile:
+with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
     
-with open("././prefix.json", "w+") as outfile:
+with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
     
 status = {
@@ -61,13 +61,13 @@ async def cleverbot_logic2(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
     
 async def add_admin_logic(message, client):
-    open("././adminweenie.json","r")
+    open("adminweenie.json","r")
     if message.author.name in admin:
         await client.send_message(message.channel, 'Type the ID you want to make admin.')
         msg3 = await client.wait_for_message(author=message.author)
         await client.send_message(message.channel, 'Admin Added')
         admin.append(msg3.content)
-        with open("././adminweenie.json", "w+") as outfile:
+        with open("adminweenie.json", "w+") as outfile:
             outfile.write(json.dumps(admin))
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin')
@@ -190,7 +190,7 @@ async def rand_quote(message, client):
     timer = 1
 
 async def quoteadd_logic(message, client):
-    open("././quoteweenie.json","r")
+    open("quoteweenie.json","r")
     if message.author.name in admin:
             await client.send_message(message.channel, 'Type quote to add.')
             test = await client.wait_for_message(author=message.author)
@@ -200,7 +200,7 @@ async def quoteadd_logic(message, client):
             counter1
             counter1 = len(Quotes_All)
             Quotes_All.append(test.content)
-            with open("././quoteweenie.json", "w+") as outfile:
+            with open("quoteweenie.json", "w+") as outfile:
                 outfile.write(json.dumps(Quotes_All))
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'Only Admins can Add Quotes!')
@@ -221,13 +221,13 @@ async def google_search(message, client):
         break
 
 async def quote_amount(message, client):
-    open("././quoteweenie.json","r")
+    open("quoteweenie.json","r")
     global counter2
     counter2 = len(Quotes_All) - 1
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
-    open("././quoteweenie.json","r")
+    open("quoteweenie.json","r")
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(', '.join(admin)))
 
 async def user(message, client):
