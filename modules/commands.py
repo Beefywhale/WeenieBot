@@ -9,10 +9,12 @@ import git
 import subprocess
 import sys
 import os
-import WeenieBot.Weeniebot as wb
 from google import search
 
 #changes! testing updates heehee
+
+with open("prefix.json", "r") as infile:
+    prefix = json.loads(infile.read())
 
 with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
@@ -25,6 +27,9 @@ with open("quoteweenie.json", "w+") as outfile:
     
 with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
+    
+with open("prefix.json", "w+") as outfile:
+    outfile.write(json.dumps(prefix))
     
 status = {
     'online': 'Online',
@@ -40,6 +45,7 @@ counter2 = len(Quotes_All) - 1
 timer = 0
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
+pfix = prefix["prefix"]
 
 async def cleverbot_logic(message, client):
     global cb1
