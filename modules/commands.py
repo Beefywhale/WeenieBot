@@ -66,7 +66,7 @@ async def add_admin_logic(message, client):
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
 
-async def getPokemonData(message, client):
+async def getPokemonData(resource_url, message, client):
     url = '{0}{1}'.format(BASE_URL, resource_url)
     response = requests.get(url)
 
