@@ -50,7 +50,6 @@ timer = 0
 client = discord.Client()
 cb1 = cleverbot.Cleverbot()
 gamet = discord.Game(name='Hanging \'Round')
-pfix = prefix["prefix"]
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 
 @client.event
@@ -75,7 +74,7 @@ async def on_member_join(member):
 async def on_message(message):
     global timer
     open("prefix.json", "r")
-    pfix = prefix["prefix"]
+    commands.pfix = prefix["prefix"]
     await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.lower().startswith('weeniebot'):
