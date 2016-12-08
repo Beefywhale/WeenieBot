@@ -56,6 +56,7 @@ async def admintest(message, client):
         await client.send_message(message.channel, 'Not Admin!')
 
 async def prefix_logic(message, client):
+    global prefix
     open("prefix.json", "r")
     print(pfix)
     test = bdel(message.content, pfix + "setprefix ")
