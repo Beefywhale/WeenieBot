@@ -10,8 +10,8 @@ import subprocess
 import sys
 import os
 import glob
-#import modules.commands as commands
-#import modules.botToken as botToken
+import modules.commands as commands
+import modules.botToken as botToken
 from google import search
 
 #changes! testing updates heehee
