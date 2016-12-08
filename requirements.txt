@@ -2,4 +2,4 @@ discord.py
 cleverbot 
 google
 requests
-git
+gitpython
