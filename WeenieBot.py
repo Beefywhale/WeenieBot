@@ -74,19 +74,11 @@ async def on_member_join(member):
 async def on_message(message):
     global timer
     open("prefix.json", "r")
-    pfix = prefix["prefix"]
+    pfix = commmands.pfix
     await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.startswith(pfix + "setprefix"):
-        open("prefix.json", "r")
-        print(pfix)
-        test = bdel(message.content, pfix + "setprefix ")
-        prefix["prefix"] = test
-        await asyncio.sleep(1)
-        await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
-        print(prefix["prefix"])
-        with open("prefix.json", "w+") as outfile:
-            outfile.write(json.dumps(prefix))  
+        await commands.prefix_logic(message, client)
 
     
     if message.content.lower().startswith('weeniebot'):
