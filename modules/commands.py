@@ -9,7 +9,6 @@ import git
 import subprocess
 import sys
 import os
-import ./WeenieBot as test
 from google import search
 
 #changes! testing updates heehee
