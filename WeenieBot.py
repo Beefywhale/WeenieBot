@@ -74,7 +74,7 @@ async def on_member_join(member):
 async def on_message(message):
     global timer
     open("prefix.json", "r")
-    pfix = commmands.pfix
+    pfix = commands.pfix
     await client.change_nickname(message.server.me, 'WeenieBot')
 
     if message.content.startswith(pfix + "setprefix"):
