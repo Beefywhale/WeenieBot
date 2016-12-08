@@ -193,15 +193,28 @@ async def on_message(message):
 !quoteadd --- adds a new quote
 !delquote <number> --- deletes specific quote
 !editquote <number> --- next message you send changes the quote you specified
+
+
 !sleep --- bot goes to sleep for 5 seconds.
+
 !jfgi --- just fucking google it.
+
 !update --- updates bot to newest version! (do this frequently!!!)
+
 !googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
+
 !messages --- tells you how many messages there are in the channel you are in.
+
+
 !admintest --- check if you are admin!
+
 !deladmin --- deletes admin by user name.
+
 !addadmin <Persons Discord Name> --- adds admin by user name.
+
+
 hello weeniebot --- bot greets you.
+
 WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)''', colour=int(rr, 16))
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
         await client.send_message(message.channel, embed=help_details)
