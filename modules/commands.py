@@ -45,8 +45,6 @@ timer = 0
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
-prefix = prefix
-pfix = prefix["prefix"]
 
 async def admintest(message, client):
     open("adminweenie.json","r")
@@ -55,21 +53,6 @@ async def admintest(message, client):
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'Not Admin!')
 
-async def prefix_logic(message, client):
-    global prefix
-    global pfix
-    open("prefix.json", "r")
-    print(pfix)
-    test = bdel(message.content, pfix + "setprefix ")
-    prefix["prefix"] = test
-    await asyncio.sleep(1)
-    await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
-    print(prefix["prefix"])
-    with open("prefix.json", "w+") as outfile:
-        outfile.write(json.dumps(prefix))  
-    with open("prefix.json", "r") as infile:
-        prefix = json.loads(infile.read())
-    print(pfix)
         
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
