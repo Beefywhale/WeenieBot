@@ -85,7 +85,7 @@ async def on_message(message):
         test = bdel(message.content, pfix + "setprefix ")
         prefix["prefix"] = test
         await asyncio.sleep(1)
-        await client.send_message(message.channel, prefix["prefix"])
+        await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
         print(prefix["prefix"])
         with open("prefix.json", "w+") as outfile:
             outfile.write(json.dumps(prefix))  
