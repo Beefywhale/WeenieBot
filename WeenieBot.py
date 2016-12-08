@@ -16,9 +16,6 @@ from google import search
 
 #changes! testing updates heehee
 
-textfiles = glob.glob(os.path.join(rootdir, '*.txt'))
-jsonfiles = glob.glob(os.path.join(rootdir, 'subdue', '*.json'))
-
 with open("../prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
