@@ -89,22 +89,22 @@ async def on_message(message):
         await client.send_message(message.channel, str(u))
         os.execl(sys.executable, sys.executable, *sys.argv)
        
-    if message.content.startswith(prefix + 'user'):
+    if message.content.startswith(pfix + 'user'):
         await commands.user(message, client)
 
     if message.content == prefix + 'admins':
         await commands.admin_amount(message, client)
 
-    if message.content.startswith(prefix + 'pokemon'):
+    if message.content.startswith(pfix + 'pokemon'):
         await commands.getPokemonData(message, client)
 
-    if message.content.startswith(prefix + 'google'):
+    if message.content.startswith(pfix + 'google'):
         await commands.google_search(message, client)
 
     if message.content == prefix + 'good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')
     
-    if message.content.startswith(prefix + 'sleep'):
+    if message.content.startswith(pfix + 'sleep'):
         await commands.sleep(message, client)
 
     if message.content == prefix + 'quotenumber':
@@ -129,9 +129,9 @@ async def on_message(message):
     elif  timer == 1 and message.content == prefix + 'quote':
         await commands.cooldown(message, client)
 
-    if message.content.startswith(prefix + 'delquote'):
+    if message.content.startswith(pfix + 'delquote'):
         try:
-            del_quote = int(message.content.strip(prefix + 'delquote '))
+            del_quote = int(message.content.strip(pfix + 'delquote '))
             if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
@@ -145,8 +145,8 @@ async def on_message(message):
         except:
             pass
 
-        if message.content.startswith(prefix + 'editquote'):
-            edit_quote = int(message.content.strip(prefix + 'editquote '))
+        if message.content.startswith(pfix + 'editquote'):
+            edit_quote = int(message.content.strip(pfix + 'editquote '))
             if message.author.name in admin:
                 try:
                     await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
@@ -164,7 +164,7 @@ async def on_message(message):
         try:
             try:
                 open("quoteweenie.json","r")
-                quote_number = int(message.content.strip(prefix + 'quote '))
+                quote_number = int(message.content.strip(pfix + 'quote '))
                 print(quote_number)
                 await client.send_message(message.channel, Quotes_All[quote_number])
                 timer = 1
@@ -177,7 +177,7 @@ async def on_message(message):
     elif timer == 1 and message.content.split(' ')[0] == prefix + 'quote':
         try:
             try:
-                quote_number = int(message.content.strip(prefix + 'quote '))
+                quote_number = int(message.content.strip(pfix + 'quote '))
                 print('COOLDOWN')
                 await client.send_message(message.author, '10 second Command Cooldown please be patient and don\'t spam commands! :)')
                 await asyncio.sleep(2)
@@ -190,9 +190,9 @@ async def on_message(message):
     if message.content == prefix + 'addadmin':
         await commands.add_admin_logic(message, client)
 
-    if message.content.startswith(prefix + 'deladmin'):
+    if message.content.startswith(pfix + 'deladmin'):
         try:
-            del_admin = str(message.content.replace(prefix + 'deladmin ', ''))
+            del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
             if message.author.name in admin:
                 if del_admin in admin:
                     await client.send_message(message.channel, 'Admin Removed')
@@ -206,7 +206,7 @@ async def on_message(message):
         except:
             pass
 
-    if message.content.startswith(prefix + 'admintest'):
+    if message.content.startswith(pfix + 'admintest'):
         open("adminweenie.json","r")
         if message.author.name in admin:
             await client.send_message(message.channel, 'Hello Admin!')
