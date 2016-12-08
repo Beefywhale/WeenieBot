@@ -92,6 +92,9 @@ async def on_message(message):
     if message.content == pfix + 'purge':
         await purge(message, client)
 
+    if message.content == pfix + 'ping':
+        await client.send_message(message.channel, 'Pong')
+        
     if message.content == pfix + 'update':
         g = git.cmd.Git()
         u = g.pull('-v')
