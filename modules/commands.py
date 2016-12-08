@@ -68,7 +68,8 @@ async def prefix_logic(message, client):
     with open("prefix.json", "w+") as outfile:
         outfile.write(json.dumps(prefix))  
         print(pfix)
-    open("prefix.json", "r")
+    with open("prefix.json", "r") as infile:
+        prefix = json.loads(infile.read())
         
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
