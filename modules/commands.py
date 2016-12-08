@@ -44,6 +44,7 @@ counter2 = len(Quotes_All) - 1
 timer = 0
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
+open("prefix.json", "r")
 pfix = prefix["prefix"]
 BASE_URL = 'http://pokeapi.co'
 
@@ -63,6 +64,7 @@ async def prefix_logic(message, client):
     await asyncio.sleep(1)
     await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
     print(prefix["prefix"])
+    print(pfix)
     with open("prefix.json", "w+") as outfile:
         outfile.write(json.dumps(prefix))  
         
