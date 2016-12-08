@@ -227,7 +227,8 @@ async def on_message(message):
 
     if message.content.startswith(pfix + 'deladmin'):
         with open("adminweenie.json","r") as infile:
-            admin = json.loads(infile.read())        try:
+            admin = json.loads(infile.read())
+        try:
             del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
             if message.author.name in admin:
                 if del_admin in admin:
