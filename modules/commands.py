@@ -9,6 +9,7 @@ import git
 import subprocess
 import sys
 import os
+import ../WeenieBot as test
 from google import search
 
 #changes! testing updates heehee
@@ -45,6 +46,7 @@ timer = 0
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
+open("prefix.json", "r")
 pfix = prefix["prefix"]
 
 async def admintest(message, client):
