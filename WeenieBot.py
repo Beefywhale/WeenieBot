@@ -51,7 +51,6 @@ client = discord.Client()
 cb1 = cleverbot.Cleverbot()
 gamet = discord.Game(name='Hanging \'Round')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
-pfix = prefix["prefix"]
 
 @client.event
 async def on_ready():
@@ -78,6 +77,18 @@ async def on_message(message):
     pfix = prefix["prefix"]
     await client.change_nickname(message.server.me, 'WeenieBot')
 
+    if message.content.startswith(pfix + "setprefix")
+        open("prefix.json", "r")
+        print(pfix)
+        test = bdel(message.content, pfix + "setprefix ")
+        prefix["prefix"] = test
+        await asyncio.sleep(1)
+        await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
+        print(prefix["prefix"])
+        with open("prefix.json", "w+") as outfile:
+            outfile.write(json.dumps(prefix))  
+
+    
     if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
         
