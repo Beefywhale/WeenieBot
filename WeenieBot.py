@@ -12,8 +12,6 @@ import os
 import glob
 #import modules.commands as commands
 #import modules.botToken as botToken
-import botToken as botToken
-import commands as commands
 from google import search
 
 #changes! testing updates heehee
