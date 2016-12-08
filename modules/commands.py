@@ -79,7 +79,7 @@ async def delquote_logic(message, client):
 
 
     
-async deladmin_logic(message, client):
+async def deladmin_logic(message, client):
     open("adminweenie.json","r")
     try:
         del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
@@ -96,7 +96,7 @@ async deladmin_logic(message, client):
     except:
         pass
     
-async quote_logic(message, client):
+async def quote_logic(message, client):
     open("quoteweenie.json", "r")
     try:
         try:
