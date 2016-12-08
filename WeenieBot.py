@@ -171,11 +171,7 @@ async def on_message(message):
         await commands.deladmin_logic(message, client)
 
     if message.content.startswith(pfix + 'admintest'):
-        open("adminweenie.json","r")
-        if message.author.name in admin:
-            await client.send_message(message.channel, 'Hello Admin!')
-        elif message.author.name not in admin:
-            await client.send_message(message.channel, 'Not Admin!')
+        await commands.admintest(message, cleint)
 
     if message.content == pfix + 'help':
         r = lambda: random.randint(0,255)
