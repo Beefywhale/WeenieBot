@@ -37,6 +37,7 @@ counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
 timer = 0
 cb1 = cleverbot.Cleverbot()
+def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 
 async def cleverbot_logic(message, client):
     global cb1
