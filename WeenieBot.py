@@ -9,28 +9,32 @@ import git
 import subprocess
 import sys
 import os
+import glob
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
 
 #changes! testing updates heehee
 
-with open("/WeenieBot/db/prefix.json", "r") as infile:
+textfiles = glob.glob(os.path.join(rootdir, '*.txt'))
+jsonfiles = glob.glob(os.path.join(rootdir, 'subdue', '*.json'))
+
+with open("WeenieBot/db/prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
-with open("/WeenieBot/db/quoteweenie.json","r") as infile:
+with open("WeenieBot/db/quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
-with open("/WeenieBot/db/adminweenie.json","r") as infile:
+with open("WeenieBot/db/adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
 with open("/WeenieBot/db/quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
 
-with open("/WeenieBot/db/adminweenie.json", "w+") as outfile:
+with open("WeenieBot/db/adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
     
-with open("/WeenieBot/db/prefix.json", "w+") as outfile:
+with open("WeenieBot/db/prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
 
 
