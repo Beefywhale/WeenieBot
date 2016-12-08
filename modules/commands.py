@@ -13,9 +13,6 @@ from google import search
 
 #changes! testing updates heehee
 
-with open("prefix.json", "r") as infile:
-    prefix = json.loads(infile.read())
-
 with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
@@ -27,9 +24,6 @@ with open("quoteweenie.json", "w+") as outfile:
     
 with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
-
-with open("prefix.json", "w+") as outfile:
-    outfile.write(json.dumps(Quotes_All))    
     
 status = {
     'online': 'Online',
@@ -51,19 +45,6 @@ async def cleverbot_logic(message, client):
     question = str(message.content.strip('weeniebot '))
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
-
-async def prefixfunc(message, client):
-    open("prefix.json", "r")
-    if message.content.startswith(pfix + 'setprefix'):
-        open("prefix.json", "r")
-        print(pfix)
-        test = bdel(message.content, pfix + "setprefix ")
-        prefix["prefix"] = test
-        await asyncio.sleep(1)
-        await client.send_message(message.channel, prefix["prefix"])
-        print(prefix["prefix"])
-        with open("prefix.json", "w+") as outfile:
-            outfile.write(json.dumps(prefix))    
     
 async def add_admin_logic(message, client):
     if message.author.name in admin:
