@@ -13,7 +13,7 @@ from google import search
 
 #changes! testing updates heehee
 
-with open("/WeenieBot/db/prefix.json", "r") as infile:
+with open("WeenieBot/prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
 with open("/WeenieBot/db/quoteweenie.json","r") as infile:
