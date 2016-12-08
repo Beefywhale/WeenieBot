@@ -168,7 +168,6 @@ async def google_Fight(message, client):
     print(result[2])        
         
 async def purge(message, client):
-    open("adminweenie.json","r")
     if message.author.name in admin:
         deleted = await client.purge_from(message.channel, limit=500, check=None)
         await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
@@ -192,7 +191,6 @@ async def rand_quote(message, client):
 
 async def quoteadd_logic(message, client):
     open("quoteweenie.json","r")
-    open("adminweenie.json","r")
     if message.author.name in admin:
             await client.send_message(message.channel, 'Type quote to add.')
             test = await client.wait_for_message(author=message.author)
