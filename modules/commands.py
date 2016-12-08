@@ -61,6 +61,7 @@ async def cleverbot_logic2(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
     
 async def add_admin_logic(message, client):
+    open("adminweenie.json","r")
     if message.author.name in admin:
         await client.send_message(message.channel, 'Type the ID you want to make admin.')
         msg3 = await client.wait_for_message(author=message.author)
@@ -222,6 +223,7 @@ async def google_search(message, client):
         break
 
 async def quote_amount(message, client):
+    open("quoteweenie.json","r")
     global counter2
     counter2 = len(Quotes_All) - 1
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
