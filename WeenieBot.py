@@ -213,3 +213,40 @@ WeenieBot <question> --- asks weeniebot a question, that he will do his best to 
 
 
 client.run(botToken.token)
+
+def main():
+    with open("prefix.json", "r") as infile:
+    prefix = json.loads(infile.read())
+
+    with open("quoteweenie.json","r") as infile:
+        Quotes_All = json.loads(infile.read())
+
+    with open("adminweenie.json","r") as infile:
+        admin = json.loads(infile.read())
+
+    with open("quoteweenie.json", "w+") as outfile:
+        outfile.write(json.dumps(Quotes_All))
+
+    with open("adminweenie.json", "w+") as outfile:
+        outfile.write(json.dumps(admin))
+    
+    with open("prefix.json", "w+") as outfile:
+        outfile.write(json.dumps(prefix))
+
+
+    status = {
+        'online': 'Online',
+        'offline': 'Offline',
+        'idle': 'Idle',
+        'dnd': 'Do Not Disturb'
+    }
+
+    x33 = '%m-%d-%Y'
+
+    client = discord.Client()
+    gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
+    def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
+    pfix = commands.pfix
+    client.run(botToken.token)
+    
+if __name__ == '__main__': main()
