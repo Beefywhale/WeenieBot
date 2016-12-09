@@ -40,7 +40,6 @@ status = {
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
-#timer = awesomestuff.timer
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
@@ -156,12 +155,6 @@ async def editquote_logic(message, client):
 async def cleverbot_logic(message, client):
     global cb1
     question = str(message.content.strip('weeniebot '))
-    answer = cb1.ask(question)
-    await client.send_message(message.channel, message.author.mention + ' ' + answer)
-    
-async def cleverbot_logic2(message, client):
-    global cb1
-    question = str(message.content.strip(message.server.mention.me))
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
     
