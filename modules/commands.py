@@ -162,6 +162,12 @@ async def cleverbot_logic(message, client):
     
 async def cleverbot_logic2(message, client):
     global cb1
+    question = str(message.content.strip(message.server.mention.me))
+    answer = cb1.ask(question)
+    await client.send_message(message.channel, message.author.mention + ' ' + answer)
+    
+async def cleverbot_logic2(message, client):
+    global cb1
     question = str(message.content.strip('wb '))
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
