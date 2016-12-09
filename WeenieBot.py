@@ -77,9 +77,11 @@ async def on_message(message):
     pfix = commands.pfix
     await client.change_nickname(message.server.me, 'WeenieBot')
 
-    if message.server.me.mentioned_in(message):
-        await commands.cleverbot_logic2(message, client)
-    
+    try:
+        if message.server.me.mention in message.content:
+            await commands.cleverbot_logic2(message, client)
+    except:
+        pass
     
     if message.content.startswith(pfix + 'eval'):
         await commands.eval_logic(message, client)
