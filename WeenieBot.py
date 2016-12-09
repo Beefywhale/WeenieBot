@@ -80,7 +80,7 @@ async def on_message(message):
     try:
         if message.server.me.mention in message.content:
             await commands.cleverbot_logic2(message, client)
-    except:
+    except AttributeError:
         pass
     
     if message.content.startswith(pfix + 'eval'):
