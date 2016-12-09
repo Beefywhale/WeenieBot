@@ -33,14 +33,6 @@ with open("adminweenie.json", "w+") as outfile:
     
 with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
-
-
-
-
-class Weenie(discord.Client):
-    def __init__(self, *args, **kwargs):
-        self.timer = 0
-        super().__init__(*args, **kwargs)    
     
 status = {
     'online': 'Online',
@@ -51,14 +43,12 @@ status = {
 
 x33 = '%m-%d-%Y'
 
-client = Weenie()
+client = discord.Client()
 cb1 = commands.cb1
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 pfix = commands.pfix
-
-
-timer = client.timer
+timer = commands.timer
 
         
 @client.event
