@@ -41,7 +41,7 @@ status = {
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
-timer = awesomestuff.timer
+#timer = awesomestuff.timer
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
@@ -130,9 +130,9 @@ async def quote_logic(message, client):
             quote_number = int(message.content.strip(pfix + 'quote '))
             print(quote_number)
             await client.send_message(message.channel, Quotes_All[quote_number])
-            timer = 1
+            client.timer = 1
             await asyncio.sleep(8)
-            timer = 0
+            client.timer = 0
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
     except ValueError:
@@ -294,12 +294,12 @@ async def sleep(message, client):
 async def cooldown(message, client):
     await client.send_message(message.author, '10 second Command Cooldown please be patient and don\'t spam commands! :)')
     await asyncio.sleep(8)
-    timer = 0
+    client.timer = 0
 
 async def rand_quote(message, client):
     random_quote = random.randint(0, len(Quotes_All) - 1)
     await client.send_message(message.channel, (Quotes_All[random_quote]))
-    timer = 1
+    client.timer = 1
 
 async def quoteadd_logic(message, client):
     open("quoteweenie.json","r")
