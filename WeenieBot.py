@@ -9,7 +9,6 @@ import git
 import subprocess
 import sys
 import os
-import modules.commands as commands
 import modules.botToken as botToken
 from google import search
 
