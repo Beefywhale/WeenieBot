@@ -45,8 +45,8 @@ x33 = '%m-%d-%Y'
 client = discord.Client()
 #cb1 = commands.cb1
 #timer = 0
-#gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
-#def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
+gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
+def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 #pfix = commands.pfix
 
 @client.event
