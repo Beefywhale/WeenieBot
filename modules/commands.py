@@ -9,6 +9,7 @@ import git
 import subprocess
 import sys
 import os
+from WeenieBot import timer
 from google import search
 
 #changes! testing updates heehee
