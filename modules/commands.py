@@ -9,6 +9,7 @@ import git
 import subprocess
 import sys
 import os
+import awesomestuffies as awesomestuff
 from google import search
 
 #changes! testing updates heehee
