@@ -38,7 +38,7 @@ status = {
     'idle': 'Idle',
     'dnd': 'Do Not Disturb'
 }
-
+class Weenie
 client = Weenie()
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
