@@ -37,7 +37,7 @@ with open("prefix.json", "w+") as outfile:
 
 
 
-class Weenie(discord.Client()):
+class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
         super().__init__(*args, **kwargs)    
