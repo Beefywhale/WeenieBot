@@ -82,6 +82,9 @@ async def on_message(message):
         await commands.prefix_logic(message, client)
 
     
+    if message.content == pfix + 'hotdog':
+        await commands.hotdog(message, client)
+    
     if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
         
