@@ -46,11 +46,19 @@ x33 = '%m-%d-%Y'
 
 client = discord.Client()
 cb1 = commands.cb1
-timer = commands.timer
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 pfix = commands.pfix
 
+
+class MyClient(client):
+    def __init__(self, *args, **kwargs):
+        self.timer = 0
+        super().__init__(*args, **kwargs)
+
+timer = client.timer
+
+        
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -62,9 +70,7 @@ async def on_ready():
             print(member)
     print('------')
     await client.change_presence(game=gamet, status='online', afk=False)
-
-
-
+    
 @client.event
 async def on_member_join(member):
     await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
