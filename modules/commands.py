@@ -7,7 +7,6 @@ import cleverbot
 import requests
 import git
 import subprocess
-import WeenieBot
 import sys
 import os
 from google import search
