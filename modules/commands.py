@@ -9,7 +9,7 @@ import git
 import subprocess
 import sys
 import os
-import awesomestuffies as awesomestuff
+#import awesomestuffies as awesomestuff
 from google import search
 
 #changes! testing updates heehee
@@ -42,7 +42,7 @@ status = {
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
-timer = awesomestuff.timer
+#timer = awesomestuff.timer
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
