@@ -42,7 +42,7 @@ status = {
 
 x33 = '%m-%d-%Y'
 
-#client = discord.Client()
+client = discord.Client()
 #cb1 = commands.cb1
 #timer = 0
 #gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
