@@ -245,7 +245,6 @@ def main():
 
     client = discord.Client()
     gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
-    def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
     pfix = commands.pfix
     client.run(botToken.token)
     
