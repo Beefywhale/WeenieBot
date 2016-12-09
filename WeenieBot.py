@@ -46,7 +46,7 @@ x33 = '%m-%d-%Y'
 
 client = discord.Client()
 cb1 = commands.cb1
-timer = commands.timer
+timer = awesomestuff.timer
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 pfix = commands.pfix
