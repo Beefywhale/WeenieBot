@@ -216,7 +216,7 @@ client.run(botToken.token)
 
 def main():
     with open("prefix.json", "r") as infile:
-    prefix = json.loads(infile.read())
+        prefix = json.loads(infile.read())
 
     with open("quoteweenie.json","r") as infile:
         Quotes_All = json.loads(infile.read())
