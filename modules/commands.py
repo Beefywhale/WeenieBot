@@ -62,6 +62,18 @@ async def get_prefix(message, client):
 async def hotdog(message, client):
     await client.send_message(message.channel, ':hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: ')
     
+async def eval_logic(message, client):
+    if message.author.id in ['219550353518100480']:
+            try:
+                evalt = message.content.replace('~eval ', '')
+                await client.send_message(message.channel, '''```Python
+''' + str(eval(evalt)) + '```')
+            except Exception as x:
+                template = "An exception of type {0} occured. Arguments:\n{1!r}"
+                messagex = template.format(str(type(x).__name__), str(x))
+                await client.send_message(message.channel, '''```Python
+''' + messagex + '```')
+    
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
     try:
