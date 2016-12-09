@@ -38,7 +38,7 @@ status = {
     'idle': 'Idle',
     'dnd': 'Do Not Disturb'
 }
-client = discord.Weenie()
+client = Weenie()
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
