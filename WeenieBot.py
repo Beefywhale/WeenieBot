@@ -42,12 +42,12 @@ status = {
 
 x33 = '%m-%d-%Y'
 
-client = discord.Client()
+#client = discord.Client()
 #cb1 = commands.cb1
-timer = 0
-gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
-def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
-pfix = commands.pfix
+#timer = 0
+#gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
+#def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
+#pfix = commands.pfix
 
 @client.event
 async def on_ready():
@@ -67,7 +67,7 @@ async def on_ready():
 async def on_member_join(member):
     await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
 
-@client.event
+'''@client.event
 async def on_message(message):
     with open("prefix.json", "r") as infile:
         prefix = json.loads(infile.read())
@@ -187,7 +187,7 @@ async def on_message(message):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         help_details = discord.Embed(title='Commands:', description='''
-!quote --- picks a random quote to tell everyone.
+'''!quote --- picks a random quote to tell everyone.
 !quote <number> --- picks a specific quote to tell everyone.
 !quoteadd --- adds a new quote
 !delquote <number> --- deletes specific quote
@@ -207,8 +207,8 @@ async def on_message(message):
 
 hello weeniebot --- bot greets you.
 WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)''', colour=int(rr, 16))
-        help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
-        await client.send_message(message.channel, embed=help_details)
+        #help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
+        #await client.send_message(message.channel, embed=help_details)
 
 
 
