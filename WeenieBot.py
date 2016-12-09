@@ -206,7 +206,7 @@ async def on_message(message):
 !update --- updates bot to newest version! (do this frequently!!!)
 
 hello weeniebot --- bot greets you.
-WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)''', colour=int(rr, 16))
+WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)'''#, colour=int(rr, 16))
         #help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
         #await client.send_message(message.channel, embed=help_details)
 
