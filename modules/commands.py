@@ -65,7 +65,7 @@ async def hotdog(message, client):
 async def eval_logic(message, client):
     if message.author.id in ['219550353518100480']:
             try:
-                evalt = message.content.replace('~eval ', '')
+                evalt = message.content.replace(pfix + 'eval ', '')
                 await client.send_message(message.channel, '''```Python
 ''' + str(eval(evalt)) + '```')
             except Exception as x:
