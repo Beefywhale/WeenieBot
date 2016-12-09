@@ -37,7 +37,7 @@ with open("prefix.json", "w+") as outfile:
 
 
 
-class MyClient(discord.Client()):
+class Weenie(discord.Client()):
     def __init__(self, *args, **kwargs):
         self.timer = 0
         super().__init__(*args, **kwargs)    
@@ -51,7 +51,7 @@ status = {
 
 x33 = '%m-%d-%Y'
 
-client = MyClient
+client = Weenie()
 cb1 = commands.cb1
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
