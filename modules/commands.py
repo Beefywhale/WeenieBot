@@ -39,6 +39,7 @@ status = {
     'dnd': 'Do Not Disturb'
 }
 
+client = Weenie()
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
