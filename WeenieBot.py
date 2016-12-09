@@ -76,12 +76,6 @@ async def on_message(message):
         prefix = json.loads(infile.read())
     pfix = commands.pfix
     await client.change_nickname(message.server.me, 'WeenieBot')
-
-    try:
-        if message.server.me.mention in message.content:
-            await commands.cleverbot_logic2(message, client)
-    except AttributeError:
-        pass
     
     if message.content.startswith(pfix + 'eval'):
         await commands.eval_logic(message, client)
