@@ -38,11 +38,10 @@ status = {
     'idle': 'Idle',
     'dnd': 'Do Not Disturb'
 }
-client = Weenie()
 x33 = '%m-%d-%Y'
 counter1 = len(Quotes_All)
 counter2 = len(Quotes_All) - 1
-client.timer
+timer = client.timer
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
@@ -360,4 +359,3 @@ async def user(message, client):
             else:
                 print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
-
