@@ -9,6 +9,7 @@ import git
 import subprocess
 import sys
 import os
+import modules.awesomestuffies as awseomstuff
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
@@ -45,7 +46,7 @@ x33 = '%m-%d-%Y'
 
 client = discord.Client()
 cb1 = commands.cb1
-timer = 0
+timer = awesomestuff.timer
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 pfix = commands.pfix
