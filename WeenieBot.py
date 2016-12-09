@@ -75,12 +75,9 @@ async def on_message(message):
     with open("prefix.json", "r") as infile:
         prefix = json.loads(infile.read())
     pfix = commands.pfix
-    try:
-        await client.change_nickname(message.server.me, 'WeenieBot')
-    except:
-        pass
+    await client.change_nickname(message.server.me, 'WeenieBot')
 
-    if message.server.me.mention in message.content:
+    if message.server.me.mentioned_in(message):
         await commands.cleverbot_logic2(message, client)
     
     
