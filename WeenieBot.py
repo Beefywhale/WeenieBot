@@ -247,7 +247,7 @@ def main():
     client = discord.Client()
     #cb1 = commands.cb1
     gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
-    bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
+    #bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
     pfix = commands.pfix
 
     @client.event
