@@ -78,7 +78,7 @@ async def on_message(message):
     if message.server.me.mention in message.content:
         await commands.cleverbot_logic2(message, client)
     
-    if message.emoji in message.content:
+    if message.emoji.name in message.content:
         await client.send_message(message.channel, 'Yo dood you sent an emoji!(just fer testing)')
     
     if message.content.startswith(pfix + 'eval'):
