@@ -75,7 +75,10 @@ async def on_message(message):
     with open("prefix.json", "r") as infile:
         prefix = json.loads(infile.read())
     pfix = commands.pfix
-    await client.change_nickname(message.server.me, 'WeenieBot')
+    try:
+        await client.change_nickname(message.server.me, 'WeenieBot')
+    except:
+        pass
     
     if message.content.startswith(pfix + 'eval'):
         await commands.eval_logic(message, client)
