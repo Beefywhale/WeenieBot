@@ -107,7 +107,7 @@ async def on_message(message):
             await client.send_message(message.channel, '```' + str(u) + '```')
             os.execl(sys.executable, sys.executable, *sys.argv)
         else:
-            await client.send_message(message.channel, 'Error Didn\'t update maybe you are\'nt an admin?')
+            await client.send_message(message.channel, 'Error Didn\'t update maybe you aren\'t an admin?')
        
     if message.content.startswith(pfix + 'user'):
         await commands.user(message, client)
