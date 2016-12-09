@@ -43,11 +43,11 @@ status = {
 
 x33 = '%m-%d-%Y'
 
-counter1 = len(Quotes_All)
-counter2 = len(Quotes_All) - 1
-timer = 0
+counter1 = commands.counter1
+counter2 = commands.counter2
+timer = commands.timer
 client = discord.Client()
-cb1 = cleverbot.Cleverbot()
+cb1 = commands.cb1
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 pfix = commands.pfix
