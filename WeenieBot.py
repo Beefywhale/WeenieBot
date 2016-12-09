@@ -216,6 +216,7 @@ WeenieBot <question> --- asks weeniebot a question, that he will do his best to 
 client.run(botToken.token)
 
 def main():
+    import modules.commands as commands
     with open("prefix.json", "r") as infile:
         prefix = json.loads(infile.read())
 
