@@ -59,6 +59,9 @@ async def admintest(message, client):
 async def get_prefix(message, client):
     await client.send_message(message.channel, 'Current command prefix: `' + pfix + '`')
 
+async def hotdog(message, client):
+    await client.send_message(message.channel, ':hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: ')
+    
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
     try:
