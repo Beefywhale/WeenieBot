@@ -43,11 +43,8 @@ status = {
 
 x33 = '%m-%d-%Y'
 
-counter1 = commands.counter1
-counter2 = commands.counter2
-timer = commands.timer
 client = discord.Client()
-cb1 = commands.cb1
+#cb1 = commands.cb1
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 pfix = commands.pfix
@@ -62,7 +59,7 @@ async def on_ready():
         for member in server.members:
             print(member)
     print('------')
-    await client.change_presence(game=gamet, status='dnd', afk=False)
+    await client.change_presence(game=gamet, status='online', afk=False)
 
 
 
@@ -72,7 +69,6 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
-    global timer
     with open("prefix.json", "r") as infile:
         prefix = json.loads(infile.read())
     pfix = commands.pfix
@@ -142,10 +138,10 @@ async def on_message(message):
     if message.content == pfix + 'quotes':
         await commands.quote_amount(message, client)
 
-    if timer == 0 and message.content == pfix + 'turtles':
+    if commands.timer == 0 and message.content == pfix + 'turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
-        timer = 1
-    elif  timer == 1 and message.content == pfix + 'turtles':
+        commands.timer = 1
+    elif  commands.timer == 1 and message.content == pfix + 'turtles':
         commands.cooldown(message, client)
 
     if message.content.lower() == 'hello weeniebot':
@@ -155,9 +151,9 @@ async def on_message(message):
         await commands.quoteadd_logic(message, client)
 
 
-    if timer == 0 and message.content == pfix + 'quote':
+    if commands.timer == 0 and message.content == pfix + 'quote':
         await commands.rand_quote(message, client)
-    elif  timer == 1 and message.content == pfix + 'quote':
+    elif  commands.timer == 1 and message.content == pfix + 'quote':
         await commands.cooldown(message, client)
 
     if message.content.startswith(pfix + 'delquote'):
@@ -166,9 +162,9 @@ async def on_message(message):
     if message.content.startswith(pfix + 'editquote'):    
         await commands.editquote_logic(message, client)
 
-    if timer == 0 and message.content.split(' ')[0] == pfix + 'quote':
+    if commands.timer == 0 and message.content.split(' ')[0] == pfix + 'quote':
         await commands.quote_logic(message, client)
-    elif timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
+    elif commands.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
         open("quoteweenie.json", "r")
         try:
             try:
