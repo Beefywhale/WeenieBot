@@ -179,7 +179,7 @@ async def on_message(message):
         open("quoteweenie.json", "r")
         try:
             try:
-                commands.cooldown(message, client)
+                await commands.cooldown(message, client)
             except ValueError:
                 pass
         except IndexError:
