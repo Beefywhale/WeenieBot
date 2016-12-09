@@ -145,7 +145,7 @@ async def on_message(message):
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
         timer = 1
     elif  timer == 1 and message.content == pfix + 'turtles':
-        commands.cooldown(message, client)
+        await commands.cooldown(message, client)
 
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
