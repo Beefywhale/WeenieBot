@@ -9,14 +9,16 @@ import git
 import subprocess
 import sys
 import os
+import psutil
 from datetime import timedelta
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
 
 #changes! testing updates heehee
-start = time.time()
-elapsed = (time.time() - start)
+#start = time.time()
+#elapsed = (time.time() - start)
+p = psutil.Process(os.getpid())
 
 
 with open("prefix.json", "r") as infile:
@@ -40,7 +42,7 @@ with open("prefix.json", "w+") as outfile:
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
-        self.uptime = str(timedelta(minutes=elapsed))
+        self.uptime = p.create_time()
         super().__init__(*args, **kwargs) 
 
 status = {
