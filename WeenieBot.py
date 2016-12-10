@@ -207,23 +207,23 @@ async def on_message(message):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         help_details = discord.Embed(title='Commands:', description='''
-!quote --- picks a random quote to tell everyone.
-!quote <number> --- picks a specific quote to tell everyone.
-!quoteadd --- adds a new quote
-!delquote <number> --- deletes specific quote
-!editquote <number> --- next message you send changes the quote you specified
+quote --- picks a random quote to tell everyone.
+quote <number> --- picks a specific quote to tell everyone.
+quoteadd --- adds a new quote
+delquote <number> --- deletes specific quote
+editquote <number> --- next message you send changes the quote you specified
 
 
-!sleep --- bot goes to sleep for 5 seconds.
-!jfgi --- just fucking google it.
-!googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
-!messages --- tells you how many messages there are in the channel you are in.
+sleep --- bot goes to sleep for 5 seconds.
+jfgi --- just fucking google it.
+googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
+messages --- tells you how many messages there are in the channel you are in.
 
-!admintest --- check if you are admin!
-!deladmin --- deletes admin by user name.
-!addadmin <Persons Discord Name> --- adds admin by user name.
+admintest --- check if you are admin!
+deladmin --- deletes admin by user name.
+addadmin <Persons Discord Name> --- adds admin by user name.
 
-!update --- updates bot to newest version! (do this frequently!!!)
+update --- updates bot to newest version! (do this frequently!!!)
 
 hello weeniebot --- bot greets you.
 WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)''', colour=int(rr, 16))
