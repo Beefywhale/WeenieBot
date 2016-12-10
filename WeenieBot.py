@@ -116,7 +116,11 @@ async def on_message(message):
             g = git.cmd.Git()
             u = g.pull('-v')
             await client.send_message(message.channel, '```' + str(u) + '```')
-            os.execl(sys.executable, sys.executable, *sys.argv)
+            if str(u) == 'Already up-to-date.':
+                await client.send_message(message.channel, 'Already Up To Date! Not restarting')
+            elif:
+                await client.send_message(message.channel, 'Update successful restarting!')
+                os.execl(sys.executable, sys.executable, *sys.argv)
         else:
             await client.send_message(message.channel, 'Error Didn\'t update maybe you aren\'t an admin?')
        
