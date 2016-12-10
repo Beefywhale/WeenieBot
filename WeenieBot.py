@@ -106,7 +106,7 @@ async def on_message(message):
         await commands.user_messages(message, client)
         
     if message.content == pfix + 'purge':
-        await purge(message, client)
+        await commands.purge(message, client)
 
     if message.content == pfix + 'ping':
         await client.send_message(message.channel, 'Pong')
