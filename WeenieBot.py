@@ -13,8 +13,6 @@ import modules.commands as commands
 import modules.botToken as botToken
 from google import search
 
-#changes! testing updates heehee
-
 with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
