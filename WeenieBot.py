@@ -161,6 +161,7 @@ async def on_message(message):
 
     if client.timer == 0 and message.content == pfix + 'quote':
         await commands.rand_quote(message, client)
+        await asycnio.sleep(.5)
         client.timer = 1
     elif client.timer == 1 and message.content == pfix + 'quote':
         await commands.cooldown(message, client)
