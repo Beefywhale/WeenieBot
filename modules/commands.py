@@ -59,7 +59,10 @@ async def get_prefix(message, client):
 
 async def hotdog(message, client):
     await client.send_message(message.channel, ':hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: ')
-    
+ 
+async def info(message, client):
+    pass
+
 async def eval_logic(message, client):
     if message.author.name in prefix["bot_owner"]:
         try:
