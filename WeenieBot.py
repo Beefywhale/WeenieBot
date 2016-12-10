@@ -19,7 +19,7 @@ from google import search
 #start = time.time()
 #elapsed = (time.time() - start)
 p = psutil.Process(os.getpid())
-
+p.create_time()
 
 with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
@@ -42,7 +42,7 @@ with open("prefix.json", "w+") as outfile:
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
-        self.uptime = p.create_time()
+        self.uptime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(p.create_time())
         super().__init__(*args, **kwargs) 
 
 status = {
