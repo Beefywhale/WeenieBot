@@ -285,7 +285,7 @@ async def sleep(message, client):
 
 async def cooldown(message, client):
     await client.send_message(message.author, '10 second Command Cooldown please be patient and don\'t spam commands! :)')
-    client.timer = 1
+    #client.timer = 1
     await asyncio.sleep(8)
     client.timer = 0
 
