@@ -109,7 +109,7 @@ async def on_message(message):
         await client.send_message(message.channel, 'Pong')
         
     if message.content == pfix + 'update':
-        if message.author.name in admin:
+        if message.author.id in ['219550353518100480']:
             g = git.cmd.Git()
             u = g.pull('-v')
             await client.send_message(message.channel, '```' + str(u) + '```')
