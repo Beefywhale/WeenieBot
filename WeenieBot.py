@@ -162,13 +162,14 @@ async def on_message(message):
 
     if client.timer == 0 and message.content == pfix + 'quote':
         await commands.rand_quote(message, client)
+        client.timer = 1
     elif client.timer == 1 and message.content == pfix + 'quote':
         await commands.cooldown(message, client)
 
     if message.content.startswith(pfix + 'delquote'):
         await commands.delquote_logic(message, client)
 
-    if message.content.startswith(pfix + 'editquote'):    
+    if message.content.startswith(pfix + 'editquote'):
         await commands.editquote_logic(message, client)
 
     if client.timer == 0 and message.content.split(' ')[0] == pfix + 'quote':
