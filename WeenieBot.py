@@ -107,7 +107,10 @@ async def on_message(message):
         await commands.hotdog(message, client)
     
     if message.content.lower().startswith('weeniebot'):
-        await commands.cleverbot_logic(message, client)
+        if message.author.bot:
+            pass
+        else:
+            await commands.cleverbot_logic(message, client)
         
     if message.content == 'prefix':
         await commands.get_prefix(message, client)
