@@ -16,10 +16,6 @@ import modules.botToken as botToken
 from google import search
 
 #changes! testing updates heehee
-#start = time.time()
-#elapsed = (time.time() - start)
-p = psutil.Process(os.getpid())
-p.create_time()
 
 with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
@@ -42,7 +38,11 @@ with open("prefix.json", "w+") as outfile:
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
-        self.uptime = time.strftime("%H:%M:%S", time.localtime(p.create_time()))
+        start = time.time()
+        elapsed = (time.time() - start)
+        hours, rem = divmod(end-start, 3600)
+        minutes, seconds = divmod(rem, 60)
+        self.uptime = "{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),seconds))
         super().__init__(*args, **kwargs) 
 
 status = {
