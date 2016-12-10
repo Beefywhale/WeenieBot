@@ -63,6 +63,9 @@ async def on_ready():
     for server in client.servers:
         for member in server.members:
             print(member)
+    print('<Servers>')
+    for server in client.servers:
+        print(server)
     print('------')
     await client.change_presence(game=gamet, status='online', afk=False)
     
