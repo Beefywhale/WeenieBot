@@ -46,6 +46,8 @@ def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
 open("prefix.json", "r")
 pfix = prefix["prefix"]
+start = time.time()
+elapsed = (time.time() - start)
 
 async def admintest(message, client):
     open("adminweenie.json","r")
