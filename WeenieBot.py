@@ -109,6 +109,9 @@ async def on_message(message):
     if message.content == 'prefix':
         await commands.get_prefix(message, client)
         
+    if message.content == pfix + 'about':
+        await commands.about(message, client)
+    
     if message.content.lower().startswith('wb'):
         await commands.cleverbot_logic2(message, client)
         
