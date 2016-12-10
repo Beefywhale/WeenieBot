@@ -60,7 +60,7 @@ async def say(message, client):
         
       
 async def uptime(message, client):
-    await client.send_message(message.channel, "WeenieBot has been up for: " + client.uptime.time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(p.create_time())))
+    await client.send_message(message.channel, "WeenieBot has been up for: " + str(client.uptime).time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(p.create_time())))
     
 async def get_prefix(message, client):
     await client.send_message(message.channel, 'Current command prefix: `' + pfix + '`')
