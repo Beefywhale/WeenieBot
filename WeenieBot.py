@@ -9,6 +9,7 @@ import git
 import subprocess
 import sys
 import os
+import timeit
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
@@ -36,7 +37,9 @@ with open("prefix.json", "w+") as outfile:
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
+        self.uptime = timeit.default_timer()
         super().__init__(*args, **kwargs) 
+
 status = {
     'online': 'Online',
     'offline': 'Offline',
