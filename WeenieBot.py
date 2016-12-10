@@ -9,7 +9,6 @@ import git
 import subprocess
 import sys
 import os
-from datetime import timedelta
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
@@ -37,11 +36,6 @@ with open("prefix.json", "w+") as outfile:
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
-        start = time.time()
-        end = time.time()
-        hours, rem = divmod(end-start, 3600)
-        minutes, seconds = divmod(rem, 60)
-        self.uptime = "{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),seconds)
         super().__init__(*args, **kwargs) 
 
 status = {
