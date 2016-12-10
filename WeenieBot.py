@@ -152,8 +152,8 @@ async def on_message(message):
         client.timer = 1
         await asyncio.sleep(8)
         client.timer = 0    
-        elif  client.timer == 1 and message.content == pfix + 'turtles':
-            await commands.cooldown(message, client)
+    elif client.timer == 1 and message.content == pfix + 'turtles':
+        await commands.cooldown(message, client)
 
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
