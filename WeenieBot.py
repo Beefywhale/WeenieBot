@@ -149,8 +149,9 @@ async def on_message(message):
 
     if client.timer == 0 and message.content == pfix + 'turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
-        client.timer = 1
-    elif  client.timer == 1 and message.content == pfix + 'turtles':
+            client.timer = 1
+            await asyncio.sleep(8)
+            client.timer = 0    elif  client.timer == 1 and message.content == pfix + 'turtles':
         await commands.cooldown(message, client)
 
     if message.content.lower() == 'hello weeniebot':
@@ -161,8 +162,6 @@ async def on_message(message):
 
     if client.timer == 0 and message.content == pfix + 'quote':
         await commands.rand_quote(message, client)
-        await asyncio.sleep(.5)
-        client.timer = 1
     elif client.timer == 1 and message.content == pfix + 'quote':
         await commands.cooldown(message, client)
         
