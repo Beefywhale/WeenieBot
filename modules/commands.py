@@ -9,7 +9,7 @@ import git
 import subprocess
 import sys
 import os
-from timedelta import timedelta
+from datetime import timedelta
 from google import search
 
 #changes! testing updates heehee
