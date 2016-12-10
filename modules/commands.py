@@ -292,7 +292,7 @@ async def cooldown(message, client):
 async def rand_quote(message, client):
     random_quote = random.randint(0, len(Quotes_All) - 1)
     await client.send_message(message.channel, (Quotes_All[random_quote]))
-    #client.timer = 1
+    client.timer = 1
 
 async def quoteadd_logic(message, client):
     open("quoteweenie.json","r")
