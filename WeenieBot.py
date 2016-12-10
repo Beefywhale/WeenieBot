@@ -118,7 +118,7 @@ async def on_message(message):
             await client.send_message(message.channel, '```' + str(u) + '```')
             if str(u) == 'Already up-to-date.':
                 await client.send_message(message.channel, 'Already Up To Date! Not restarting')
-            elif:
+            else:
                 await client.send_message(message.channel, 'Update successful restarting!')
                 os.execl(sys.executable, sys.executable, *sys.argv)
         else:
