@@ -54,7 +54,7 @@ async def admintest(message, client):
         await client.send_message(message.channel, 'Not Admin!')
 
 async def say(message, client):
-    saying = message.content.replace(pfix + 'say')
+    saying = message.content.replace(pfix + 'say', '')
     await client.send_message(message.channel, saying)
         
         
