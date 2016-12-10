@@ -9,6 +9,7 @@ import git
 import subprocess
 import sys
 import os
+from timedelta import timedelta
 from google import search
 
 #changes! testing updates heehee
@@ -59,7 +60,7 @@ async def say(message, client):
         
       
 async def uptime(message, client):
-    await client.send_message(message.channel, "WeenieBot has been up for: " + str(int(client.uptime)))
+    await client.send_message(message.channel, "WeenieBot has been up for: " + str(timedelta(seconds=elapsed)))
     
 async def get_prefix(message, client):
     await client.send_message(message.channel, 'Current command prefix: `' + pfix + '`')
