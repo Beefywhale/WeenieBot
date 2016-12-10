@@ -3,7 +3,7 @@ Your every day Discord Bot! Included Features: quotes, quote adding/deleting, Cl
 
 # Installing WeenieBot
 # Easy Install:
-click this link http://tiny.cc/weeniebot too add WeenieBot to a server instantly! Can't promise 100% realiabillity and uptime!
+click this link http://tiny.cc/weeniebot to add WeenieBot to a server instantly! Can't promise 100% realiabillity and uptime!
 if you want to install the bot yourself and run it on your own computer look for Harder Install section!
 
 # Harder Install:
