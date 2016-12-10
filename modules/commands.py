@@ -71,8 +71,8 @@ async def about(message, client):
     a_details.add_field(name='My Website!:', value='https://beefywhale.github.io/WeenieBot/', inline=True)
     a_details.add_field(name='Invite Me!:', value='https://tiny.cc/weeniebot', inline=True)
     a_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
-    a_details.set_image(url=client.me.avatar_url)
-    a_details.set_author(name=message.author.me, icon_url=client.me.avatar_url)
+    a_details.set_image(url=message.author.me.avatar_url)
+    a_details.set_author(name=message.author.me, icon_url=message.author.me.avatar_url)
     await client.send_message(message.channel, embed=a_details)
 
 async def eval_logic(message, client):
