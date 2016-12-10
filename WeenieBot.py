@@ -92,6 +92,9 @@ async def on_message(message):
     if message.content.startswith(pfix + 'eval'):
         await commands.eval_logic(message, client)
     
+    if message.content == pfix + 'uptime':
+        await commands.uptime(message, client)
+    
     if message.content.startswith(pfix + "setprefix"):
         await commands.prefix_logic(message, client)
 
