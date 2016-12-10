@@ -42,7 +42,7 @@ with open("prefix.json", "w+") as outfile:
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
-        self.uptime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(p.create_time()))
+        self.uptime = time.strftime("%H:%M:%S", time.localtime(p.create_time()))
         super().__init__(*args, **kwargs) 
 
 status = {
