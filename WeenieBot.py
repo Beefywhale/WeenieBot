@@ -9,7 +9,6 @@ import git
 import subprocess
 import sys
 import os
-import psutil
 from datetime import timedelta
 import modules.commands as commands
 import modules.botToken as botToken
@@ -39,8 +38,8 @@ class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
         start = time.time()
-        elapsed = (time.time() - start)
-        hours, rem = divmod(elapsed-start, 3600)
+        end = time.time()
+        hours, rem = divmod(stop-start, 3600)
         minutes, seconds = divmod(rem, 60)
         self.uptime = "{:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),seconds)
         super().__init__(*args, **kwargs) 
