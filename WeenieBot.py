@@ -201,15 +201,15 @@ async def on_message(message):
         if message.server.id == '242887866730938378':
             client.timer = 1
             print("Work?")
-    elif client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
-        open("quoteweenie.json", "r")
-        try:
-            try:
-                await commands.cooldown(message, client)
-            except ValueError:
-                pass
-        except IndexError:
-            await client.send_message(message.channel, 'That quote doesn\'t exist!')
+            if client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
+                open("quoteweenie.json", "r")
+                try:
+                    try:
+                        await commands.cooldown(message, client)
+                    except ValueError:
+                        pass
+                except IndexError:
+                    await client.send_message(message.channel, 'That quote doesn\'t exist!')
 
     if message.content == pfix + 'addadmin':
         await commands.add_admin_logic(message, client)
