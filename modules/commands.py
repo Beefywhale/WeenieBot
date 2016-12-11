@@ -263,7 +263,7 @@ async def getPokemon(message, client):
     pokemon = await getPokemonData2('/api/v1/pokemon/' + parsedPokemon, message, client)
 
     sprite_uri = pokemon['sprites'][0]['resource_uri']
-     description_uri = pokemon['descriptions'][0]['resource_uri']
+    description_uri = pokemon['descriptions'][0]['resource_uri']
     type_uri = pokemon['types'][0]['resource_uri']
 
     sprite = await getPokemonData2(sprite_uri, message, client)
