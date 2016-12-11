@@ -306,21 +306,19 @@ async def rand_quote(message, client):
     client.timer = 0
 
 async def quoteadd_logic(message, client):
-    if message.content.startswith(pfix + 'quoteadd'):
-        open("quoteweenie.json","r")
-        if message.author.name in admin:
-                await client.send_message(message.channel, 'Type quote to add.')
-                msg = message.content.replace(pfix + 'quoteadd', '')
-                global counter1
-                counter1 = len(Quotes_All)
-                await client.send_message(message.channel, 'Quote {} Added!'.format(counter1))
-                counter1
-                counter1 = len(Quotes_All)
-                Quotes_All.append(str(len(Quotes_All) + 1) +': ' + msg.content)
-                with open("quoteweenie.json", "w+") as outfile:
-                    outfile.write(json.dumps(Quotes_All))
-        elif message.author.name not in admin:
-            await client.send_message(message.channel, 'Only Admins can Add Quotes!')
+    open("quoteweenie.json","r")
+    if message.author.name in admin:
+        msg = message.content.replace(pfix + 'quoteadd', '')
+        global counter1
+        counter1 = len(Quotes_All)
+        await client.send_message(message.channel, 'Quote {} Added!'.format(counter1))
+        counter1
+        counter1 = len(Quotes_All)
+        Quotes_All.append(str(len(Quotes_All) + 1) +': ' + msg)
+        with open("quoteweenie.json", "w+") as outfile:
+            outfile.write(json.dumps(Quotes_All))
+    elif message.author.name not in admin:
+        await client.send_message(message.channel, 'Only Admins can Add Quotes!')
 
 async def user_messages(message, client):
     counter = 0
