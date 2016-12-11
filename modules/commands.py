@@ -318,7 +318,10 @@ async def quoteadd_logic(message, client):
         await client.send_message(message.channel, 'Quote {} Added!'.format(counter1))
         counter1
         counter1 = len(Quotes_All) + 1
-        Quotes_All.append(str(len(Quotes_All) + 1) +': ' + msg)
+        if message.server.id == '242887866730938378':
+            Quotes_All.append(str(len(Quotes_All)) +': ' + msg)
+        else:
+            Quotes_All.append(str(len(Quotes_All) + 1) +': ' + msg)
         with open("quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
     elif message.author.name not in admin:
