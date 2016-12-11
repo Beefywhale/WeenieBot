@@ -185,7 +185,7 @@ async def on_message(message):
         await commands.quoteadd_logic(message, client)
     
 
-    if client.timer == 0 and message.content == pfix + 'quote':
+    if message.content == pfix + 'quote':
         await commands.rand_quote(message, client)
     elif message.server.id == '242887866730938378' and client.timer == 1 and message.content == pfix + 'quote':
         await commands.cooldown(message, client)    
