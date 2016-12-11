@@ -145,8 +145,8 @@ async def quote_logic(message, client):
             else:
                 await client.send_message(message.channel, Quotes_All[quote_number - 1])
             client.timer = 1
-            await asyncio.sleep(8)
-            client.timer = 0
+            #await asyncio.sleep(8)
+            #client.timer = 0
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
     except ValueError:
