@@ -125,7 +125,7 @@ async def on_message(message):
         await client.send_message(message.channel, 'Pong')
         
     if message.content == pfix + 'update':
-        if message.author.name in prefix["bot_owner"]:
+        if message.author.name in prefix["bot_owner"] or message.author.id == '146025479692877824':
             await client.send_message(message.channel, 'Updating...')
             g = git.cmd.Git()
             u = g.pull('-v')
