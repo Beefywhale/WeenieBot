@@ -10,9 +10,12 @@ import subprocess
 import sys
 import os
 import logging
+import uvloop
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
+
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 logging.basicConfig(level=logging.INFO)
 
