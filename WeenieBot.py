@@ -201,8 +201,9 @@ async def on_message(message):
         open("quoteweenie.json", "r")
         try:
             try:
-                if message.server.id == '242887866730938378':
+                if message.server.id == '242887866730938378' and client.timer == 1:
                     await commands.cooldown(message, client)
+                    client.timer = 1
                 else:
                     pass
             except ValueError:
