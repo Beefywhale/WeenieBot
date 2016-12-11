@@ -9,9 +9,12 @@ import git
 import subprocess
 import sys
 import os
+import logging
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
+
+logging.basicConfig(level=logging.INFO)
 
 with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
