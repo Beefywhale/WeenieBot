@@ -173,7 +173,10 @@ async def on_message(message):
         await asyncio.sleep(8)
         client.timer = 0    
     elif client.timer == 1 and message.content == pfix + 'turtles':
-        await commands.cooldown(message, client)
+        if message.server.id in ['242887866730938378']:
+            await commands.cooldown(message, client)
+        else:
+            pass
 
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
@@ -184,7 +187,10 @@ async def on_message(message):
     if client.timer == 0 and message.content == pfix + 'quote':
         await commands.rand_quote(message, client) 
     elif client.timer == 1 and message.content == pfix + 'quote':
-        await commands.cooldown(message, client)
+        if message.server.id in ['242887866730938378']:
+            await commands.cooldown(message, client)
+        else:
+            pass
         
     if message.content.startswith(pfix + 'delquote'):
         await commands.delquote_logic(message, client)
@@ -198,7 +204,10 @@ async def on_message(message):
         open("quoteweenie.json", "r")
         try:
             try:
-                await commands.cooldown(message, client)
+                if message.server.id in ['242887866730938378']:
+                    await commands.cooldown(message, client)
+                else:
+                    pass
             except ValueError:
                 pass
         except IndexError:
