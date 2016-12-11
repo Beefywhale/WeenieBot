@@ -208,7 +208,6 @@ async def getPokemonData2(resource_url, message, client):
     async with aiohttp.ClientSession(loop=loop) as session:
         url = '{0}{1}'.format(BASE_URL, resource_url)
         html = await fetch(session, url)
-        print(html)        
         
 async def getPokemonData(resource_url, message, client):
     url = '{0}{1}'.format(BASE_URL, resource_url)
