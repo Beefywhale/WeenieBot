@@ -207,7 +207,7 @@ async def on_message(message):
                 pass
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
-    elif client.timer == 1 and message.server.id == '242887866730938378' and message.content.split(' ')[0] == pfix + 'quote': 
+    elif client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote': 
         await commands.cooldown(message, client)
         
     if message.content == pfix + 'addadmin':
