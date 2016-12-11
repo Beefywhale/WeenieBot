@@ -198,7 +198,7 @@ async def on_message(message):
     if message.content.startswith(pfix + 'editquote'):
         await commands.editquote_logic(message, client)
 
-    if client.timer == 0 and message.content.split(' ')[0] == pfix + 'quote':
+    if message.content.split(' ')[0] == pfix + 'quote':
         await commands.quote_logic(message, client)
     elif client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
         open("quoteweenie.json", "r")
