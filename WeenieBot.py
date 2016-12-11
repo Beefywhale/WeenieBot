@@ -197,17 +197,19 @@ async def on_message(message):
         await commands.editquote_logic(message, client)
 
     if message.content.split(' ')[0] == pfix + 'quote':
-        await commands.quote_logic(message, client)
-    elif client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
         open("quoteweenie.json", "r")
         try:
+            await commands.quote_logic(message, client)
+            client.timer = 1
             try:
                 pass
             except ValueError:
                 pass
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
-
+    elif client.timer == 1 and message.server.id == '242887866730938378' and message.content.split(' ')[0] == pfix + 'quote': 
+        await commands.cooldown(message, client)
+        
     if message.content == pfix + 'addadmin':
         await commands.add_admin_logic(message, client)
 
