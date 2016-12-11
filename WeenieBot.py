@@ -200,14 +200,11 @@ async def on_message(message):
         await commands.quote_logic(message, client)
         if message.server.id == '242887866730938378':
             client.timer = 1
-            await asyncio.sleep(8)
-            client.timer = 0    
-    elif message.server.id == '242887866730938378' and client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
-        await commands.cooldown(message, client)
+    elif client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
         open("quoteweenie.json", "r")
         try:
             try:
-                pass
+                await commands.cooldown(message, client)
             except ValueError:
                 pass
         except IndexError:
