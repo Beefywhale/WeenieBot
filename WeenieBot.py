@@ -200,6 +200,7 @@ async def on_message(message):
         await commands.quote_logic(message, client)
         timer = 1
     elif message.server.id == '242887866730938378' and client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
+        await commands.cooldown(message, client)
         open("quoteweenie.json", "r")
         try:
             try:
