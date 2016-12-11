@@ -257,41 +257,41 @@ async def randPokemon(message, client):
 
 
 async def getPokemon(message, client):
-    try:
-        parsedPokemon = message.content.replace(pfix + 'pokedex ','')
+    #try:
+    parsedPokemon = message.content.replace(pfix + 'pokedex ','')
 
-        pokemon = await getPokemonData2('/api/v1/pokemon/' + parsedPokemon, message, client)
+    pokemon = await getPokemonData2('/api/v1/pokemon/' + parsedPokemon, message, client)
 
-        sprite_uri = pokemon['sprites'][0]['resource_uri']
-        description_uri = pokemon['descriptions'][0]['resource_uri']
-        type_uri = pokemon['types'][0]['resource_uri']
+    sprite_uri = pokemon['sprites'][0]['resource_uri']
+     description_uri = pokemon['descriptions'][0]['resource_uri']
+    type_uri = pokemon['types'][0]['resource_uri']
 
-        sprite = await getPokemonData2(sprite_uri, message, client)
-        description = await getPokemonData2(description_uri, message, client)
-        ptype = await getPokemonData2(type_uri, message, client)
-        #print(pokemon['evolutions'])
-        p_details = discord.Embed(title='', description='', colour=0x1f3A44)
-        p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
-        p_details.add_field(name='National Pokedex ID:', value=pokemon['national_id'], inline=True)
-        p_details.add_field(name='Desc:', value=description['description'], inline=True)
-        p_details.add_field(name='Type:', value=ptype['name'], inline=True)
-        p_details.add_field(name='Defense:', value=pokemon['defense'], inline=True)
-        p_details.add_field(name='Health Points:', value=pokemon['hp'], inline=True)
-        p_details.add_field(name='Attack:', value=pokemon['attack'], inline=True)
-        p_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
-        p_details.set_image(url=BASE_URL + sprite['image'])
-        p_details.set_author(name=pokemon['name'], icon_url=BASE_URL + sprite['image'])
-        await client.send_message(message.channel, embed=p_details)
-        print(pokemon['name'])
-        print(description['description'])
-        print(ptype['name'])
-        print(pokemon['hp'])
-        print(pokemon['defense'])
-        print(pokemon['attack'])
-        print(pokemon['national_id'])
-        print(BASE_URL + sprite['image'])
-    except TypeError:
-        await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
+    sprite = await getPokemonData2(sprite_uri, message, client)
+    description = await getPokemonData2(description_uri, message, client)
+    ptype = await getPokemonData2(type_uri, message, client)
+    #print(pokemon['evolutions'])
+    p_details = discord.Embed(title='', description='', colour=0x1f3A44)
+    p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
+    p_details.add_field(name='National Pokedex ID:', value=pokemon['national_id'], inline=True)
+    p_details.add_field(name='Desc:', value=description['description'], inline=True)
+    p_details.add_field(name='Type:', value=ptype['name'], inline=True)
+    p_details.add_field(name='Defense:', value=pokemon['defense'], inline=True)
+    p_details.add_field(name='Health Points:', value=pokemon['hp'], inline=True)
+    p_details.add_field(name='Attack:', value=pokemon['attack'], inline=True)
+    p_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
+    p_details.set_image(url=BASE_URL + sprite['image'])
+    p_details.set_author(name=pokemon['name'], icon_url=BASE_URL + sprite['image'])
+    await client.send_message(message.channel, embed=p_details)
+    print(pokemon['name'])
+    print(description['description'])
+    print(ptype['name'])
+    print(pokemon['hp'])
+    print(pokemon['defense'])
+    print(pokemon['attack'])
+    print(pokemon['national_id'])
+    print(BASE_URL + sprite['image'])
+    #except TypeError:
+     #   await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
 
 async def google_Fight(message, client):
     fight = message.content.replace(pfix + 'googlefight','')
