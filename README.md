@@ -7,7 +7,7 @@ click this link http://tiny.cc/weeniebot to add WeenieBot to a server instantly!
 if you want to install the bot yourself and run it on your own computer look for Harder Install section!
 
 # Harder Install:
-  First off, run `python3 -m pip install -U -r requirements.txt` to install everything needed for WeenieBot to run. Create an application here: https://discordapp.com/developers/applications/me to make a bot, than make the bot a bot user
+  First off, run `python -m pip install -U -r requirements.txt` to install everything needed for WeenieBot to run. Create an application here: https://discordapp.com/developers/applications/me to make a bot, than make the bot a bot user
 by following the steps here: https://discordapp.com/developers/docs/topics/oauth2 make sure you set your application to bot user, that is very important! Don't forget to add WeenieBot to your server by copying your applications ClientID, than going to this link https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_GOES_HERE&scope=bot&permissions=0 and pasting your Client ID in place of `CLIENT_ID_GOES_HERE`. Make a special Role for your bot, give it ALL permissions, even Administrator.
 
 # Making the Code work for your bot!
