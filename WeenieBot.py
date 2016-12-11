@@ -126,6 +126,7 @@ async def on_message(message):
         
     if message.content == pfix + 'update':
         if message.author.name in prefix["bot_owner"]:
+            await client.send_message(message.channel, 'Updating...')
             g = git.cmd.Git()
             u = g.pull('-v')
             await client.send_message(message.channel, '```' + str(u) + '```')
@@ -144,10 +145,12 @@ async def on_message(message):
         await commands.admin_amount(message, client)
 
     if message.content.startswith(pfix + 'pokedex'):
-        await commands.getPokemon(message, client)
+        if message.server.id not in ['242887866730938378']:
+            await commands.getPokemon(message, client)
 
     if message.content == pfix + 'pokemon':
-        await commands.randPokemon(message, client)
+        elif message.server.id not in ['242887866730938378']:
+            await commands.randPokemon(message, client)
 
     if message.content.startswith(pfix + 'google'):
         await commands.google_search(message, client)
