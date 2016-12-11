@@ -140,7 +140,7 @@ async def quote_logic(message, client):
         try:
             quote_number = int(message.content.strip(pfix + 'quote '))
             print(quote_number)
-            await client.send_message(message.channel, Quotes_All[quote_number])
+            await client.send_message(message.channel, Quotes_All[quote_number + 1])
             client.timer = 1
             await asyncio.sleep(8)
             client.timer = 0
