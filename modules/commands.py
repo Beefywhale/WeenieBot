@@ -338,7 +338,7 @@ async def google_search(message, client):
 async def quote_amount(message, client):
     open("quoteweenie.json","r")
     global counter2
-    counter2 = len(Quotes_All) + 1
+    counter2 = len(Quotes_All)
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
