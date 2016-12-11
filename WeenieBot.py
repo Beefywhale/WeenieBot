@@ -186,10 +186,10 @@ async def on_message(message):
     
 
     if client.timer == 0 and message.content == pfix + 'quote':
-        await commands.rand_quote(message, client) 
+        await commands.rand_quote(message, client)
     elif message.server.id == '242887866730938378' and client.timer == 1 and message.content == pfix + 'quote':
-            await commands.cooldown(message, client)
-        
+        await commands.cooldown(message, client)    
+    
     if message.content.startswith(pfix + 'delquote'):
         await commands.delquote_logic(message, client)
 
@@ -198,6 +198,7 @@ async def on_message(message):
 
     if message.content.split(' ')[0] == pfix + 'quote':
         await commands.quote_logic(message, client)
+        client.timer = 1
     elif message.server.id == '242887866730938378' and client.timer == 1 and message.content.split(' ')[0] == pfix + 'quote':
         await commands.cooldown(message, client)
         open("quoteweenie.json", "r")
