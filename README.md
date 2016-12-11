@@ -16,7 +16,7 @@ Next copy your discord name **important** your username not nickname! than open 
 For a more in-depth guide on Installing and seting up WeenieBot, go here: https://github.com/Beefywhale/WeenieBot/wiki/WeenieBot's-In-depth-setup
 
 # Thats It!
-now just `run python3 WeenieBot.py`
+now just `run python WeenieBot.py`
 For more info on commands, use the !help command once the bot is up and running!
 If you have any questions, or need help. Feel Free to ask!
 
