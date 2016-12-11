@@ -172,14 +172,11 @@ async def on_message(message):
 
     if timer == 0 and message.content == pfix + 'turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
-        #client.timer = 1
+        client.timer = 1
         #await asyncio.sleep(8)
         #client.timer = 0    
-    elif message.server.id in ['242887866730938378']:
-        if client.timer == 1 and message.content == pfix + 'turtles':
-            await commands.cooldown(message, client)
-        else:
-            pass
+    elif message.server.id in ['242887866730938378'] and client.timer == 1 and message.content == pfix + 'turtles':
+        await commands.cooldown(message, client)
 
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
@@ -187,13 +184,10 @@ async def on_message(message):
     if message.content == pfix + 'quoteadd':
         await commands.quoteadd_logic(message, client)
 
-    if message.content == pfix + 'quote':
+    if timer == 0 and message.content == pfix + 'quote':
         await commands.rand_quote(message, client) 
-    elif message.server.id in ['242887866730938378']:
-        if client.timer == 1 and message.content == pfix + 'quote':
+    elif message.server.id in ['242887866730938378'] and client.timer == 1 and message.content == pfix + 'quote':
             await commands.cooldown(message, client)
-        else:
-            pass
         
     if message.content.startswith(pfix + 'delquote'):
         await commands.delquote_logic(message, client)
