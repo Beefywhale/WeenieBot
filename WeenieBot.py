@@ -11,6 +11,7 @@ import sys
 import os
 import logging
 import uvloop
+import aiohttp
 import modules.commands as commands
 import modules.botToken as botToken
 from google import search
