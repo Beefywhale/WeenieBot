@@ -199,7 +199,7 @@ async def add_admin_logic(message, client):
         
         
 async def fetch(session, url):
-    async with aiohttp.Timeout(10, loop=session.loop):
+    with aiohttp.Timeout(10, loop=session.loop):
         async with session.get(url) as response:
             return await response.text()
 
