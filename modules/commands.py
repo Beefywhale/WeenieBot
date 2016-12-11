@@ -9,6 +9,7 @@ import git
 import subprocess
 import sys
 import os
+import aiohttp
 from google import search
 
 with open("prefix.json", "r") as infile:
@@ -43,6 +44,7 @@ def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
 open("prefix.json", "r")
 pfix = prefix["prefix"]
+
 
 
 async def admintest(message, client):
@@ -193,6 +195,18 @@ async def add_admin_logic(message, client):
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
+        
+async def fetch(session, url):
+    with aiohttp.Timeout(10, loop=session.loop):
+        async with session.get(url) as response:
+            return await response.text()
+
+async def getPokemonData2(resource_url, message, client, loop):
+    async with aiohttp.ClientSession(loop=loop) as session:
+        url = '{0}{1}'.format(BASE_URL, resource_url)
+        html = await fetch(session, url)
+        print(html)        
+        
 async def getPokemonData(resource_url, message, client):
     url = '{0}{1}'.format(BASE_URL, resource_url)
     response = requests.get(url)
@@ -204,16 +218,16 @@ async def getPokemonData(resource_url, message, client):
 async def randPokemon(message, client):
     parsedPokemon = random.randint(0, 709)
     try:
-        pokemon = await getPokemonData('/api/v1/pokemon/' + str(parsedPokemon), message, client)
+        pokemon = await getPokemonData2('/api/v1/pokemon/' + str(parsedPokemon), message, client)
 
         sprite_uri = pokemon['sprites'][0]['resource_uri']
         description_uri = pokemon['descriptions'][0]['resource_uri']
         type_uri = pokemon['types'][0]['resource_uri']
 
 
-        sprite = await getPokemonData(sprite_uri, message, client)
-        description = await getPokemonData(description_uri, message, client)
-        ptype = await getPokemonData(type_uri, message, client)
+        sprite = await getPokemonData2(sprite_uri, message, client)
+        description = await getPokemonData2(description_uri, message, client)
+        ptype = await getPokemonData2(type_uri, message, client)
 
         p_details = discord.Embed(title='', description='', colour=0x1f3A44)
         p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
@@ -244,15 +258,15 @@ async def getPokemon(message, client):
     try:
         parsedPokemon = message.content.replace(pfix + 'pokedex ','')
 
-        pokemon = await getPokemonData('/api/v1/pokemon/' + parsedPokemon, message, client)
+        pokemon = await getPokemonData2('/api/v1/pokemon/' + parsedPokemon, message, client)
 
         sprite_uri = pokemon['sprites'][0]['resource_uri']
         description_uri = pokemon['descriptions'][0]['resource_uri']
         type_uri = pokemon['types'][0]['resource_uri']
 
-        sprite = await getPokemonData(sprite_uri, message, client)
-        description = await getPokemonData(description_uri, message, client)
-        ptype = await getPokemonData(type_uri, message, client)
+        sprite = await getPokemonData2(sprite_uri, message, client)
+        description = await getPokemonData2(description_uri, message, client)
+        ptype = await getPokemonData2(type_uri, message, client)
         #print(pokemon['evolutions'])
         p_details = discord.Embed(title='', description='', colour=0x1f3A44)
         p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
