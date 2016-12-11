@@ -201,6 +201,7 @@ async def on_message(message):
         open("quoteweenie.json", "r")
         try:
             try:
+                pass
             except ValueError:
                 pass
         except IndexError:
