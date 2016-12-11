@@ -36,8 +36,8 @@ status = {
     'dnd': 'Do Not Disturb'
 }
 x33 = '%m-%d-%Y'
-counter1 = len(Quotes_All)
-counter2 = len(Quotes_All) - 1
+counter1 = len(Quotes_All) + 1
+counter2 = len(Quotes_All) + 1
 cb1 = cleverbot.Cleverbot()
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
@@ -299,7 +299,7 @@ async def cooldown(message, client):
     client.timer = 0
 
 async def rand_quote(message, client):
-    random_quote = random.randint(0, len(Quotes_All) - 1)
+    random_quote = random.randint(0, len(Quotes_All) + 1)
     await client.send_message(message.channel, (Quotes_All[random_quote]))
     client.timer = 1
     await asyncio.sleep(8)
@@ -313,7 +313,7 @@ async def quoteadd_logic(message, client):
         counter1 = len(Quotes_All)
         await client.send_message(message.channel, 'Quote {} Added!'.format(counter1))
         counter1
-        counter1 = len(Quotes_All)
+        counter1 = len(Quotes_All) + 1
         Quotes_All.append(str(len(Quotes_All) + 1) +': ' + msg)
         with open("quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
@@ -338,7 +338,7 @@ async def google_search(message, client):
 async def quote_amount(message, client):
     open("quoteweenie.json","r")
     global counter2
-    counter2 = len(Quotes_All) - 1
+    counter2 = len(Quotes_All) + 1
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
