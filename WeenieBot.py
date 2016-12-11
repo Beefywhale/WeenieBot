@@ -207,7 +207,7 @@ async def on_message(message):
                 if message.server.id in ['242887866730938378']:
                     await commands.cooldown(message, client)
                 else:
-                    print('nag')
+                    pass
             except ValueError:
                 pass
         except IndexError:
