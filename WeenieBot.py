@@ -181,8 +181,9 @@ async def on_message(message):
     if message.content.lower() == 'hello weeniebot':
         await client.send_message(message.channel, message.author.mention + ' ' + 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type !help to see what I can do for you!')
 
-    if message.content == pfix + 'quoteadd':
+    if message.content.startswith(pfix + 'quoteadd'):
         await commands.quoteadd_logic(message, client)
+    
 
     if client.timer == 0 and message.content == pfix + 'quote':
         await commands.rand_quote(message, client) 
