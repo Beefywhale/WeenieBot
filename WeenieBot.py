@@ -170,7 +170,7 @@ async def on_message(message):
     if message.content == pfix + 'quotes':
         await commands.quote_amount(message, client)
 
-    if message.content == pfix + 'turtles':
+    if timer == 0 and message.content == pfix + 'turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
         #client.timer = 1
         #await asyncio.sleep(8)
