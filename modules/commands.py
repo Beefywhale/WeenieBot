@@ -231,7 +231,8 @@ async def randPokemon(message, client):
         print(pokemon['attack'])
         print(pokemon['national_id'])
         print(BASE_URL + sprite['image'])
-    except TypeError:
+    except TypeError as e:
+        print(e)
         await client.send_message(message.channel, 'ERROR {} is not in the Pokedex! Try using all lowercase!'.format(parsedPokemon))
 
 
