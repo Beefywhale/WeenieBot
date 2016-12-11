@@ -218,16 +218,16 @@ async def getPokemonData(resource_url, message, client):
 async def randPokemon(message, client):
     parsedPokemon = random.randint(0, 709)
     try:
-        pokemon = await getPokemonData2('/api/v1/pokemon/' + str(parsedPokemon), message, client)
+        pokemon = await getPokemonData2('/api/v1/pokemon/' + str(parsedPokemon), message, client, loop)
 
         sprite_uri = pokemon['sprites'][0]['resource_uri']
         description_uri = pokemon['descriptions'][0]['resource_uri']
         type_uri = pokemon['types'][0]['resource_uri']
 
 
-        sprite = await getPokemonData2(sprite_uri, message, client)
-        description = await getPokemonData2(description_uri, message, client)
-        ptype = await getPokemonData2(type_uri, message, client)
+        sprite = await getPokemonData2(sprite_uri, message, client, loop)
+        description = await getPokemonData2(description_uri, message, client), loop
+        ptype = await getPokemonData2(type_uri, message, client, loop)
 
         p_details = discord.Embed(title='', description='', colour=0x1f3A44)
         p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
@@ -258,15 +258,15 @@ async def getPokemon(message, client):
     try:
         parsedPokemon = message.content.replace(pfix + 'pokedex ','')
 
-        pokemon = await getPokemonData2('/api/v1/pokemon/' + parsedPokemon, message, client)
+        pokemon = await getPokemonData2('/api/v1/pokemon/' + parsedPokemon, message, client, loop)
 
         sprite_uri = pokemon['sprites'][0]['resource_uri']
         description_uri = pokemon['descriptions'][0]['resource_uri']
         type_uri = pokemon['types'][0]['resource_uri']
 
-        sprite = await getPokemonData2(sprite_uri, message, client)
-        description = await getPokemonData2(description_uri, message, client)
-        ptype = await getPokemonData2(type_uri, message, client)
+        sprite = await getPokemonData2(sprite_uri, message, client, loop)
+        description = await getPokemonData2(description_uri, message, client, loop)
+        ptype = await getPokemonData2(type_uri, message, client, loop)
         #print(pokemon['evolutions'])
         p_details = discord.Embed(title='', description='', colour=0x1f3A44)
         p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
