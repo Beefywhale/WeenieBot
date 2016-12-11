@@ -347,7 +347,8 @@ async def quote_amount(message, client):
     global counter2
     counter2 = len(Quotes_All)
     if message.server.id == '242887866730938378':
-        await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2) - 1)   
+        counter2 = len(Quotes_All - 1)
+        await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))   
     else:
         await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
