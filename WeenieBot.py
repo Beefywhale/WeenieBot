@@ -70,20 +70,19 @@ async def on_ready():
         print(server)
     print('------')
     await client.change_presence(game=gamet, status='online', afk=False)
+    try:
+        await client.change_nickname(message.server.me, 'WeenieBot')
+    except:
+        pass
     
 @client.event
 async def on_member_join(member):
     await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
-
 @client.event
 async def on_message(message):
     with open("prefix.json", "r") as infile:
         prefix = json.loads(infile.read())
     pfix = commands.pfix
-    try:
-        await client.change_nickname(message.server.me, 'WeenieBot')
-    except:
-        pass
     
     if message.content.startswith(pfix + 'say'):
         await commands.say(message, client)
