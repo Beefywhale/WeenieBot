@@ -149,7 +149,7 @@ async def on_message(message):
             await commands.getPokemon(message, client)
 
     if message.content == pfix + 'pokemon':
-        elif message.server.id not in ['242887866730938378']:
+        if message.server.id not in ['242887866730938378']:
             await commands.randPokemon(message, client)
 
     if message.content.startswith(pfix + 'google'):
