@@ -189,7 +189,7 @@ async def add_admin_logic(message, client):
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
-async def getPokemonData(resource_url, message):
+async def getPokemonData(resource_url, message, client):
     url = '{0}{1}'.format(BASE_URL, resource_url)
     response = requests.get(url)
 
@@ -197,7 +197,7 @@ async def getPokemonData(resource_url, message):
         return json.loads(response.text)
     return None
 
-async def randPokemon(message):
+async def randPokemon(message, client):
     parsedPokemon = random.randint(0, 709)
     try:
         pokemon = await getPokemonData('/api/v1/pokemon/' + str(parsedPokemon), message)
