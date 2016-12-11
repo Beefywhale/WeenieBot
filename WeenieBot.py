@@ -175,7 +175,7 @@ async def on_message(message):
         client.timer = 1
         #await asyncio.sleep(8)
         #client.timer = 0    
-    elif message.server.id in ['242887866730938378'] and client.timer == 1 and message.content == pfix + 'turtles':
+    elif message.server.id == '242887866730938378' and client.timer == 1 and message.content == pfix + 'turtles':
         await commands.cooldown(message, client)
 
     if message.content.lower() == 'hello weeniebot':
@@ -186,7 +186,7 @@ async def on_message(message):
 
     if client.timer == 0 and message.content == pfix + 'quote':
         await commands.rand_quote(message, client) 
-    elif message.server.id in ['242887866730938378'] and client.timer == 1 and message.content == pfix + 'quote':
+    elif message.server.id == '242887866730938378' and client.timer == 1 and message.content == pfix + 'quote':
             await commands.cooldown(message, client)
         
     if message.content.startswith(pfix + 'delquote'):
@@ -201,7 +201,7 @@ async def on_message(message):
         open("quoteweenie.json", "r")
         try:
             try:
-                if message.server.id in ['242887866730938378']:
+                if message.server.id == '242887866730938378':
                     await commands.cooldown(message, client)
                 else:
                     pass
