@@ -346,7 +346,10 @@ async def quote_amount(message, client):
     open("quoteweenie.json","r")
     global counter2
     counter2 = len(Quotes_All)
-    await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
+    if message.server.id == '242887866730938378':
+        await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2 - 1))   
+    else
+        await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
     open("quoteweenie.json","r")
