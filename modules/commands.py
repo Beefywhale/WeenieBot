@@ -201,13 +201,17 @@ async def add_admin_logic(message, client):
 async def fetch(session, url):
     with aiohttp.Timeout(10, loop=session.loop):
         async with session.get(url) as response:
-            return await json.loads(response.text)
+            return await response.text()
 
 async def getPokemonData2(resource_url, message, client):
     loop = asyncio.get_event_loop()
     async with aiohttp.ClientSession(loop=loop) as session:
-        response = '{0}{1}'.format(BASE_URL, resource_url)
-        html = await fetch(session, response)
+        url = '{0}{1}'.format(BASE_URL, resource_url)
+        response = await fetch(session, url)
+        if response.status_code == 200:
+            return json.loads(response.text)
+        return None
+
         
 async def getPokemonData(resource_url, message, client):
     url = '{0}{1}'.format(BASE_URL, resource_url)
