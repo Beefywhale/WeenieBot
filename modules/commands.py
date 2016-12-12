@@ -303,7 +303,7 @@ async def getPokemon(message, client):
         
 async def yoda_talk(message, client):
     ytt = message.content.replace(pfix + 'yt ', '')
-    response = unirest.get("https://yoda.p.mashape.com/yoda?sentence=" + ytt,
+    response = requests.get("https://yoda.p.mashape.com/yoda?sentence=" + ytt,
     headers={
     "X-Mashape-Key": "didtywG63hmshE1dYoAFf5IJLu9hp1VmqZ4jsn89yrAx0FrVP1",
     "Accept": "text/plain"
