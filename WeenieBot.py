@@ -116,6 +116,9 @@ async def on_message(message):
     if message.content == pfix + 'about':
         await commands.about(message, client)
     
+    if message.content.startswith(pfix + 'yt'):
+        await commands.yoda_talk(message, client)
+    
     if message.content.lower().startswith('wb'):
         await commands.cleverbot_logic2(message, client)
         
