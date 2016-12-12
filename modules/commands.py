@@ -208,7 +208,7 @@ async def getPokemonData2(resource_url, message, client):
     async with aiohttp.ClientSession(loop=loop) as session:
         url = '{0}{1}'.format(BASE_URL, resource_url)
         html = await fetch(session, url)
-        if response.status == 200:
+        if html.status == 200:
             return json.loads(response.text)
             return None
         else:
