@@ -201,16 +201,16 @@ async def add_admin_logic(message, client):
 async def fetch(session, url):
     with aiohttp.Timeout(10, loop=session.loop):
         async with session.get(url) as response:
-            return await response.text()
-            return response
+        tmp = await response.text()
+        return (tmp, response.status)
 
 async def getPokemonData2(resource_url, message, client):
     loop = asyncio.get_event_loop()
     async with aiohttp.ClientSession(loop=loop) as session:
         url = '{0}{1}'.format(BASE_URL, resource_url)
         html = await fetch(session, url)
-        if response.status == 200:
-            return json.loads(response.text)
+        if fetch[1] == 200:
+            return json.loads(fetch[0])
             return None
         else:
             await client.send_message(message.channel, 'PokeAPI has timed out! Maybe they are down :O')
