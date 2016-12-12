@@ -201,8 +201,8 @@ async def add_admin_logic(message, client):
 async def fetch(session, url):
     with aiohttp.Timeout(10, loop=session.loop):
         async with session.get(url) as response:
-        tmp = await response.text()
-        return (tmp, response.status)
+            tmp = await response.text()
+            return (tmp, response.status)
 
 async def getPokemonData2(resource_url, message, client):
     loop = asyncio.get_event_loop()
