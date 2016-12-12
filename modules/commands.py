@@ -309,7 +309,7 @@ async def yoda_talk(message, client):
     "Accept": "text/plain"
   }
 )
-    print(response)
+    print(response.json())
         
 async def google_Fight(message, client):
     fight = message.content.replace(pfix + 'googlefight','')
