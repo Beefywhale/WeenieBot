@@ -312,7 +312,7 @@ async def get_cats(message, client):
             await client.send_message(message.channel, 'Catoverflow Timed Out! Oh No! :scream: Maybe thier website is down? try in a few minutes')
 
 async def cats(message, client):
-      
+      pass
             
 
 async def google_Fight(message, client):
