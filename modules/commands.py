@@ -207,10 +207,12 @@ async def getPokemonData2(resource_url, message, client):
     loop = asyncio.get_event_loop()
     async with aiohttp.ClientSession(loop=loop) as session:
         url = '{0}{1}'.format(BASE_URL, resource_url)
-        response = await fetch(session, url)
+        html = await fetch(session, url)
         if response.status == 200:
             return json.loads(response.text)
         return None
+        else:
+            await client.send_message(message.channel, 'PokeAPI has timed out! Maybe they are down :O')
 
         
 async def getPokemonData(resource_url, message, client):
