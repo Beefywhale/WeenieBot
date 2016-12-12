@@ -299,17 +299,6 @@ async def getPokemon(message, client):
         print(BASE_URL + sprite['image'])
     except TypeError:
         await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
-
-        
-async def yoda_talk(message, client):
-    ytt = message.content.replace(pfix + 'yt ', '')
-    response = requests.get("https://yoda.p.mashape.com/yoda?sentence=" + ytt,
-    headers={
-    "X-Mashape-Key": "D2un7bELanmshNtbinjU5NXCZfJ1p14rhG3jsnnh13FOf1PGib",
-    "Accept": "text/plain"
-  }
-)
-    print(response.json())
         
 async def google_Fight(message, client):
     fight = message.content.replace(pfix + 'googlefight','')
