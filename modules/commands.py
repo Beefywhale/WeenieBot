@@ -297,8 +297,8 @@ async def getPokemon(message, client):
         print(pokemon['attack'])
         print(pokemon['national_id'])
         print(BASE_URL + sprite['image'])
-        except TypeError:
-            await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
+    except TypeError:
+        await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
 
 async def google_Fight(message, client):
     fight = message.content.replace(pfix + 'googlefight','')
