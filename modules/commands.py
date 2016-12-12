@@ -76,7 +76,7 @@ async def about(message, client):
     await client.send_message(message.channel, embed=a_details)
 
 async def eval_logic(message, client):
-    if message.author.name in prefix["bot_owner"] or message.author.id in '146025479692877824':
+    if message.author.name in prefix["bot_owner"] or message.author.id in ['146025479692877824', '160567046642335746']:
         try:
             evalt = message.content.replace(pfix + 'eval ', '')
             await client.send_message(message.channel, '''```Python
@@ -299,7 +299,22 @@ async def getPokemon(message, client):
         print(BASE_URL + sprite['image'])
     except TypeError:
         await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
-        
+   
+async def get_cats(message, client):
+    loop = asyncio.get_event_loop()
+    async with aiohttp.ClientSession(loop=loop) as session:
+        url = '{0}{1}'.format('http://catoverflow.com/api/query', resource_url)
+        html = await fetch(session, url)
+        if html[1] == 200:
+            return json.loads(html[0])
+            return None
+        elif html[1] == 524:
+            await client.send_message(message.channel, 'Catoverflow Timed Out! Oh No! :scream: Maybe thier website is down? try in a few minutes')
+
+async def cats(message, client):
+      
+            
+
 async def google_Fight(message, client):
     fight = message.content.replace(pfix + 'googlefight','')
     result = fight.split(' ')
