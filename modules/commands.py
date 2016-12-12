@@ -202,6 +202,7 @@ async def fetch(session, url):
     with aiohttp.Timeout(10, loop=session.loop):
         async with session.get(url) as response:
             return await response.text()
+            return response
 
 async def getPokemonData2(resource_url, message, client):
     loop = asyncio.get_event_loop()
