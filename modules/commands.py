@@ -211,7 +211,9 @@ async def getPokemonData2(resource_url, message, client):
         html = await fetch(session, url)
         if html[1] == 200:
             return json.loads(html[0])
-        return None
+            return None
+        elif html[1] == 524:
+            await client.send_message(message.channel, 'PokeAPI Timed Out! Oh No! :scream: Maybe thier website is down? try in a few minutes')
 
         
 async def getPokemonData(resource_url, message, client):
