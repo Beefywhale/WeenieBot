@@ -88,8 +88,17 @@ async def on_message(message):
         prefix = json.loads(infile.read())
     pfix = commands.pfix
     
+    if message.content == pfix + 'cat':
+        await commands.cats(message, client)
+    
+    if message.content.startswith(pfix + 'sa'):
+        await commands.afinn_logic(message, client)
+    
     if message.content.startswith(pfix + 'say'):
         await commands.say(message, client)
+    
+    if message.content == pfix + 'uptime':
+        await commands.uptime(message, client)
     
     if message.content.startswith(pfix + 'eval'):
         await commands.eval_logic(message, client)
