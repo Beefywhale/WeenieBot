@@ -12,6 +12,9 @@ import os
 import aiohttp
 from google import search
 
+with open("database/AFINN-111.json", "r") as infile:
+    words = json.loads(infile.read())
+
 with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
@@ -44,9 +47,27 @@ def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
 open("prefix.json", "r")
 pfix = prefix["prefix"]
+start = datetime.now()
 
 
+async def uptime(message, client):
+    await client.send_message(message.channel, "I have been awake for: " + str(datetime.now()-start))
 
+async def afinn_logic(message, client):
+    winput = bdel(message.content, pfix + "sa ")
+    if winput.lower() in words:
+        await client.send_message(message.channel, "Sentiment analysis for " + winput.lower() + " is: " + str(words[winput.lower()]))
+    else:
+        await client.send_message(message.channel, "That word doesnt have a sentiment analysis!")
+        print(winput)
+
+async def cats(message, client):
+    loop = asyncio.get_event_loop()
+    async with aiohttp.get('http://random.cat/meow') as catr:
+        if catr.status == 200:
+            js = await catr.json()
+            await client.send_message(message.channel, js['file'])
+            
 async def admintest(message, client):
     open("adminweenie.json","r")
     if message.author.name in admin:
