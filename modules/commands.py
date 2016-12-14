@@ -10,6 +10,7 @@ import subprocess
 import sys
 import os
 import aiohttp
+from datetime import datetime
 from google import search
 
 with open("database/AFINN-111.json", "r") as infile:
