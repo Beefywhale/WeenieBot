@@ -27,13 +27,13 @@ with open("adminweenie.json","r") as infile:
 
 with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
-    
+
 with open("adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
-    
+
 with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
-    
+
 status = {
     'online': 'Online',
     'offline': 'Offline',
@@ -50,25 +50,25 @@ open("prefix.json", "r")
 pfix = prefix["prefix"]
 start = datetime.now()
 
+async def cooldown_decorator(function):
+    async def wrapper(*args, **kwargs):
+        await asyncio.sleep(3)
+        return function(*args, **kwargs)
+    return wrapper
+
 
 async def uptime(message, client):
     await client.send_message(message.channel, "I have been awake for: " + str(datetime.now()-start))
 
 async def afinn_logic(message, client):
-    winput = bdel(message.content, pfix + "sa ")
-    if winput.lower() in words:
-        await client.send_message(message.channel, "Sentiment analysis for " + winput.lower() + " is: " + str(words[winput.lower()]))
-    else:
-        await client.send_message(message.channel, "That word doesnt have a sentiment analysis!")
-        print(winput)
+    if message.content.split(' ')[0] == pfix + 'afs':
+        winput = bdel(message.content, pfix + "afs ")
+        if winput.lower() in words:
+            await client.send_message(message.channel, "Sentiment analysis for " + winput.lower() + " is: " + str(words[winput.lower()]))
+        else:
+            await client.send_message(message.channel, "That word doesnt have a sentiment analysis!")
+            print(winput)
 
-async def cats(message, client):
-    loop = asyncio.get_event_loop()
-    async with aiohttp.get('http://random.cat/meow') as catr:
-        if catr.status == 200:
-            js = await catr.json()
-            await client.send_message(message.channel, js['file'])
-            
 async def admintest(message, client):
     open("adminweenie.json","r")
     if message.author.name in admin:
@@ -77,15 +77,16 @@ async def admintest(message, client):
         await client.send_message(message.channel, 'Not Admin!')
 
 async def say(message, client):
-    saying = message.content.replace(pfix + 'say', '')
-    await client.send_message(message.channel, saying)
-    
+    if message.content.split(' ')[0] == pfix + 'say':
+        saying = message.content.replace(pfix + 'say', '')
+        await client.send_message(message.channel, saying)
+
 async def get_prefix(message, client):
     await client.send_message(message.channel, 'Current command prefix: `' + pfix + '`')
 
 async def hotdog(message, client):
     await client.send_message(message.channel, ':hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: ')
- 
+
 async def about(message, client):
     a_details = discord.Embed(title='About Me', description='', colour=0x1f3A44)
     a_details.add_field(name='Creator\'s Discord Name:', value='beefywhale#5424', inline=True)
@@ -98,21 +99,20 @@ async def about(message, client):
     await client.send_message(message.channel, embed=a_details)
 
 async def eval_logic(message, client):
-    if message.author.name in prefix["bot_owner"] or message.author.id == '160567046642335746':
+    if message.author.name in prefix["bot_owner"] or message.author.id in ['146025479692877824', '160567046642335746']:
         try:
             evalt = message.content.replace(pfix + 'eval ', '')
-            await client.send_message(message.channel, '''```Python
-''' + str(eval(evalt)) + '```')
+            await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
         except Exception as x:
             template = "An exception of type {0} occured. Arguments:\n{1!r}"
             messagex = template.format(str(type(x).__name__), str(x))
             await client.send_message(message.channel, '''```Python
 ''' + messagex + '```')
-    
+
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
     try:
-        del_quote = int(message.content.strip(pfix + 'delquote '))      
+        del_quote = int(message.content.strip(pfix + 'delquote '))
         if message.author.name in admin:
             try:
                 await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
@@ -129,7 +129,7 @@ async def delquote_logic(message, client):
 async def prefix_logic(message, client):
     global pfix
     with open("prefix.json", "r") as infile:
-        prefix = json.loads(infile.read())        
+        prefix = json.loads(infile.read())
     print(pfix)
     test = bdel(message.content, pfix + "setprefix ")
     prefix["prefix"] = test
@@ -137,10 +137,10 @@ async def prefix_logic(message, client):
     await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
     print(prefix["prefix"])
     with open("prefix.json", "w+") as outfile:
-        outfile.write(json.dumps(prefix))  
+        outfile.write(json.dumps(prefix))
     pfix = prefix["prefix"]
-    
-    
+
+
 async def deladmin_logic(message, client):
     open("adminweenie.json","r")
     try:
@@ -157,31 +157,33 @@ async def deladmin_logic(message, client):
              await client.send_message(message.channel, 'ERROR You are not Admin')
     except:
         pass
-    
+
 async def quote_logic(message, client):
-    open("quoteweenie.json", "r")
-    try:
+    if message.content.split(' ')[0] == pfix + 'quote':
+        open("quoteweenie.json", "r")
         try:
-            quote_number = int(message.content.strip(pfix + 'quote '))
-            print(quote_number)
-            if message.server.id == '242887866730938378':
-                await client.send_message(message.channel, Quotes_All[quote_number])
-            else:
-                await client.send_message(message.channel, Quotes_All[quote_number - 1])
-            if message.server.id == '242887866730938378':
-                client.timer = 1
-                await asyncio.sleep(8)
-                client.timer = 0
-        except IndexError:
-            await client.send_message(message.channel, 'That quote doesn\'t exist!')
-    except ValueError:
-        pass
-    
+            try:
+                quote_number = int(message.content.strip(pfix + 'quote '))
+                print(quote_number)
+                if message.server.id == '242887866730938378':
+                    await client.send_message(message.channel, Quotes_All[quote_number])
+                else:
+                    await client.send_message(message.channel, Quotes_All[quote_number - 1])
+            except IndexError:
+                await client.send_message(message.channel, 'That quote doesn\'t exist!')
+        except ValueError:
+            pass
+
+async def rand_quote(message, client):
+    if message.content == pfix + 'quote':
+        random_quote = random.randint(0, len(Quotes_All) - 1)
+        await client.send_message(message.channel, (Quotes_All[random_quote]))
+
 async def editquote_logic(message, client):
     open("quoteweenie.json", "r")
     edit_quote = int(message.content.strip(pfix + 'editquote '))
     if message.author.name in admin:
-        try: 
+        try:
             await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
             msg = await client.wait_for_message(author=message.author)
             Quotes_All[edit_quote] = msg.content
@@ -195,16 +197,16 @@ async def editquote_logic(message, client):
 
 async def cleverbot_logic(message, client):
     global cb1
-    question = str(message.content.strip('weeniebot '))
+    question = str(message.content.strip('~!weeniebot '))
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
-    
-async def cleverbot_logic2(message, client):
+
+async def cleverbot_logictwo(message, client):
     global cb1
-    question = str(message.content.strip('wb '))
+    question = str(message.content.strip('~!wb '))
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
-    
+
 async def add_admin_logic(message, client):
     open("adminweenie.json","r")
     if message.author.name in admin:
@@ -217,9 +219,6 @@ async def add_admin_logic(message, client):
     elif message.author.name not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin')
 
-        
-        
-        
 async def fetch(session, url):
     with aiohttp.Timeout(10, loop=session.loop):
         async with session.get(url) as response:
@@ -231,13 +230,13 @@ async def getPokemonData2(resource_url, message, client):
     async with aiohttp.ClientSession(loop=loop) as session:
         url = '{0}{1}'.format(BASE_URL, resource_url)
         html = await fetch(session, url)
-        try:
+        if html[1] == 200:
             return json.loads(html[0])
             return None
-        except TimeoutError:
+        elif html[1] == 524:
             await client.send_message(message.channel, 'PokeAPI Timed Out! Oh No! :scream: Maybe thier website is down? try in a few minutes')
 
-        
+
 async def getPokemonData(resource_url, message, client):
     url = '{0}{1}'.format(BASE_URL, resource_url)
     response = requests.get(url)
@@ -271,18 +270,20 @@ async def randPokemon(message, client):
         p_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
         p_details.set_image(url=BASE_URL + sprite['image'])
         p_details.set_author(name=pokemon['name'], icon_url=BASE_URL + sprite['image'])
-        await client.send_message(message.channel, embed=p_details)
-        print(pokemon['name'])
-        print(description['description'])
-        print(ptype['name'])
-        print(pokemon['hp'])
-        print(pokemon['defense'])
-        print(pokemon['attack'])
-        print(pokemon['national_id'])
-        print(BASE_URL + sprite['image'])
+        if message.server.id not in ['242887866730938378']:
+            await client.send_message(message.channel, embed=p_details)
+            print(pokemon['name'])
+            print(description['description'])
+            print(ptype['name'])
+            print(pokemon['hp'])
+            print(pokemon['defense'])
+            print(pokemon['attack'])
+            print(pokemon['national_id'])
+            print(BASE_URL + sprite['image'])
     except TypeError as e:
         print(e)
-        await client.send_message(message.channel, 'ERROR {} is not in the Pokedex! Try using all lowercase!'.format(parsedPokemon))
+        if message.server.id not in ['242887866730938378']:
+            await client.send_message(message.channel, 'ERROR {} is not in the Pokedex! Try using all lowercase!'.format(parsedPokemon))
 
 
 async def getPokemon(message, client):
@@ -298,7 +299,6 @@ async def getPokemon(message, client):
         sprite = await getPokemonData2(sprite_uri, message, client)
         description = await getPokemonData2(description_uri, message, client)
         ptype = await getPokemonData2(type_uri, message, client)
-        #print(pokemon['evolutions'])
         p_details = discord.Embed(title='', description='', colour=0x1f3A44)
         p_details.add_field(name='Pokemon:', value=pokemon['name'], inline=True)
         p_details.add_field(name='National Pokedex ID:', value=pokemon['national_id'], inline=True)
@@ -310,40 +310,35 @@ async def getPokemon(message, client):
         p_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
         p_details.set_image(url=BASE_URL + sprite['image'])
         p_details.set_author(name=pokemon['name'], icon_url=BASE_URL + sprite['image'])
-        await client.send_message(message.channel, embed=p_details)
-        print(pokemon['name'])
-        print(description['description'])
-        print(ptype['name'])
-        print(pokemon['hp'])
-        print(pokemon['defense'])
-        print(pokemon['attack'])
-        print(pokemon['national_id'])
-        print(BASE_URL + sprite['image'])
+        if message.server.id not in ['242887866730938378']:
+            await client.send_message(message.channel, embed=p_details)
+            print(pokemon['name'])
+            print(description['description'])
+            print(ptype['name'])
+            print(pokemon['hp'])
+            print(pokemon['defense'])
+            print(pokemon['attack'])
+            print(pokemon['national_id'])
+            print(BASE_URL + sprite['image'])
     except TypeError:
-        await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
-   
-async def get_cats(message, client):
-    loop = asyncio.get_event_loop()
-    async with aiohttp.ClientSession(loop=loop) as session:
-        url = '{0}{1}'.format('http://catoverflow.com/api/query', resource_url)
-        html = await fetch(session, url)
-        if html[1] == 200:
-            return json.loads(html[0])
-            return None
-        elif html[1] == 524:
-            await client.send_message(message.channel, 'Catoverflow Timed Out! Oh No! :scream: Maybe thier website is down? try in a few minutes')
+        if message.server.id not in ['242887866730938378']:
+            await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
 
 async def cats(message, client):
-      pass
-            
+    loop = asyncio.get_event_loop()
+    async with aiohttp.get('http://random.cat/meow') as catr:
+        if catr.status == 200:
+            js = await catr.json()
+            await client.send_message(message.channel, js['file'])
+
 
 async def google_Fight(message, client):
     fight = message.content.replace(pfix + 'googlefight','')
     result = fight.split(' ')
     await client.send_message(message.channel, 'http://www.googlefight.com/{}-vs-{}.php'.format(result[1], result[2]))
     print(result[1])
-    print(result[2])        
-        
+    print(result[2])
+
 async def purge(message, client):
     if message.author.name in admin:
         deleted = await client.purge_from(message.channel, limit=500, check=None)
@@ -356,17 +351,8 @@ async def sleep(message, client):
     await asyncio.sleep(5)
     await client.edit_message(tmp, 'Done sleeping')
 
-async def cooldown(message, client):
-    await client.send_message(message.author, '10 second Command Cooldown please be patient and don\'t spam commands! :)')
-    client.timer = 1
-    await asyncio.sleep(8)
-    client.timer = 0
-
-async def rand_quote(message, client):
-    random_quote = random.randint(0, len(Quotes_All) - 1)
-    await client.send_message(message.channel, (Quotes_All[random_quote]))
-    client.timer = 1
-    await asyncio.sleep(8)
+async def cooldown(message, client, num):
+    await asyncio.sleep(num)
     client.timer = 0
 
 async def quoteadd_logic(message, client):
@@ -408,7 +394,7 @@ async def quote_amount(message, client):
     counter2 = len(Quotes_All)
     if message.server.id == '242887866730938378':
         counter2 = str(len(Quotes_All) - 1)
-        await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))   
+        await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
     else:
         await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
@@ -451,3 +437,29 @@ async def user(message, client):
             else:
                 print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
+cmdDict = {
+  "uptime": uptime,
+  "afs": afinn_logic,
+  "admintest": admintest,
+  "say": say,
+  "prefix": get_prefix,
+  "hotdog": hotdog,
+  "about": about,
+  "eval": eval_logic,
+  "delquote": delquote_logic,
+  "setprefix": prefix_logic,
+  "deladmin": deladmin_logic,
+  "editquote": editquote_logic,
+  "addadmin": add_admin_logic,
+  "pokemon": randPokemon,
+  "pokedex": getPokemon,
+  "cat": cats,
+  "googlefight": google_Fight,
+  "sleep": sleep,
+  "quoteadd": quoteadd_logic,
+  "messages": user_messages,
+  "google": google_search,
+  "quotes": quote_amount,
+  "admins": admin_amount,
+  "user": user
+}
