@@ -81,7 +81,7 @@ async def on_ready():
 async def on_member_join(member):
     await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
 
-    @client.event
+@client.event
 async def on_message(message):
     with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
