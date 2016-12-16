@@ -148,25 +148,26 @@ async def on_message(message):
 
 
         help_details.add_field(name='__**Random**:__', value='\n'+
-'\n' + 'pfix + sleep --- bot goes to sleep for 5 seconds.'
-'\n' + 'pfix + jfgi --- just fucking google it.'
-'\n' + 'pfix + googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)'
-'\n' + 'pfix + messages --- tells you how many messages there are in the channel you are in.', inline=True)
+'\n' + pfix + 'sleep --- bot goes to sleep for 5 seconds.\n'+
+'\n' + pfix + 'jfgi --- just fucking google it.\n'+
+'\n' + pfix + 'googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)\n'+
+'\n' + pfix + 'messages --- tells you how many messages there are in the channel you are in.\n', inline=True)
 
         help_details.add_field(name='__**Admin**:__', value='\n'+
-'\n' + 'admintest --- check if you are admin!'
-'\n' + 'deladmin --- deletes admin by user name.'
-'\n' + 'addadmin <Persons Discord Name> --- adds admin by user name.', inline=True)
+'\n' + pfix + 'admintest --- check if you are admin!\n'+
+'\n' + pfix + 'deladmin --- deletes admin by user name.\n'+
+'\n' + pfix + 'addadmin <Persons Discord Name> --- adds admin by user name.\n', inline=True)
 
         help_details.add_field(name='__**Bot Owner**:__', value='\n'+
-'\n' + 'update --- updates bot to newest version! (do this frequently!!!)', inline=True)
+'\n' + pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n', inline=True)
 
         help_details.add_field(name='__**WeenieBot**:__', value='\n'+
-'\n' + 'hello weeniebot --- bot greets you.'
-'\n' + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)', inline=True)
+'\n' + pfix + 'hello weeniebot --- bot greets you.\n'+
+'\n' + pfix + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)\n', inline=True)
 
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
         await client.send_message(message.channel, embed=help_details)
+
 
 
 client.run(botToken.token)
