@@ -79,7 +79,8 @@ async def on_ready():
     
 @client.event
 async def on_member_join(member):
-    await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
+    if member.server.id == '110373943822540800':
+        await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
 
 @client.event
 async def on_message(message):
@@ -110,7 +111,7 @@ async def on_message(message):
         await client.send_message(message.channel, 'Pong')
 
     if message.content == pfix + 'update':
-        if message.author.name in prefix["bot_owner"] or message.author.id == '146025479692877824':
+        if message.author.name in prefix["bot_owner"]:
             await client.send_message(message.channel, 'Updating...')
             g = git.cmd.Git()
             u = g.pull('-v')
