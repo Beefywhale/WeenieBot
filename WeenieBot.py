@@ -107,6 +107,9 @@ async def on_message(message):
         else:
             await commands.cleverbot_logic(message, client)
 
+    if message.content == "prefix":
+        await commands.get_prefix(message, client)
+            
     if message.content == pfix + 'ping':
         await client.send_message(message.channel, 'Pong')
 
