@@ -103,7 +103,7 @@ async def eval_logic(message, client):
         try:
             evalt = message.content.replace(pfix + 'eval ', '')
             await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
-            print(message.content)
+            print(message.author.name + ': ' + message.content)
         except Exception as x:
             template = "An exception of type {0} occured. Arguments:\n{1!r}"
             messagex = template.format(str(type(x).__name__), str(x))
