@@ -99,7 +99,7 @@ async def about(message, client):
     await client.send_message(message.channel, embed=a_details)
 
 async def eval_logic(message, client):
-    if message.author.name in prefix["bot_owner"] or message.author.id in ['146025479692877824', '160567046642335746', '207648732336881664']:
+    if message.author.name in prefix["bot_owner"]:
         try:
             evalt = message.content.replace(pfix + 'eval ', '')
             await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
