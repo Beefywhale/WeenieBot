@@ -443,7 +443,6 @@ cmdDict = {
   "afs": afinn_logic,
   "admintest": admintest,
   "say": say,
-  "prefix": get_prefix,
   "hotdog": hotdog,
   "about": about,
   "eval": eval_logic,
