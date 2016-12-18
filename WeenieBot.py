@@ -99,7 +99,7 @@ async def on_message(message):
                 cmd = cmd.split(' ')
                 await commands.cmdDict[cmd[0]](message, client)
         except Exception as e:
-            print(str(e) + ' No command')
+            print(message.author + str(e) + ' No command')
 
     if message.content.lower().startswith('~!weeniebot'):
         if message.author.bot:
