@@ -101,7 +101,7 @@ async def on_message(message):
         except Exception as e:
             print(str(message.author) + ': ' + str(e) + ' No command')
 
-    if message.content.lower().startswith('~!weeniebot'):
+    if message.content.lower().startswith('weeniebot'):
         if message.author.bot:
             pass
         else:
