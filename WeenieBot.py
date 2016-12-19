@@ -94,10 +94,6 @@ async def on_message(message):
                 await commands.rand_quote(message, client)
             elif message.content.split(' ')[0] == pfix + 'quote':
                 await commands.quote_logic(message, client)
-            if message.content == 'weeniebot' :
-                await commands.cleverbot_logic(message, client)
-            elif message.content == 'wb' :
-                await commands.cleverbot_logictwo(message, client)
             else:
                 cmd = bdel(message.content.lower(), pfix)
                 cmd = cmd.split(' ')
@@ -105,6 +101,11 @@ async def on_message(message):
         except Exception as e:
             print(str(e) + ' No command')
 
+    if message.content == 'weeniebot' :
+        await commands.cleverbot_logic(message, client)
+    elif message.content == 'wb' :
+        await commands.cleverbot_logictwo(message, client)
+                
     if message.content == pfix + 'resume' and client.suspend == True:
         await commands.resume_logic(message, client)
     
