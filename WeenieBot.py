@@ -101,9 +101,9 @@ async def on_message(message):
         except Exception as e:
             print(str(e) + ' No command')
 
-    if message.content == 'weeniebot' :
+    if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
-    elif message.content == 'wb' :
+    elif message.content.lower().startswith('wb'):
         await commands.cleverbot_logictwo(message, client)
                 
     if message.content == pfix + 'resume' and client.suspend == True:
