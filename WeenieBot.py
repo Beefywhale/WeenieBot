@@ -105,6 +105,9 @@ async def on_message(message):
         except Exception as e:
             print(str(e) + ' No command')
 
+    if message.content == pfix + 'resume' and client.suspend == True:
+        await commands.resume_logic(message, client)
+    
     if message.content == "prefix":
         await commands.get_prefix(message, client)
 
