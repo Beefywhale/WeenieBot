@@ -50,11 +50,76 @@ open("prefix.json", "r")
 pfix = prefix["prefix"]
 start = datetime.now()
 
-async def cooldown_decorator(function):
-    async def wrapper(*args, **kwargs):
-        await asyncio.sleep(3)
-        return function(*args, **kwargs)
-    return wrapper
+async def update_logic(message, client):
+    if message.author.name in prefix["bot_owner"] or message.author.id == '146025479692877824':
+        await client.send_message(message.channel, 'Updating...')
+        g = git.cmd.Git()
+        u = g.pull('-v')
+        await client.send_message(message.channel, '```' + str(u) + '```')
+        if str(u) == 'Already up-to-date.':
+            await client.send_message(message.channel, 'Already Up To Date! Not restarting')
+        else:
+            await client.send_message(message.channel, 'Update successful restarting!')
+            os.execl(sys.executable, sys.executable, *sys.argv)
+    else:
+        await client.send_message(message.channel, 'Error Didn\'t update maybe you aren\'t an admin?')
+
+async def restart_logic(message, client):
+    if message.author.name == prefix["bot_owner"]:
+        await client.send_message(message.channel, 'Restarting... Please wait 5-10 seconds before trying to run any commands!')
+        os.execl(sys.executable,  sys.executable, *sys.argv)
+    else:
+        await client.send_message(message.channel, 'ERROR you need to be a bot owner!')
+
+async def help_logic(message, client):
+        r = lambda: random.randint(0,255)
+        rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+        help_details = discord.Embed(title='Commands:', description='', colour=int(rr, 16))
+        help_details.add_field(name='__**Quotes**:__', value='\n'+
+    '\n' + pfix + 'quote --- picks a random quote to tell everyone.\n'+
+    '\n' + pfix + 'quote <number> --- picks a specific quote to tell everyone.\n'+
+    '\n' + pfix + 'quoteadd --- adds a new quote\n'+
+    '\n' + pfix + 'delquote <number> --- deletes specific quote\n'+
+    '\n' + pfix + 'editquote <number> --- next message you send changes the quote you specified\n', inline=True)
+
+
+        help_details.add_field(name='__**Random**:__', value='\n'+
+    '\n' + pfix + 'sleep --- bot goes to sleep for 5 seconds.\n'+
+    '\n' + pfix + 'jfgi --- just fucking google it.\n'+
+    '\n' + pfix + 'googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)\n'+
+    '\n' + pfix + 'messages --- tells you how many messages there are in the channel you are in.\n', inline=True)
+
+        help_details.add_field(name='__**Admin**:__', value='\n'+
+    '\n' + pfix + 'admintest --- check if you are admin!\n'+
+    '\n' + pfix + 'deladmin --- deletes admin by user name.\n'+
+    '\n' + pfix + 'addadmin <Persons Discord Name> --- adds admin by user name.\n', inline=True)
+
+        help_details.add_field(name='__**Bot Owner**:__', value='\n'+
+    '\n' + pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n', inline=True)
+
+        help_details.add_field(name='__**WeenieBot**:__', value='\n'+
+    '\n' + pfix + 'hello weeniebot --- bot greets you.\n'+
+    '\n' + pfix + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)\n', inline=True)
+
+        help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
+        await client.send_message(message.channel, embed=help_details)
+
+async def ping_logic(message, client):
+    await client.send_message(message.channel, 'Pong')
+
+async def suspend_logic(message, client):
+    if message.author.name in prefix["bot_owner"]:
+        client.suspend = True
+        await client.send_message(message.channel, 'Commands Suspended!')
+    else:
+        await client.send_message(message.channel, 'Error couldn\'t suspend , maybe you aren\'t bot owner? ')
+
+async def resume_logic(message, client):
+    if message.author.name in prefix["bot_owner"]:
+        client.suspend = False
+        await client.send_message(message.channel, 'Commands Resumed!')
+    else:
+        await client.send_message(message.channel, 'Error couldn\'t resume, maybe you aren\'t bot owner?')
 
 
 async def uptime(message, client):
@@ -443,6 +508,7 @@ cmdDict = {
   "afs": afinn_logic,
   "admintest": admintest,
   "say": say,
+  "prefix": get_prefix,
   "hotdog": hotdog,
   "about": about,
   "eval": eval_logic,
@@ -461,5 +527,10 @@ cmdDict = {
   "google": google_search,
   "quotes": quote_amount,
   "admins": admin_amount,
-  "user": user
+  "user": user,
+  "ping": ping_logic,
+  "restart": restart_logic,
+  "update": update_logic,
+  "suspend": suspend_logic,
+  "help": help_logic
 }
