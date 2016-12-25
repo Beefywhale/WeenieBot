@@ -121,6 +121,22 @@ async def resume_logic(message, client):
     else:
         await client.send_message(message.channel, 'Error couldn\'t resume, maybe you aren\'t bot owner?')
 
+async def clear(message, client):
+    if message.author.name in admin:
+        try:
+            amount = message.content.strip(pfix + 'clear  ')
+            ammount = int(ammount + 1)
+            deleted = await client.purge_from(message.channel, limit=int(amount), check=None)
+            tbd = await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
+            await asyncio.sleep(5)
+            await client.delete_message(tbd)
+
+        except ValueError:
+            await client.send_message(message.channel, 'Error, Did you specify number?')
+    elif message.author.name not in admin:
+        await client.send_message(message.channel, 'Only Admins can Clear channels!')
+
+        
 
 async def uptime(message, client):
     await client.send_message(message.channel, "I have been awake for: " + str(datetime.now()-start))
@@ -532,5 +548,6 @@ cmdDict = {
   "restart": restart_logic,
   "update": update_logic,
   "suspend": suspend_logic,
-  "help": help_logic
+  "help": help_logic,
+  "clear": clear
 }
