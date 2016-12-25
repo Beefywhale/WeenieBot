@@ -81,7 +81,7 @@ async def bot_account(message, client):
             if message.author.name == prefix["bot_owner"]:
                 botaccount = False
                 print('Exited')   
-         esle:
+         else:
             await bot_account(message, client)
 
 async def cancel_bot_account(message, client):
