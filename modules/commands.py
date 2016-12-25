@@ -75,14 +75,15 @@ async def restart_logic(message, client):
 async def bot_account(message, client):
     if message.author.name == prefix["bot_owner"]:
         botaccount = True
-        while botaccount is True:
-            bot_say_input = input('Beefywhale: ')
-            await client.send_message(message.channel, bot_say_input)
+        bot_say_input = input('Beefywhale: ')
+        await client.send_message(message.channel, bot_say_input)
+        if bot_say_input in 'endbot':
+            if message.author.name == prefix["bot_owner"]:
+                botaccount = False
+                print('Exited')   
+         esle:
             await bot_account(message, client)
-            if bot_say_input in 'endbot':
-                if message.author.name == prefix["bot_owner"]:
-                    botaccount = False
-                    print('Exited')    
+
 async def cancel_bot_account(message, client):
     if message.author.name == prefix["bot_owner"]:
         botaccount = False
