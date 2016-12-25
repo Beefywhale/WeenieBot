@@ -125,7 +125,7 @@ async def clear(message, client):
     if message.author.name in admin:
         try:
             amount = message.content.strip(pfix + 'clear  ')
-            ammount = int(ammount + 1)
+            amount = int(amount + 1)
             deleted = await client.purge_from(message.channel, limit=int(amount), check=None)
             tbd = await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
             await asyncio.sleep(5)
