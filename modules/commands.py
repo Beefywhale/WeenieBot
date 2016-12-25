@@ -71,6 +71,16 @@ async def restart_logic(message, client):
     else:
         await client.send_message(message.channel, 'ERROR you need to be a bot owner!')
 
+async def bot_account(message, client):
+    if message.author.name == prefix["bot_owner"]:
+        while botaccount is True:
+            bot_say_input = input('Beefywhale: ')
+            await client.send_message(message.channel)
+            await bot_account(message, client)
+async def cancel_bot_account(message, client):
+    if message.author.name == prefix["bot_owner"]:
+        botaccount = False
+        print('Exited')    
 async def help_logic(message, client):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
@@ -549,5 +559,7 @@ cmdDict = {
   "update": update_logic,
   "suspend": suspend_logic,
   "help": help_logic,
-  "clear": clear
+  "clear": clear,
+  "enterbot": bot_account,
+  "endbot": cancel_bot_account
 }
