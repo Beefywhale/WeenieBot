@@ -79,7 +79,7 @@ async def bot_account(message, client):
             bot_say_input = input('Beefywhale: ')
             await client.send_message(message.channel, bot_say_input)
             await bot_account(message, client)
-            if bot_say_input == pfix + 'endbot':
+            if bot_say_input in 'endbot':
                 if message.author.name == prefix["bot_owner"]:
                     botaccount = False
                     print('Exited')    
