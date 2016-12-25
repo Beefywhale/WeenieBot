@@ -40,6 +40,7 @@ status = {
     'idle': 'Idle',
     'dnd': 'Do Not Disturb'
 }
+botaccount = False
 counter1 = len(Quotes_All) + 1
 counter2 = len(Quotes_All) + 1
 cb1 = cleverbot.Cleverbot()
@@ -73,6 +74,7 @@ async def restart_logic(message, client):
 
 async def bot_account(message, client):
     if message.author.name == prefix["bot_owner"]:
+        botaccount = True
         while botaccount is True:
             bot_say_input = input('Beefywhale: ')
             await client.send_message(message.channel)
