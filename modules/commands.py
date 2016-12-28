@@ -211,7 +211,7 @@ async def eval_logic(message, client):
 async def eval_logic_block(message, client):
     if message.author.name in prefix["bot_owner"]:
         try:
-            evalt = message.content.replace(pfix + 'seval ', '')
+            evalt = message.content.replace(pfix + 'evalt ', '')
             await client.send_message(message.channel, str(eval(evalt)))
             print(message.author.name + ': ' + message.content)
         except Exception as x:
@@ -581,5 +581,5 @@ cmdDict = {
   "clear": clear,
   "enterbot": bot_account,
   "endbot": cancel_bot_account,
-  "seval": eval_logic_block
+  "evalt": eval_logic_block
 }
