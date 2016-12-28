@@ -211,7 +211,7 @@ async def eval_logic(message, client):
 async def eval_logic_block(message, client):
     if message.author.name in prefix["bot_owner"]:
         try:
-            evalt = message.content.replace(pfix + 'eval ', '')
+            evalt = message.content.replace(pfix + 'seval ', '')
             await client.send_message(message.channel, str(eval(evalt)))
             print(message.author.name + ': ' + message.content)
         except Exception as x:
