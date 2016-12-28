@@ -207,6 +207,18 @@ async def eval_logic(message, client):
             messagex = template.format(str(type(x).__name__), str(x))
             await client.send_message(message.channel, '''```Python
 ''' + messagex + '```')
+            
+async def eval_logic_block(message, client):
+    if message.author.name in prefix["bot_owner"]:
+        try:
+            evalt = message.content.replace(pfix + 'eval ', '')
+            await client.send_message(message.channel, str(eval(evalt)))
+            print(message.author.name + ': ' + message.content)
+        except Exception as x:
+            template = "An exception of type {0} occured. Arguments:\n{1!r}"
+            messagex = template.format(str(type(x).__name__), str(x))
+            await client.send_message(message.channel, '''```Python
+''' + messagex + '```')
 
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
@@ -568,5 +580,6 @@ cmdDict = {
   "help": help_logic,
   "clear": clear,
   "enterbot": bot_account,
-  "endbot": cancel_bot_account
+  "endbot": cancel_bot_account,
+  "seval": eval_logic_block
 }
