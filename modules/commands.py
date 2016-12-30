@@ -48,7 +48,6 @@ x33 = '%m-%d-%Y'
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
 open("prefix.json", "r")
-pfix = prefix["prefix"]
 start = datetime.now()
 
 async def update_logic(message, client):
@@ -93,30 +92,30 @@ async def help_logic(message, client):
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         help_details = discord.Embed(title='Commands:', description='', colour=int(rr, 16))
         help_details.add_field(name='__**Quotes**:__', value='\n'+
-    '\n' + pfix + 'quote --- picks a random quote to tell everyone.\n'+
-    '\n' + pfix + 'quote <number> --- picks a specific quote to tell everyone.\n'+
-    '\n' + pfix + 'quoteadd --- adds a new quote\n'+
-    '\n' + pfix + 'delquote <number> --- deletes specific quote\n'+
-    '\n' + pfix + 'editquote <number> --- next message you send changes the quote you specified\n', inline=True)
+    '\n' + client.pfix + 'quote --- picks a random quote to tell everyone.\n'+
+    '\n' + client.pfix + 'quote <number> --- picks a specific quote to tell everyone.\n'+
+    '\n' + client.pfix + 'quoteadd --- adds a new quote\n'+
+    '\n' + client.pfix + 'delquote <number> --- deletes specific quote\n'+
+    '\n' + client.pfix + 'editquote <number> --- next message you send changes the quote you specified\n', inline=True)
 
 
         help_details.add_field(name='__**Random**:__', value='\n'+
-    '\n' + pfix + 'sleep --- bot goes to sleep for 5 seconds.\n'+
-    '\n' + pfix + 'jfgi --- just fucking google it.\n'+
-    '\n' + pfix + 'googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)\n'+
-    '\n' + pfix + 'messages --- tells you how many messages there are in the channel you are in.\n', inline=True)
+    '\n' + client.pfix + 'sleep --- bot goes to sleep for 5 seconds.\n'+
+    '\n' + client.pfix + 'jfgi --- just fucking google it.\n'+
+    '\n' + client.pfix + 'googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)\n'+
+    '\n' + client.pfix + 'messages --- tells you how many messages there are in the channel you are in.\n', inline=True)
 
         help_details.add_field(name='__**Admin**:__', value='\n'+
-    '\n' + pfix + 'admintest --- check if you are admin!\n'+
-    '\n' + pfix + 'deladmin --- deletes admin by user name.\n'+
-    '\n' + pfix + 'addadmin <Persons Discord Name> --- adds admin by user name.\n', inline=True)
+    '\n' + client.pfix + 'admintest --- check if you are admin!\n'+
+    '\n' + client.pfix + 'deladmin --- deletes admin by user name.\n'+
+    '\n' + client.pfix + 'addadmin <Persons Discord Name> --- adds admin by user name.\n', inline=True)
 
         help_details.add_field(name='__**Bot Owner**:__', value='\n'+
-    '\n' + pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n', inline=True)
+    '\n' + client.pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n', inline=True)
 
         help_details.add_field(name='__**WeenieBot**:__', value='\n'+
-    '\n' + pfix + 'hello weeniebot --- bot greets you.\n'+
-    '\n' + pfix + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)\n', inline=True)
+    '\n' + client.pfix + 'hello weeniebot --- bot greets you.\n'+
+    '\n' + client.pfix + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)\n', inline=True)
 
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
         await client.send_message(message.channel, embed=help_details)
@@ -141,7 +140,7 @@ async def resume_logic(message, client):
 async def clear(message, client):
     if message.author.name in admin:
         try:
-            amount = message.content.strip(pfix + 'clear  ')
+            amount = message.content.strip(client.pfix + 'clear  ')
             amount = int(amount + 1)
             deleted = await client.purge_from(message.channel, limit=int(amount), check=None)
             tbd = await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
@@ -159,8 +158,8 @@ async def uptime(message, client):
     await client.send_message(message.channel, "I have been awake for: " + str(datetime.now()-start))
 
 async def afinn_logic(message, client):
-    if message.content.split(' ')[0] == pfix + 'afs':
-        winput = bdel(message.content, pfix + "afs ")
+    if message.content.split(' ')[0] == client.pfix + 'afs':
+        winput = bdel(message.content, client.pfix + "afs ")
         if winput.lower() in words:
             await client.send_message(message.channel, "Sentiment analysis for " + winput.lower() + " is: " + str(words[winput.lower()]))
         else:
@@ -175,12 +174,12 @@ async def admintest(message, client):
         await client.send_message(message.channel, 'Not Admin!')
 
 async def say(message, client):
-    if message.content.split(' ')[0] == pfix + 'say':
-        saying = message.content.replace(pfix + 'say', '')
+    if message.content.split(' ')[0] == client.pfix + 'say':
+        saying = message.content.replace(client.pfix + 'say', '')
         await client.send_message(message.channel, saying)
 
 async def get_prefix(message, client):
-    await client.send_message(message.channel, 'Current command prefix: `' + pfix + '`')
+    await client.send_message(message.channel, 'Current command prefix: `' + client.pfix + '`')
 
 async def hotdog(message, client):
     await client.send_message(message.channel, ':hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: :hotdog: ')
@@ -199,7 +198,7 @@ async def about(message, client):
 async def eval_logic(message, client):
     if message.author.name in prefix["bot_owner"]:
         try:
-            evalt = message.content.replace(pfix + 'eval ', '')
+            evalt = message.content.replace(client.pfix + 'eval ', '')
             await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
             print(message.author.name + ': ' + message.content)
         except Exception as x:
@@ -211,7 +210,7 @@ async def eval_logic(message, client):
 async def eval_logic_block(message, client):
     if message.author.name in prefix["bot_owner"]:
         try:
-            evalt = message.content.replace(pfix + 'evalt ', '')
+            evalt = message.content.replace(client.pfix + 'evalt ', '')
             await client.send_message(message.channel, str(eval(evalt)))
             print(message.author.name + ': ' + message.content)
         except Exception as x:
@@ -223,7 +222,7 @@ async def eval_logic_block(message, client):
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
     try:
-        del_quote = int(message.content.strip(pfix + 'delquote '))
+        del_quote = int(message.content.strip(client.pfix + 'delquote '))
         if message.author.name in admin:
             try:
                 await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
@@ -238,24 +237,24 @@ async def delquote_logic(message, client):
         pass
 
 async def prefix_logic(message, client):
-    global pfix
-    with open("prefix.json", "r") as infile:
-        prefix = json.loads(infile.read())
-    print(pfix)
-    test = bdel(message.content, pfix + "setprefix ")
-    prefix["prefix"] = test
+    with open("database/prefixMap.json", "r") as infile:
+        prefixMap = json.loads(infile.read())
+    print(client.pfix)
+    sprefix = bdel(message.content, client.pfix + "setprefix ")
+    prefixMap[message.server.id] = sprefix
     await asyncio.sleep(1)
-    await client.send_message(message.channel, 'set prefix to' + ' `' + prefix["prefix"] + ' `')
-    print(prefix["prefix"])
-    with open("prefix.json", "w+") as outfile:
-        outfile.write(json.dumps(prefix))
-    pfix = prefix["prefix"]
+    await client.send_message(message.channel, 'set prefix to' + ' `' + prefixMap[message.server.id] + ' `')
+    print(prefixMap[message.server.id])
+    with open("database/prefixMap.json", "w+") as outfile:
+         outfile.write(json.dumps(prefixMap))
+    client.pfix = prefixMap[message.server.id]
+    print(prefixMap)
 
 
 async def deladmin_logic(message, client):
     open("adminweenie.json","r")
     try:
-        del_admin = str(message.content.replace(pfix + 'deladmin ', ''))
+        del_admin = str(message.content.replace(client.pfix + 'deladmin ', ''))
         if message.author.name in admin:
             if del_admin in admin:
                 await client.send_message(message.channel, 'Admin Removed')
@@ -270,11 +269,11 @@ async def deladmin_logic(message, client):
         pass
 
 async def quote_logic(message, client):
-    if message.content.split(' ')[0] == pfix + 'quote':
+    if message.content.split(' ')[0] == client.pfix + 'quote':
         open("quoteweenie.json", "r")
         try:
             try:
-                quote_number = int(message.content.strip(pfix + 'quote '))
+                quote_number = int(message.content.strip(client.pfix + 'quote '))
                 print(quote_number)
                 if message.server.id == '242887866730938378':
                     await client.send_message(message.channel, Quotes_All[quote_number])
@@ -286,13 +285,13 @@ async def quote_logic(message, client):
             pass
 
 async def rand_quote(message, client):
-    if message.content == pfix + 'quote':
+    if message.content == client.pfix + 'quote':
         random_quote = random.randint(0, len(Quotes_All) - 1)
         await client.send_message(message.channel, (Quotes_All[random_quote]))
 
 async def editquote_logic(message, client):
     open("quoteweenie.json", "r")
-    edit_quote = int(message.content.strip(pfix + 'editquote '))
+    edit_quote = int(message.content.strip(client.pfix + 'editquote '))
     if message.author.name in admin:
         try:
             await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
@@ -399,7 +398,7 @@ async def randPokemon(message, client):
 
 async def getPokemon(message, client):
     try:
-        parsedPokemon = message.content.replace(pfix + 'pokedex ','')
+        parsedPokemon = message.content.replace(client.pfix + 'pokedex ','')
 
         pokemon = await getPokemonData2('/api/v1/pokemon/' + parsedPokemon, message, client)
 
@@ -435,6 +434,22 @@ async def getPokemon(message, client):
         if message.server.id not in ['242887866730938378']:
             await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
 
+async def server_info(message, client):
+    print(message.server.channels)
+    r = lambda: random.randint(0,255)
+    rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+    server_details = discord.Embed(title='', description='', colour=int(rr, 16))
+    server_details.add_field(name='Server Name:', value=message.server.name, inline=True)
+    server_details.add_field(name='Number of Voice and Text Channel(s):', value=len(message.server.channels), inline =True)
+    server_details.add_field(name='Number of Role(s):', value=len(message.server.role_hierarchy), inline=True)
+    server_details.add_field(name='Number of User(s):', value=message.server.member_count, inline =True)
+    server_details.add_field(name='Server Made:', value=message.server.created_at.strftime(x33), inline =True)
+    server_details.add_field(name='Server Owner:', value=message.server.owner, inline=True)
+    server_details.add_field(name='Default Channel:', value=message.server.default_channel, inline=True)
+    server_details.set_author(name=message.server.name, icon_url=message.server.icon_url)
+    server_details.set_image(url=message.server.icon_url)
+    await client.send_message(message.channel, embed=server_details)            
+            
 async def cats(message, client):
     loop = asyncio.get_event_loop()
     async with aiohttp.get('http://random.cat/meow') as catr:
@@ -442,9 +457,18 @@ async def cats(message, client):
             js = await catr.json()
             await client.send_message(message.channel, js['file'])
 
-
+async def dog(message, client):
+    data = 'http://random.dog/woof'
+    loop = asyncio.get_event_loop()
+    async with aiohttp.get(data) as dogr:
+        if dogr.status == 200:
+            dog = await dogr.read()
+            dog = dog.decode()
+            print(str(dog))
+            await client.send_message(message.channel, 'http://random.dog/' + str(dog))
+            
 async def google_Fight(message, client):
-    fight = message.content.replace(pfix + 'googlefight','')
+    fight = message.content.replace(client.pfix + 'googlefight','')
     result = fight.split(' ')
     await client.send_message(message.channel, 'http://www.googlefight.com/{}-vs-{}.php'.format(result[1], result[2]))
     print(result[1])
@@ -469,7 +493,7 @@ async def cooldown(message, client, num):
 async def quoteadd_logic(message, client):
     open("quoteweenie.json","r")
     if message.author.name in admin:
-        msg = message.content.replace(pfix + 'quoteadd', '')
+        msg = message.content.replace(client.pfix + 'quoteadd', '')
         global counter1
         counter1 = len(Quotes_All)
         await client.send_message(message.channel, 'Quote {} Added!'.format(counter1))
@@ -494,7 +518,7 @@ async def user_messages(message, client):
             print(counter)
 
 async def google_search(message, client):
-    search_google = message.content.replace(pfix + 'google ', '')
+    search_google = message.content.replace(client.pfix + 'google ', '')
     for url in search(search_google, stop=5):
         await client.send_message(message.channel, url)
         break
@@ -514,11 +538,11 @@ async def admin_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(', '.join(admin)))
 
 async def user(message, client):
-    if message.content.startswith(pfix + 'user'):
+    if message.content.startswith(client.pfix + 'user'):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         try:
-            username = message.content.replace(pfix + 'user ', '')
+            username = message.content.replace(client.pfix + 'user ', '')
             print(username)
             roles_member = message.server.get_member_named(username).roles
             user_details = discord.Embed(title='', description='', colour=int(rr, 16))
@@ -533,7 +557,7 @@ async def user(message, client):
             await client.send_message(message.channel, embed=user_details)
 
         except AttributeError:
-            if message.content == pfix + 'user':
+            if message.content == client.pfix + 'user':
                 roles_member = message.author.roles
                 user_details = discord.Embed(title='', description='', colour=int(rr, 16))
                 user_details.add_field(name='Username:', value=message.author.name, inline=True)
@@ -581,5 +605,7 @@ cmdDict = {
   "clear": clear,
   "enterbot": bot_account,
   "endbot": cancel_bot_account,
-  "evalt": eval_logic_block
+  "evalt": eval_logic_block,
+  "server": server_info,
+  "dog": dog
 }
