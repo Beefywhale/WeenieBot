@@ -435,7 +435,6 @@ async def getPokemon(message, client):
             await client.send_message(message.channel, 'ERROR {} is not in the Pokedex!'.format(parsedPokemon))
 
 async def server_info(message, client):
-    print(message.server.channels)
     r = lambda: random.randint(0,255)
     rr = ('0x%02X%02X%02X' % (r(),r(),r()))
     server_details = discord.Embed(title='', description='', colour=int(rr, 16))
