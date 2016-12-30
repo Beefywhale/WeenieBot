@@ -86,7 +86,11 @@ async def on_member_join(member):
 async def on_message(message):
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
-    client.pfix = prefixMap[message.server.id]
+    if message.server.id not in prefixMap:
+        prefixMap[message.server.id] = '!'
+        client.pfix = prefixMap[message.server.id]
+    else:
+        client.pfix = prefixMap[message.server.id]
     
     if message.content.startswith(client.pfix)  and client.suspend == False:
         try:
