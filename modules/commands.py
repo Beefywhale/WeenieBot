@@ -114,11 +114,12 @@ async def help_logic(message, client):
     '\n' + client.pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n', inline=True)
 
         help_details.add_field(name='__**WeenieBot**:__', value='\n'+
-    '\n' + client.pfix + 'hello weeniebot --- bot greets you.\n'+
+    '\n' + 'hello weeniebot --- bot greets you.\n'+
     '\n' + client.pfix + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)\n', inline=True)
 
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
-        await client.send_message(message.channel, embed=help_details)
+        await client.send_message(message.channel, '**I\'ve dm\'ed you my help!**')
+        await client.send_message(message.author, embed=help_details)
 
 async def ping_logic(message, client):
     await client.send_message(message.channel, 'Pong')
