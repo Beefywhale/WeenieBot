@@ -1,5 +1,5 @@
 # WeenieBot
-<A HREF="https://discord.gg/RkFgnUt"><IMG SRC="https://discordapp.com/api/guilds/239772188649979904/widget.png?" alt="Logo"></a>
+<a HREF="https://discord.gg/RkFgnUt"><IMG SRC="https://discordapp.com/api/guilds/239772188649979904/widget.png?" alt="Logo"></a>
 
 Your every day Discord Bot! Included Features: quotes, quote adding/deleting, Cleverbot integration, Admin whitelist for certain Commands, Adding admins by a person's Discord ID, and more!  
 
