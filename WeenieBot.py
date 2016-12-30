@@ -57,7 +57,6 @@ client = Weenie()
 cb1 = commands.cb1
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
-pfix = commands.pfix
         
 @client.event
 async def on_ready():
@@ -85,17 +84,18 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
-    with open("prefix.json", "r") as infile:
-        prefix = json.loads(infile.read())
-    pfix = commands.pfix
-    if message.content.startswith(pfix)  and client.suspend == False:
+    with open("database/prefixMap.json", "r") as infile:
+        prefixMap = json.loads(infile.read())
+    client.pfix = prefixMap[message.server.id]
+    
+    if message.content.startswith(client.pfix)  and client.suspend == False:
         try:
-            if message.content == pfix + 'quote' :
+            if message.content == client.pfix + 'quote' :
                 await commands.rand_quote(message, client)
-            elif message.content.split(' ')[0] == pfix + 'quote':
+            elif message.content.split(' ')[0] == client.pfix + 'quote':
                 await commands.quote_logic(message, client)
             else:
-                cmd = bdel(message.content.lower(), pfix)
+                cmd = bdel(message.content.lower(), client.pfix)
                 cmd = cmd.split(' ')
                 await commands.cmdDict[cmd[0]](message, client)
         except Exception as e:
@@ -106,19 +106,19 @@ async def on_message(message):
     elif message.content.lower().startswith('wb'):
         await commands.cleverbot_logictwo(message, client)
                 
-    if message.content == pfix + 'resume' and client.suspend == True:
+    if message.content == client.pfix + 'resume' and client.suspend == True:
         await commands.resume_logic(message, client)
     
     if message.content == "prefix":
         await commands.get_prefix(message, client)
 
-    if message.content == pfix + 'jfgi':
+    if message.content == client.pfix + 'jfgi':
         await client.send_message(message.channel, 'http://www.justfuckinggoogleit.com/')
 
-    if message.content == pfix + 'good?':
+    if message.content == client.pfix + 'good?':
         await client.send_message(message.channel, 'I am as Fit as a Fiddle!')
 
-    if message.content == pfix + 'turtles':
+    if message.content == client.pfix + 'turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
 
     if message.content.lower() == 'hello weeniebot':
