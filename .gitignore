@@ -95,3 +95,4 @@ modules/botToken.py
 adminweenie.json
 quoteweenie.json
 prefix.json
+database/prefixMap.json
