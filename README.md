@@ -1,4 +1,5 @@
 # WeenieBot
+https://discordapp.com/api/guilds/232186009998196739/widget.png?
 Your every day Discord Bot! Included Features: quotes, quote adding/deleting, Cleverbot integration, Admin whitelist for certain Commands, Adding admins by a person's Discord ID, and more!  
 
 # Installing WeenieBot
