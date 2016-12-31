@@ -74,13 +74,12 @@ async def restart_logic(message, client):
 async def broadcast_server(message, client):
     broadcast_message = message.content.replace(client.pfix + 'broadcast', '')
     for server in client.servers:
-        if message.author.name == prefix["bot_owner"]:
-            try:
-                if client.server.id != '110373943822540800':
-                    await client.send_message(server.default_channel, broadcast_message)
-            except discord.Forbidden:
-                if client.server.id != '110373943822540800':
-                    await client.send_message(message.channel, server.name + 'couldn\'t send broadcast!')
+        try:
+            if client.server.id != '110373943822540800' and message.author.name == prefix["bot_owner"]:
+                await client.send_message(server.default_channel, broadcast_message)
+        except discord.Forbidden:
+            if client.server.id != '110373943822540800' and message.author.name == prefix["bot_owner"]:
+                await client.send_message(message.channel, server.name + 'couldn\'t send broadcast!')
         
         
 async def bot_account(message, client):
