@@ -114,19 +114,19 @@ async def help_logic(message, client):
     '\n' + client.pfix + 'sleep --- bot goes to sleep for 5 seconds.\n'+
     '\n' + client.pfix + 'jfgi --- just fucking google it.\n'+
     '\n' + client.pfix + 'googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)\n'+
-    '\n' + client.pfix + 'messages --- tells you how many messages there are in the channel you are in.\n', inline=True)
+    '\n' + client.pfix + 'messages --- tells you how many messages there are in the channel you are in.\n'+
     '\n' + client.pfix + 'cat --- random cat picture!.\n', inline=True)
 
 
         help_details.add_field(name='__**Admin**:__', value='\n'+
     '\n' + client.pfix + 'admintest --- check if you are admin!\n'+
     '\n' + client.pfix + 'deladmin --- deletes admin by user name.\n'+
-    '\n' + client.pfix + 'addadmin <Persons Discord Name> --- adds admin by user name.\n', inline=True)
+    '\n' + client.pfix + 'addadmin <Persons Discord Name> --- adds admin by user name.\n'+
     '\n' + client.pfix + 'clear <number> --- clears a given amount of messages.\n', inline=True)
 
         
         help_details.add_field(name='__**Bot Owner**:__', value='\n'+
-    '\n' + client.pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n', inline=True)
+    '\n' + client.pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n+
     '\n' + client.pfix + 'eval --- evaluates code in python\n', inline=True)
 
         help_details.add_field(name='__**WeenieBot**:__', value='\n'+
