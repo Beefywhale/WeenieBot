@@ -111,6 +111,7 @@ async def help_logic(message, client):
 
 
         help_details.add_field(name='__**Random**:__', value='\n'+
+    '\n' + client.pfix + 'support --- links to weeniebot\'s support channel! \n'+
     '\n' + client.pfix + 'sleep --- bot goes to sleep for 5 seconds.\n'+
     '\n' + client.pfix + 'jfgi --- just fucking google it.\n'+
     '\n' + client.pfix + 'googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)\n'+
@@ -134,9 +135,12 @@ async def help_logic(message, client):
     '\n' + client.pfix + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)\n', inline=True)
 
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
-        await client.send_message(message.channel, '**I\'ve dm\'ed you my help!**')
+        await client.send_message(message.channel, '**I\'ve Dm\'d you my help!**')
         await client.send_message(message.author, embed=help_details)
 
+async def support(message, client):
+    await client.send_message('Check out my support channel if you need help or have questions or suggestions! https://discord.gg/5VcPZMj')
+        
 async def ping_logic(message, client):
     await client.send_message(message.channel, 'Pong')
 
@@ -596,6 +600,7 @@ async def user(message, client):
                 print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
 cmdDict = {
+  "support": support,  
   "uptime": uptime,
   "afs": afinn_logic,
   "admintest": admintest,
