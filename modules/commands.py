@@ -141,8 +141,10 @@ async def resume_logic(message, client):
 async def clear(message, client):
     if message.author.name in admin:
         try:
-            amount = message.content.strip(client.pfix + 'clear  ')
+            amount = message.content.split(' ')
+            amount = amount[1]
             amount = int(amount + 1)
+            print(message.author.name + ' cleared {} messages'.format(amount))
             deleted = await client.purge_from(message.channel, limit=int(amount), check=None)
             tbd = await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
             await asyncio.sleep(5)
@@ -223,7 +225,8 @@ async def eval_logic_block(message, client):
 async def delquote_logic(message, client):
     open("quoteweenie.json", "r")
     try:
-        del_quote = int(message.content.strip(client.pfix + 'delquote '))
+        del_q = message.content.split(' ')
+        del_quote = int(del_q[1])
         if message.author.name in admin:
             try:
                 await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
@@ -274,7 +277,8 @@ async def quote_logic(message, client):
         open("quoteweenie.json", "r")
         try:
             try:
-                quote_number = int(message.content.strip(client.pfix + 'quote '))
+                q_number = message.content.split(' ')
+                quote_number = int(q_number[1])
                 print(quote_number)
                 if message.server.id == '242887866730938378':
                     await client.send_message(message.channel, Quotes_All[quote_number])
@@ -292,7 +296,8 @@ async def rand_quote(message, client):
 
 async def editquote_logic(message, client):
     open("quoteweenie.json", "r")
-    edit_quote = int(message.content.strip(client.pfix + 'editquote '))
+    e_quote = message.content.split(' ')
+    edit_quote = int(e_quote[1])
     if message.author.name in admin:
         try:
             await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
@@ -308,13 +313,15 @@ async def editquote_logic(message, client):
 
 async def cleverbot_logic(message, client):
     global cb1
-    question = str(message.content.strip('weeniebot '))
+    q = message.content.split(' ')
+    question = str(q[1])
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
 async def cleverbot_logictwo(message, client):
     global cb1
-    question = str(message.content.strip('wb '))
+    1 = message.content.split(' ')
+    question = str(q[1]
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
