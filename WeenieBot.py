@@ -102,7 +102,7 @@ async def on_message(message):
                 cmd = bdel(message.content.lower(), client.pfix)
                 cmd = cmd.split(' ')
                 await commands.cmdDict[cmd[0]](message, client)
-        except Exception as e:
+        except KeyError as e:
             print(str(e) + ' No command')
 
     if message.content.lower().startswith('weeniebot'):
