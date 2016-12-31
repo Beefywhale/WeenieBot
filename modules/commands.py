@@ -135,7 +135,7 @@ async def help_logic(message, client):
     '\n' + client.pfix + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)\n', inline=True)
 
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
-        await client.send_message(message.channel, '**I\'ve Dm\'d you my help!**')
+        await client.send_message(message.channel, '**I\'ve private messaged you my help!**')
         await client.send_message(message.author, embed=help_details)
 
 async def support(message, client):
