@@ -153,7 +153,7 @@ async def clear(message, client):
     if message.author.name in admin:
         try:
             amount = message.content.split(' ')
-            amount_number = amount[1]
+            amount_number = amount[1:]
             amount = int(amount_number) + 1
             print(message.author.name + ' cleared {} messages'.format(amount))
             deleted = await client.purge_from(message.channel, limit=int(amount), check=None)
@@ -325,14 +325,14 @@ async def editquote_logic(message, client):
 async def cleverbot_logic(message, client):
     global cb1
     q = message.content.split(' ')
-    question = str(q[1])
+    question = str(q[1:])
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
 async def cleverbot_logictwo(message, client):
     global cb1
     q = message.content.split(' ')
-    question = str(q[1])
+    question = str(q[1:])
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
