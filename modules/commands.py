@@ -320,7 +320,7 @@ async def cleverbot_logic(message, client):
 
 async def cleverbot_logictwo(message, client):
     global cb1
-    1 = message.content.split(' ')
+    q = message.content.split(' ')
     question = str(q[1])
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
