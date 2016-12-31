@@ -71,6 +71,18 @@ async def restart_logic(message, client):
     else:
         await client.send_message(message.channel, 'ERROR you need to be a bot owner!')
 
+async def broadcast_server(message, client):
+    broadcast_message = message.content.replace(client.pfix + 'broadcast', '')
+    for server in client.servers:
+        if message.author.name in prefix["bot_owner"]:
+            try:
+                if client.server.id != '110373943822540800':
+                    await client.send_message(server.default_channel, broadcast_message)
+            except discord.Forbidden:
+                if client.server.id != '110373943822540800':
+                    await client.send_message(message.channel, server.name + 'couldn\'t send broadcast!')
+        
+        
 async def bot_account(message, client):
     if message.author.name == prefix["bot_owner"]:
         botaccount = True
@@ -614,5 +626,6 @@ cmdDict = {
   "endbot": cancel_bot_account,
   "evalt": eval_logic_block,
   "server": server_info,
-  "dog": dog
+  "dog": dog,
+  "broadcast": broadcast_server
 }
