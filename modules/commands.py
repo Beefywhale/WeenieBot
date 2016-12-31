@@ -143,7 +143,7 @@ async def clear(message, client):
         try:
             amount = message.content.split(' ')
             amount_number = amount[1]
-            amount = int(amount_number + 1)
+            amount = int(amount_number) + 1
             print(message.author.name + ' cleared {} messages'.format(amount))
             deleted = await client.purge_from(message.channel, limit=int(amount), check=None)
             tbd = await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
