@@ -79,7 +79,7 @@ async def on_member_join(member):
         await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
 
 @client.event
-async def on_error(error, *args, **kwargs):
+async def on_error(error, *e_args, **e_kwargs):
     print('Discord errored! the error was: ' + error)
         
 @client.event
