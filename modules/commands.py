@@ -115,14 +115,19 @@ async def help_logic(message, client):
     '\n' + client.pfix + 'jfgi --- just fucking google it.\n'+
     '\n' + client.pfix + 'googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)\n'+
     '\n' + client.pfix + 'messages --- tells you how many messages there are in the channel you are in.\n', inline=True)
+    '\n' + client.pfix + 'cat --- random cat picture!.\n', inline=True)
+
 
         help_details.add_field(name='__**Admin**:__', value='\n'+
     '\n' + client.pfix + 'admintest --- check if you are admin!\n'+
     '\n' + client.pfix + 'deladmin --- deletes admin by user name.\n'+
     '\n' + client.pfix + 'addadmin <Persons Discord Name> --- adds admin by user name.\n', inline=True)
+    '\n' + client.pfix + 'clear <number> --- clears a given amount of messages.\n', inline=True)
 
+        
         help_details.add_field(name='__**Bot Owner**:__', value='\n'+
     '\n' + client.pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n', inline=True)
+    '\n' + client.pfix + 'eval --- evaluates code in python\n', inline=True)
 
         help_details.add_field(name='__**WeenieBot**:__', value='\n'+
     '\n' + 'hello weeniebot --- bot greets you.\n'+
@@ -164,7 +169,7 @@ async def clear(message, client):
         except ValueError:
             await client.send_message(message.channel, 'Error, Did you specify number?')
     elif message.author.name not in admin:
-        await client.send_message(message.channel, 'Only Admins can Clear channels!')
+        await client.send_message(message.channel, 'Only Admins can Clear channels! If you would like to get admin please contact beefywhale#5424')
 
         
 
@@ -247,7 +252,7 @@ async def delquote_logic(message, client):
             except IndexError:
                  await client.send_message(message.channel, 'That quote doesn\'t exist!')
         elif message.author.name not in admin:
-            await client.send_message(message.channel, 'ERROR You are not Admin')
+            await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact beefywhale#5424')
     except:
         pass
 
@@ -279,7 +284,7 @@ async def deladmin_logic(message, client):
             else:
                 await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
         elif message.author.name not in admin:
-             await client.send_message(message.channel, 'ERROR You are not Admin')
+             await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact beefywhale#5424')
     except:
         pass
 
@@ -320,7 +325,7 @@ async def editquote_logic(message, client):
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
     elif message.author.name not in admin:
-        await client.send_message(message.channel, 'ERROR You are not Admin')
+        await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact beefywhale#5424')
 
 async def cleverbot_logic(message, client):
     global cb1
@@ -339,14 +344,14 @@ async def cleverbot_logictwo(message, client):
 async def add_admin_logic(message, client):
     open("adminweenie.json","r")
     if message.author.name in admin:
-        await client.send_message(message.channel, 'Type the ID you want to make admin.')
+        await client.send_message(message.channel, 'Type the ID you want to make admin. WARNING once someone has access to admin they can do commands like Clear! Becareful and add admins at your own expense!')
         msg3 = await client.wait_for_message(author=message.author)
         await client.send_message(message.channel, 'Admin Added')
         admin.append(msg3.content)
         with open("adminweenie.json", "w+") as outfile:
             outfile.write(json.dumps(admin))
     elif message.author.name not in admin:
-        await client.send_message(message.channel, 'ERROR You are not Admin')
+        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact beefywhale#5424')
 
 async def fetch(session, url):
     with aiohttp.Timeout(10, loop=session.loop):
@@ -497,7 +502,7 @@ async def purge(message, client):
         deleted = await client.purge_from(message.channel, limit=500, check=None)
         await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
     elif message.author.name not in admin:
-        await client.send_message(message.channel, 'Only Admins can Purge channels!')
+        await client.send_message(message.channel, 'Only Admins can Purge channels!. If you would like to get admin please contact beefywhale#5424')
 
 async def sleep(message, client):
     tmp = await client.send_message(message.channel, 'ZzzzzzzZZzzzz...')
@@ -524,7 +529,7 @@ async def quoteadd_logic(message, client):
         with open("quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
     elif message.author.name not in admin:
-        await client.send_message(message.channel, 'Only Admins can Add Quotes!')
+        await client.send_message(message.channel, 'Only Admins can Add Quotes! If you would like to get admin please contact beefywhale#5424')
 
 async def user_messages(message, client):
     counter = 0
