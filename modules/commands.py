@@ -126,7 +126,7 @@ async def help_logic(message, client):
 
         
         help_details.add_field(name='__**Bot Owner**:__', value='\n'+
-    '\n' + client.pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n+
+    '\n' + client.pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n'+
     '\n' + client.pfix + 'eval --- evaluates code in python\n', inline=True)
 
         help_details.add_field(name='__**WeenieBot**:__', value='\n'+
