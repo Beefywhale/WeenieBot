@@ -139,7 +139,7 @@ async def help_logic(message, client):
         await client.send_message(message.author, embed=help_details)
 
 async def support(message, client):
-    await client.send_message('Check out my support channel if you need help or have questions or suggestions! https://discord.gg/5VcPZMj')
+    await client.send_message(message.channel, 'Check out my support channel if you need help or have questions or suggestions! https://discord.gg/5VcPZMj')
         
 async def ping_logic(message, client):
     await client.send_message(message.channel, 'Pong')
