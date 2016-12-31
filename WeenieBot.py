@@ -75,7 +75,7 @@ async def on_ready():
     
 @client.event
 async def on_member_join(member):
-    if member.server.id != '110373943822540800':
+    if member.server.id != '110373943822540800' or member.server.id != '206456339872874499':
         try:
             await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
         except discord.Forbidden:
