@@ -79,7 +79,7 @@ async def broadcast_server(message, client):
                 await client.send_message(server.default_channel, broadcast_message)
         except discord.Forbidden:
             if server.id != '110373943822540800' and message.author.name == prefix["bot_owner"]:
-                await client.send_message(message.channel, server.name + 'couldn\'t send broadcast!')
+                await client.send_message(message.channel, server.name + ' couldn\'t send broadcast!')
         
         
 async def bot_account(message, client):
