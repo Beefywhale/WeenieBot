@@ -261,18 +261,19 @@ async def delquote_logic(message, client):
         pass
 
 async def prefix_logic(message, client):
-    with open("database/prefixMap.json", "r") as infile:
-        prefixMap = json.loads(infile.read())
-    print(client.pfix)
-    sprefix = bdel(message.content, client.pfix + "setprefix ")
-    prefixMap[message.server.id] = sprefix
-    await asyncio.sleep(1)
-    await client.send_message(message.channel, 'set prefix to' + ' `' + prefixMap[message.server.id] + ' `')
-    print(prefixMap[message.server.id])
-    with open("database/prefixMap.json", "w+") as outfile:
-         outfile.write(json.dumps(prefixMap))
-    client.pfix = prefixMap[message.server.id]
-    print(prefixMap)
+    if message.author.name == prefix["bot_owner"]:
+        with open("database/prefixMap.json", "r") as infile:
+            prefixMap = json.loads(infile.read())
+        print(client.pfix)
+        sprefix = bdel(message.content, client.pfix + "setprefix ")
+        prefixMap[message.server.id] = sprefix
+        await asyncio.sleep(1)
+        await client.send_message(message.channel, 'set prefix to' + ' `' + prefixMap[message.server.id] + ' `')
+        print(prefixMap[message.server.id])
+        with open("database/prefixMap.json", "w+") as outfile:
+            outfile.write(json.dumps(prefixMap))
+        client.pfix = prefixMap[message.server.id]
+        print(prefixMap)
 
 
 async def deladmin_logic(message, client):
