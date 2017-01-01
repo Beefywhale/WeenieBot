@@ -107,7 +107,7 @@ async def on_message(message):
 
     if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
-    elif message.content.lower().startswith('wb'):
+    elif message.content.lower().startswith('wb') and message.server.id != '110373943822540800':
         await commands.cleverbot_logictwo(message, client)
                 
     if message.content == client.pfix + 'resume' and client.suspend == True:
