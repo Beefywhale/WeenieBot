@@ -219,11 +219,14 @@ async def about(message, client):
     await client.send_message(message.channel, embed=a_details)
 
 async def eval_logic(message, client):
-    if message.author.name in prefix["bot_owner"]:
+    if message.author.name in prefix["bot_owner"] or message.author.id in ['146025479692877824', '160567046642335746']:
+        print(message.author.name + ': ' + message.content)
         try:
             evalt = message.content.replace(client.pfix + 'eval ', '')
-            await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
-            print(message.author.name + ': ' + message.content)
+            if len(str(eval(evalt))) >= 2000:
+                await client.send_message(message.channel, '```Python\n' + str(eval(evalt))[:1950] + '```' + '__Truncated!__')
+            else:
+                await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
         except Exception as x:
             template = "An exception of type {0} occured. Arguments:\n{1!r}"
             messagex = template.format(str(type(x).__name__), str(x))
