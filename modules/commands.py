@@ -181,8 +181,8 @@ async def uptime(message, client):
     await client.send_message(message.channel, "I have been awake for: " + str(datetime.now()-start))
 
 async def afinn_logic(message, client):
-    if message.content.split(' ')[0] == client.pfix + 'afs':
-        winput = bdel(message.content, client.pfix + "afs ")
+    if message.content.split(' ')[0] == client.pfix + 'afinn':
+        winput = bdel(message.content, client.pfix + "afinn ")
         if winput.lower() in words:
             await client.send_message(message.channel, "Sentiment analysis for " + winput.lower() + " is: " + str(words[winput.lower()]))
         else:
@@ -606,7 +606,7 @@ async def user(message, client):
 cmdDict = {
   "support": support,  
   "uptime": uptime,
-  "afs": afinn_logic,
+  "afinn": afinn_logic,
   "admintest": admintest,
   "say": say,
   "prefix": get_prefix,
