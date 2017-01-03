@@ -12,15 +12,17 @@ import os
 import aiohttp
 from datetime import datetime
 from google import search
-
 with open("database/AFINN-111.json", "r") as infile:
     words = json.loads(infile.read())
 
 with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
-with open("database/storage.json", "r") as outfile:
+with open("database/storage.json", "r") as infile:
     storage = json.loads(infile.read())
+
+with open("database/storage2.json", "r") as infile:
+    storage2 = json.loads(infile.read())
     
 with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
@@ -30,6 +32,9 @@ with open("adminweenie.json","r") as infile:
 
 with open("database/storage.json", "w+") as outfile:
     outfile.write(json.dumps(storage))    
+
+with open("database/storage2.json", "w+") as outfile:
+    outfile.write(json.dumps(storage2))  
     
 with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
@@ -39,7 +44,7 @@ with open("adminweenie.json", "w+") as outfile:
 
 with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
-
+    
 status = {
     'online': 'Online',
     'offline': 'Offline',
@@ -96,6 +101,9 @@ async def broadcast_server_toggle(message, client):
         if message.author == client.server.owner:
             storage[message.server.id] = "broadcast0"
             await client.send_message(message.channel, "you set broadcasts on!")
+    with open("database/storage.json", "w+") as outfile:
+        outfile.write(json.dumps(storage))    
+
 
 async def welcome_msg_toggle(message, client):
     if message.content.split(' ')[1] == 'off':
@@ -105,7 +113,9 @@ async def welcome_msg_toggle(message, client):
     if message.content.split(' ')[1] == 'on':
         if message.author == client.server.owner:
             client.storage2 = "message0"
-            await client.send_message(message.channel, "you set welcom message on!")
+            await client.send_message(message.channel, "you set welcome message on!")
+    with open("database/storage2.json", "w+") as outfile:
+        outfile.write(json.dumps(storage2)) 
         
 async def bot_account(message, client):
     if message.author.name == prefix["bot_owner"]:
