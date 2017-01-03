@@ -638,17 +638,17 @@ async def user(message, client):
                 print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
 cmdDict = {
-  "support": support,  
+  "support": support,
   "uptime": uptime,
   "afinn": afinn_logic,
   "admintest": admintest,
   "say": say,
-  "setwelcomemsg": welcome_msg_toggle,
+  "set_welcome_msg": welcome_msg_toggle,
   "prefix": get_prefix,
   "hotdog": hotdog,
   "about": about,
   "eval": eval_logic,
-  "setbroadcast": broadcast_server_toggle,
+  "set_broadcast": broadcast_server_toggle,
   "delquote": delquote_logic,
   "setprefix": prefix_logic,
   "deladmin": deladmin_logic,
