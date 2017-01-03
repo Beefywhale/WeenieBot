@@ -12,6 +12,7 @@ import os
 import aiohttp
 from datetime import datetime
 from google import search
+
 with open("database/AFINN-111.json", "r") as infile:
     words = json.loads(infile.read())
 
@@ -44,7 +45,7 @@ with open("adminweenie.json", "w+") as outfile:
 
 with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
-    
+
 status = {
     'online': 'Online',
     'offline': 'Offline',
@@ -114,8 +115,8 @@ async def welcome_msg_toggle(message, client):
             storage2[message.server.id] = "message0"
             await client.send_message(message.channel, "you set welcom message on!")
     with open("database/storage2.json", "w+") as outfile:
-        outfile.write(json.dumps(storage2))  
-        
+        outfile.write(json.dumps(storage2)) 
+
 async def bot_account(message, client):
     if message.author.name == prefix["bot_owner"]:
         botaccount = True
@@ -638,17 +639,17 @@ async def user(message, client):
                 print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
 cmdDict = {
-  "support": support,
+  "support": support,  
   "uptime": uptime,
   "afinn": afinn_logic,
   "admintest": admintest,
   "say": say,
-  "set_welcome_msg": welcome_msg_toggle,
+  "welcome_message": welcome_msg_toggle,
   "prefix": get_prefix,
   "hotdog": hotdog,
   "about": about,
   "eval": eval_logic,
-  "set_broadcast": broadcast_server_toggle,
+  "setbroadcast": broadcast_server_toggle,
   "delquote": delquote_logic,
   "setprefix": prefix_logic,
   "deladmin": deladmin_logic,
