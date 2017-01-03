@@ -30,8 +30,8 @@ with open("quoteweenie.json","r") as infile:
 with open("adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
-with open("database/storage.json", "r") as outfile:
-    storage = json.loads(infile.read())
+with open("database/storage2.json", "r") as outfile:
+    storage2 = json.loads(infile.read())
     
 with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
@@ -42,8 +42,8 @@ with open("adminweenie.json", "w+") as outfile:
 with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
 
-with open("database/storage.json", "w+") as outfile:
-    outfile.write(json.dumps(storage))
+with open("database/storage2.json", "w+") as outfile:
+    outfile.write(json.dumps(storage2))
     
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
@@ -89,10 +89,17 @@ async def on_member_join(member):
         
 @client.event
 async def on_message(message):
-    with open("database/storage.json", "r") as outfile:
-        storage = json.loads(infile.read())
+    with open("database/storage2.json", "r") as outfile:
+        storage2 = json.loads(infile.read())
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
+    
+    if message.server.id not in storage2:
+        storage2[message.server.id] = 'message0'
+        client.storage2 = storage2[message.server.id]
+    else:
+        client.storage2 = storage2[message.server.id]
+    
     if message.server.id not in prefixMap:
         prefixMap[message.server.id] = '!'
         client.pfix = prefixMap[message.server.id]
