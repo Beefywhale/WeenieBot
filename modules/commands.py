@@ -96,7 +96,16 @@ async def broadcast_server_toggle(message, client):
         if message.author == client.server.owner:
             storage[message.server.id] = "broadcast0"
             await client.send_message(message.channel, "you set broadcasts on!")
-        
+
+async def welcome_msg_toggle(message, client):
+    if message.content.split(' ')[1] == 'off':
+        if message.author == client.server.owner:
+            client.storage2 = "message1"
+            await client.send_message(message.channel, "you set welcome message off!")
+    if message.content.split(' ')[1] == 'on':
+        if message.author == client.server.owner:
+            client.storage2 = "message0"
+            await client.send_message(message.channel, "you set welcom message on!")
         
 async def bot_account(message, client):
     if message.author.name == prefix["bot_owner"]:
@@ -625,11 +634,12 @@ cmdDict = {
   "afinn": afinn_logic,
   "admintest": admintest,
   "say": say,
+  "setwelcomemsg": welcome_msg_toggle,
   "prefix": get_prefix,
   "hotdog": hotdog,
   "about": about,
   "eval": eval_logic,
-  "setbroadcast": broadcast_server_toggle
+  "setbroadcast": broadcast_server_toggle,
   "delquote": delquote_logic,
   "setprefix": prefix_logic,
   "deladmin": deladmin_logic,
