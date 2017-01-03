@@ -93,11 +93,12 @@ async def broadcast_server(message, client):
                 await client.send_message(message.channel, server.name + ' couldn\'t send broadcast!')
         
 async def broadcast_server_toggle(message, client):
-    if message.content.split(' ')[1] == 'off':
+    broadcast_msg = message.content.replace(client.pfix + 'set_broadcast', '')
+    if broadcast_msg == 'off':
         if message.author == message.server.owner:
             storage[message.server.id] = "broadcast1"
             await client.send_message(message.channel, "you set broadcasts off!")
-    if message.content.split(' ')[1] == 'on':
+    if broadcast_msg == 'on':
         if message.author == message.server.owner:
             storage[message.server.id] = "broadcast0"
             await client.send_message(message.channel, "you set broadcasts on!")
@@ -105,11 +106,12 @@ async def broadcast_server_toggle(message, client):
         outfile.write(json.dumps(storage))    
 
 async def welcome_msg_toggle(message, client):
-    if message.content.split(' ')[1] == 'off':
+    welcome_msg = message.content.replace(client.pfix + 'set_welcome_msg', '')
+    if welcome_msg == 'off':
         if message.author == message.server.owner:
             storage2[message.server.id] = "message1"
             await client.send_message(message.channel, "you set welcome message off!")
-    if message.content.split(' ')[1] == 'on':
+    if welcome_msg == 'on':
         if message.author == message.server.owner:
             storage2[message.server.id] = "message0"
             await client.send_message(message.channel, "you set welcom message on!")
