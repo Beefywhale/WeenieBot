@@ -106,6 +106,11 @@ async def on_message(message):
     if message.server.id not in storage:
         storage[message.server.id] = 'broadcast0'
     
+    with open("database/storage2.json", "w+") as outfile:
+        outfile.write(json.dumps(storage2))
+    with open("database/storage.json", "w+") as outfile:
+        outfile.write(json.dumps(storage))
+    
     if message.server.id not in prefixMap:
         prefixMap[message.server.id] = '!'
         client.pfix = prefixMap[message.server.id]
