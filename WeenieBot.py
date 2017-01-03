@@ -86,7 +86,10 @@ async def on_ready():
     
 @client.event
 async def on_member_join(member):
-    if storage2[member.server.id] == 'welcome0':
+    if member.server.id not in storage2:
+        storage2[member.server.id] = 'message0'
+        
+    if storage2[member.server.id] == 'message1':
         try:
             await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
         except discord.Forbidden:
