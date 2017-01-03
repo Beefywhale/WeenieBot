@@ -102,9 +102,6 @@ async def on_message(message):
     
     if message.server.id not in storage2:
         storage2[message.server.id] = 'message0'
-        client.storage2 = storage2[message.server.id]
-    else:
-        client.storage2 = storage2[message.server.id]
 
     if message.server.id not in storage:
         storage[message.server.id] = 'broadcast0'
