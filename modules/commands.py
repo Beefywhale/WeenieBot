@@ -94,28 +94,27 @@ async def broadcast_server(message, client):
         
 async def broadcast_server_toggle(message, client):
     if message.content.split(' ')[1] == 'off':
-        if message.author == client.server.owner:
+        if message.author == message.server.owner:
             storage[message.server.id] = "broadcast1"
             await client.send_message(message.channel, "you set broadcasts off!")
     if message.content.split(' ')[1] == 'on':
-        if message.author == client.server.owner:
+        if message.author == message.server.owner:
             storage[message.server.id] = "broadcast0"
             await client.send_message(message.channel, "you set broadcasts on!")
     with open("database/storage.json", "w+") as outfile:
         outfile.write(json.dumps(storage))    
 
-
 async def welcome_msg_toggle(message, client):
     if message.content.split(' ')[1] == 'off':
-        if message.author == client.server.owner:
-            client.storage2 = "message1"
+        if message.author == message.server.owner:
+            storage2[message.server.id] = "message1"
             await client.send_message(message.channel, "you set welcome message off!")
     if message.content.split(' ')[1] == 'on':
-        if message.author == client.server.owner:
-            client.storage2 = "message0"
-            await client.send_message(message.channel, "you set welcome message on!")
+        if message.author == message.server.owner:
+            storage2[message.server.id] = "message0"
+            await client.send_message(message.channel, "you set welcom message on!")
     with open("database/storage2.json", "w+") as outfile:
-        outfile.write(json.dumps(storage2)) 
+        outfile.write(json.dumps(storage2))  
         
 async def bot_account(message, client):
     if message.author.name == prefix["bot_owner"]:
