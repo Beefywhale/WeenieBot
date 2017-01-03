@@ -89,8 +89,9 @@ async def on_member_join(member):
         
 @client.event
 async def on_message(message):
-    with open("database/storage2.json", "r") as outfile:
+    with open("database/storage2.json", "r") as infile:
         storage2 = json.loads(infile.read())
+    
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
     
@@ -99,6 +100,9 @@ async def on_message(message):
         client.storage2 = storage2[message.server.id]
     else:
         client.storage2 = storage2[message.server.id]
+
+    if message.server.id not in storage:
+        storage[message.server.id] = 'broadcast0'
     
     if message.server.id not in prefixMap:
         prefixMap[message.server.id] = '!'
