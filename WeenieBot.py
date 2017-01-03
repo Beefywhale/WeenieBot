@@ -30,6 +30,9 @@ with open("quoteweenie.json","r") as infile:
 with open("adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
+with open("database/storage.json", "r") as outfile:
+    storage = json.loads(infile.read())
+    
 with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
 
@@ -39,6 +42,9 @@ with open("adminweenie.json", "w+") as outfile:
 with open("prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
 
+with open("database/storage.json", "w+") as outfile:
+    outfile.write(json.dumps(storage))
+    
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
@@ -75,15 +81,16 @@ async def on_ready():
     
 @client.event
 async def on_member_join(member):
-    if member.server.id != '110373943822540800':
-        if member.server.id != '206456339872874499':
-            try:
-                await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
-            except discord.Forbidden:
-                print('Couldn\'t welcome {} in server {} do to perms error.'.format(member, member.server))
+    if storage["welcome_msg"] = '0':
+         try:
+            await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
+        except discord.Forbidden:
+            print('Couldn\'t welcome {} in server {} do to perms error.'.format(member, member.server))
         
 @client.event
 async def on_message(message):
+    with open("database/storage.json", "r") as outfile:
+        storage = json.loads(infile.read())
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
     if message.server.id not in prefixMap:
