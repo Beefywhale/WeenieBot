@@ -82,7 +82,7 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
     if storage2[message.server.id] == 'welcome0':
-         try:
+        try:
             await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
         except discord.Forbidden:
             print('Couldn\'t welcome {} in server {} do to perms error.'.format(member, member.server))
