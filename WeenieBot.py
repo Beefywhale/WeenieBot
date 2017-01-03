@@ -30,7 +30,10 @@ with open("quoteweenie.json","r") as infile:
 with open("adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
-with open("database/storage2.json", "r") as outfile:
+with open("database/storage.json", "r") as infile:
+    storage = json.loads(infile.read())
+
+with open("database/storage2.json", "r") as infile:
     storage2 = json.loads(infile.read())
     
 with open("quoteweenie.json", "w+") as outfile:
@@ -44,6 +47,8 @@ with open("prefix.json", "w+") as outfile:
 
 with open("database/storage2.json", "w+") as outfile:
     outfile.write(json.dumps(storage2))
+with open("database/storage.json", "w+") as outfile:
+    outfile.write(json.dumps(storage))
     
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
