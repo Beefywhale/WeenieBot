@@ -93,7 +93,7 @@ async def on_member_join(member):
     with open("database/storage2.json", "w+") as outfile:
         outfile.write(json.dumps(storage2))
     
-    if storage2[member.server.id] == 'message1':
+    if storage2[member.server.id] == 'message0':
         try:
             await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
         except discord.Forbidden:
@@ -104,10 +104,8 @@ async def on_message(message):
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
     
-
     if message.server.id not in storage:
         storage[message.server.id] = 'broadcast0'
-    
 
     with open("database/storage.json", "w+") as outfile:
         outfile.write(json.dumps(storage))
