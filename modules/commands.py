@@ -19,12 +19,18 @@ with open("database/AFINN-111.json", "r") as infile:
 with open("prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
+with open("database/storage.json", "r") as outfile:
+    storage = json.loads(infile.read())
+    
 with open("quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
 with open("adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
+with open("database/storage.json", "w+") as outfile:
+    outfile.write(json.dumps(storage))    
+    
 with open("quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
 
@@ -75,11 +81,21 @@ async def broadcast_server(message, client):
     broadcast_message = message.content.replace(client.pfix + 'broadcast', '')
     for server in client.servers:
         try:
-            if server.id != '110373943822540800' and message.author.name == prefix["bot_owner"]:
+            if storage[message.server.id] == "broadcast0" and message.author.name == prefix["bot_owner"]:
                 await client.send_message(server.default_channel, broadcast_message)
         except discord.Forbidden:
-            if server.id != '110373943822540800' and message.author.name == prefix["bot_owner"]:
+            if storage[message.server.id] == "broadcast0"  and message.author.name == prefix["bot_owner"]:
                 await client.send_message(message.channel, server.name + ' couldn\'t send broadcast!')
+        
+async def broadcast_server_toggle(message, client):
+    if message.content.split(' ')[1] == 'off':
+        if message.author == client.server.owner:
+            storage[message.server.id] = "broadcast1"
+            await client.send_message(message.channel, "you set broadcasts off!")
+    if message.content.split(' ')[1] == 'on':
+        if message.author == client.server.owner:
+            storage[message.server.id] = "broadcast0"
+            await client.send_message(message.channel, "you set broadcasts on!")
         
         
 async def bot_account(message, client):
@@ -613,6 +629,7 @@ cmdDict = {
   "hotdog": hotdog,
   "about": about,
   "eval": eval_logic,
+  "setbroadcast": broadcast_server_toggle
   "delquote": delquote_logic,
   "setprefix": prefix_logic,
   "deladmin": deladmin_logic,
