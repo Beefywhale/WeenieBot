@@ -339,10 +339,7 @@ async def quote_logic(message, client):
                 q_number = message.content.split(' ')
                 quote_number = int(q_number[1])
                 print(quote_number)
-                if message.server.id == '242887866730938378':
-                    await client.send_message(message.channel, Quotes_All[quote_number])
-                else:
-                    await client.send_message(message.channel, Quotes_All[quote_number - 1])
+                await client.send_message(message.channel, Quotes_All[quote_number])
             except IndexError:
                 await client.send_message(message.channel, 'That quote doesn\'t exist!')
         except ValueError:
