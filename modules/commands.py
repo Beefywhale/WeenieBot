@@ -58,7 +58,7 @@ cb1 = cleverbot.Cleverbot()
 x33 = '%m-%d-%Y'
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
-open("prefix.json", "r")
+open("database/prefix.json", "r")
 start = datetime.now()
 
 async def update_logic(message, client):
@@ -224,7 +224,7 @@ async def afinn_logic(message, client):
             print(winput)
 
 async def admintest(message, client):
-    open("adminweenie.json","r")
+    open("database/adminweenie.json","r")
     if message.author in admin:
         await client.send_message(message.channel, 'Hello Admin!')
     elif message.author not in admin:
@@ -281,7 +281,7 @@ async def eval_logic_block(message, client):
 ''' + messagex + '```')
 
 async def delquote_logic(message, client):
-    open("quoteweenie.json", "r")
+    open("database/quoteweenie.json", "r")
     try:
         del_q = message.content.split(' ')
         del_quote = int(del_q[1])
@@ -289,7 +289,7 @@ async def delquote_logic(message, client):
             try:
                 del Quotes_All[del_quote]
                 await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
-                with open("quoteweenie.json", "w+") as outfile:
+                with open("database/quoteweenie.json", "w+") as outfile:
                     outfile.write(json.dumps(Quotes_All))
             except IndexError:
                  await client.send_message(message.channel, 'That quote doesn\'t exist!')
@@ -315,14 +315,14 @@ async def prefix_logic(message, client):
 
 
 async def deladmin_logic(message, client):
-    open("adminweenie.json","r")
+    open("database/adminweenie.json","r")
     try:
         del_admin = str(message.content.replace(client.pfix + 'deladmin ', ''))
         if message.author in admin:
             if del_admin in admin:
                 await client.send_message(message.channel, 'Admin Removed')
                 admin.remove(del_admin)
-                with open("adminweenie.json", "w+") as outfile:
+                with open("database/adminweenie.json", "w+") as outfile:
                     outfile.write(json.dumps(admin))
             else:
                 await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
@@ -333,7 +333,7 @@ async def deladmin_logic(message, client):
 
 async def quote_logic(message, client):
     if message.content.split(' ')[0] == client.pfix + 'quote':
-        open("quoteweenie.json", "r")
+        open("database/quoteweenie.json", "r")
         try:
             try:
                 q_number = message.content.split(' ')
@@ -351,7 +351,7 @@ async def rand_quote(message, client):
         await client.send_message(message.channel, (Quotes_All[random_quote]))
 
 async def editquote_logic(message, client):
-    open("quoteweenie.json", "r")
+    open("database/quoteweenie.json", "r")
     e_quote = message.content.split(' ')
     edit_quote = int(e_quote[1])
     if message.author in admin:
@@ -360,7 +360,7 @@ async def editquote_logic(message, client):
             msg = await client.wait_for_message(author=message.author)
             Quotes_All[edit_quote] = msg.content
             await client.send_message(message.channel, 'Quote Edited')
-            with open("quoteweenie.json", "w+") as outfile:
+            with open("database/quoteweenie.json", "w+") as outfile:
                 outfile.write(json.dumps(Quotes_All))
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
@@ -382,13 +382,13 @@ async def cleverbot_logictwo(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
 
 async def add_admin_logic(message, client):
-    open("adminweenie.json","r")
+    open("database/adminweenie.json","r")
     if message.author in admin:
         await client.send_message(message.channel, 'Type the ID you want to make admin. WARNING once someone has access to admin they can do commands like Clear! Becareful and add admins at your own expense!')
         msg3 = await client.wait_for_message(author=message.author)
         await client.send_message(message.channel, 'Admin Added')
         admin.append(msg3.content)
-        with open("adminweenie.json", "w+") as outfile:
+        with open("database/adminweenie.json", "w+") as outfile:
             outfile.write(json.dumps(admin))
     elif message.author not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact beefywhale#5424')
@@ -554,7 +554,7 @@ async def cooldown(message, client, num):
     client.timer = 0
 
 async def quoteadd_logic(message, client):
-    open("quoteweenie.json","r")
+    open("database/quoteweenie.json","r")
     if message.author in admin:
         msg = message.content.replace(client.pfix + 'quoteadd', '')
         global counter1
@@ -563,7 +563,7 @@ async def quoteadd_logic(message, client):
         counter1
         counter1 = len(Quotes_All) + 1
         Quotes_All.append(str(len(Quotes_All)) +': ' + msg)
-        with open("quoteweenie.json", "w+") as outfile:
+        with open("database/quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
     elif message.author not in admin:
         await client.send_message(message.channel, 'Only Admins can Add Quotes! If you would like to get admin please contact beefywhale#5424')
@@ -584,14 +584,14 @@ async def google_search(message, client):
         break
 
 async def quote_amount(message, client):
-    open("quoteweenie.json","r")
+    open("database/quoteweenie.json","r")
     global counter2
     counter2 = len(Quotes_All)
     counter2 = str(len(Quotes_All) - 1)
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
-    open("quoteweenie.json","r")
+    open("database/quoteweenie.json","r")
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(', '.join(admin)))
 
 async def user(message, client):
