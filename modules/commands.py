@@ -75,21 +75,6 @@ async def update_logic(message, client):
     else:
         await client.send_message(message.channel, 'Error Didn\'t update maybe you aren\'t an admin?')
 
-async def update_logic_test(message, client):
-    if message.author.name in prefix["bot_owner"] or message.author.id == '146025479692877824':
-        await client.send_message(message.channel, 'Updating...')
-        g = git.cmd.Git()
-        u = g.pull('-v')
-        await client.send_message(message.channel, '```' + str(u) + '```')
-        if str(u) == 'Already up-to-date.':
-            await client.send_message(message.channel, 'Already Up To Date! Not restarting')
-        else:
-            await client.send_message(message.channel, 'Update successful restarting!')
-            os.execl(sys.executable, sys.executable, *sys.argv)
-    else:
-        await client.send_message(message.channel, 'Error Didn\'t update maybe you aren\'t an admin?')
-
-
 async def restart_logic(message, client):
     if message.author.name == prefix["bot_owner"]:
         await client.send_message(message.channel, 'Restarting... Please wait 5-10 seconds before trying to run any commands!')
@@ -577,10 +562,7 @@ async def quoteadd_logic(message, client):
         await client.send_message(message.channel, 'Quote {} Added!'.format(counter1))
         counter1
         counter1 = len(Quotes_All) + 1
-        if message.server.id == '242887866730938378':
-            Quotes_All.append(str(len(Quotes_All)) +': ' + msg)
-        else:
-            Quotes_All.append(str(len(Quotes_All) + 1) +': ' + msg)
+        Quotes_All.append(str(len(Quotes_All) + 1) +': ' + msg)
         with open("quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
     elif message.author.name not in admin:
