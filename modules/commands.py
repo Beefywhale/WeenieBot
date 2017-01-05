@@ -15,7 +15,7 @@ from google import search
 with open("database/AFINN-111.json", "r") as infile:
     words = json.loads(infile.read())
 
-with open("prefix.json", "r") as infile:
+with open("database/prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
 with open("database/storage.json", "r") as infile:
