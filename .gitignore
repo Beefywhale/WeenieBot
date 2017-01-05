@@ -92,9 +92,9 @@ ENV/
 modules/botToken.py
 
 #data storage
-adminweenie.json
-quoteweenie.json
-prefix.json
+database/adminweenie.json
+database/quoteweenie.json
+database/prefix.json
 database/prefixMap.json
 database/storage.json
 database/storage2.json
