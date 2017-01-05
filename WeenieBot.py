@@ -21,13 +21,13 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 logging.basicConfig(level=logging.INFO)
 
-with open("prefix.json", "r") as infile:
+with open("database/prefix.json", "r") as infile:
     prefix = json.loads(infile.read())
 
-with open("quoteweenie.json","r") as infile:
+with open("database/quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
-with open("adminweenie.json","r") as infile:
+with open("database/adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
 with open("database/storage.json", "r") as infile:
@@ -36,13 +36,13 @@ with open("database/storage.json", "r") as infile:
 with open("database/storage2.json", "r") as infile:
     storage2 = json.loads(infile.read())
     
-with open("quoteweenie.json", "w+") as outfile:
+with open("database/quoteweenie.json", "w+") as outfile:
     outfile.write(json.dumps(Quotes_All))
 
-with open("adminweenie.json", "w+") as outfile:
+with open("database/adminweenie.json", "w+") as outfile:
     outfile.write(json.dumps(admin))
     
-with open("prefix.json", "w+") as outfile:
+with open("database/prefix.json", "w+") as outfile:
     outfile.write(json.dumps(prefix))
 
 with open("database/storage2.json", "w+") as outfile:
