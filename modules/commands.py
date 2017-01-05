@@ -562,7 +562,7 @@ async def quoteadd_logic(message, client):
         await client.send_message(message.channel, 'Quote {} Added!'.format(counter1))
         counter1
         counter1 = len(Quotes_All) + 1
-        Quotes_All.append(str(len(Quotes_All) + 1) +': ' + msg)
+        Quotes_All.append(str(len(Quotes_All)) +': ' + msg)
         with open("quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
     elif message.author.name not in admin:
@@ -587,12 +587,9 @@ async def quote_amount(message, client):
     open("quoteweenie.json","r")
     global counter2
     counter2 = len(Quotes_All)
-    if message.server.id == '242887866730938378':
-        counter2 = str(len(Quotes_All) - 1)
-        await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
-    else:
-        await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
-        
+    counter2 = str(len(Quotes_All) - 1)
+    await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
+
 async def admin_amount(message, client):
     open("quoteweenie.json","r")
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins {}'.format(', '.join(admin)))
