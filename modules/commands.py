@@ -254,7 +254,7 @@ async def about(message, client):
 
 async def eval_logic(message, client):
     if str(message.author) in prefix["bot_owner"]:
-        print(message.author + ': ' + message.content)
+        print(str(message.author) + ': ' + message.content)
         try:
             evalt = message.content.replace(client.pfix + 'eval ', '')
             if len(str(eval(evalt))) >= 2000:
@@ -272,7 +272,7 @@ async def eval_logic_block(message, client):
         try:
             evalt = message.content.replace(client.pfix + 'evalt ', '')
             await client.send_message(message.channel, str(eval(evalt)))
-            print(message.author + ': ' + message.content)
+            print(str(message.author) + ': ' + message.content)
         except Exception as x:
             template = "An exception of type {0} occured. Arguments:\n{1!r}"
             messagex = template.format(str(type(x).__name__), str(x))
