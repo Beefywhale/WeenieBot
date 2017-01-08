@@ -266,6 +266,27 @@ async def eval_logic(message, client):
             messagex = template.format(str(type(x).__name__), str(x))
             await client.send_message(message.channel, '''```Python
 ''' + messagex + '```')
+
+
+async def repl_logic(message, client):
+    if str(message.author) in prefix["bot_owner"]:
+        client.repl = True
+        print(str(message.author) + ': ' + message.content)
+        while client.repl = True:
+            try:
+                evalt = await client.wait_for_message(author=message.author)
+                if evalt == client.pfix + 'rexit':
+                    client.repl = False
+                else:
+                    if len(str(eval(evalt))) >= 2000:
+                        await client.send_message(message.channel, '```Python\n' + str(eval(evalt))[:1950] + '```' + '__Truncated!__')
+                    else:
+                        await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
+        except Exception as x:
+            template = "An exception of type {0} occured. Arguments:\n{1!r}"
+            messagex = template.format(str(type(x).__name__), str(x))
+            await client.send_message(message.channel, '''```Python
+''' + messagex + '```')            
             
 async def eval_logic_block(message, client):
     if str(message.author) in prefix["bot_owner"]:
@@ -653,6 +674,7 @@ cmdDict = {
   "quoteadd": quoteadd_logic,
   "messages": user_messages,
   "google": google_search,
+  "repl": repl_logic,
   "quotes": quote_amount,
   "admins": admin_amount,
   "user": user,
