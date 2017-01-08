@@ -272,7 +272,7 @@ async def repl_logic(message, client):
     if str(message.author) in prefix["bot_owner"]:
         client.repl = True
         print(str(message.author) + ': ' + message.content)
-        while client.repl = True:
+        while client.repl is True:
             try:
                 evalt = await client.wait_for_message(author=message.author)
                 if evalt == client.pfix + 'rexit':
