@@ -282,10 +282,10 @@ async def repl_logic(message, client):
                         await client.send_message(message.channel, '```Python\n' + str(eval(evalt))[:1950] + '```' + '__Truncated!__')
                     else:
                         await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
-        except Exception as x:
-            template = "An exception of type {0} occured. Arguments:\n{1!r}"
-            messagex = template.format(str(type(x).__name__), str(x))
-            await client.send_message(message.channel, '''```Python
+            except Exception as x:
+                template = "An exception of type {0} occured. Arguments:\n{1!r}"
+                messagex = template.format(str(type(x).__name__), str(x))
+                await client.send_message(message.channel, '''```Python
 ''' + messagex + '```')            
             
 async def eval_logic_block(message, client):
