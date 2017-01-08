@@ -54,6 +54,7 @@ class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
         self.suspend = False
+        self.repl = False
         super().__init__(*args, **kwargs) 
 
 status = {
