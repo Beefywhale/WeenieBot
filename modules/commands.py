@@ -279,9 +279,9 @@ async def repl_logic(message, client):
                     client.repl = False
                 else:
                     if len(str(eval(evalt))) >= 2000:
-                        await client.send_message(message.channel, '```Python\n' + eval(str(evalt)))[:1950] + '```' + '__Truncated!__')
+                        await client.send_message(message.channel, '```Python\n' + eval(str(evalt))[:1950] + '```' + '__Truncated!__')
                     else:
-                        await client.send_message(message.channel, '```Python\n' + eval(str(evalt))) + '```')
+                        await client.send_message(message.channel, '```Python\n' + eval(str(evalt)) + '```')
             except Exception as x:
                 template = "An exception of type {0} occured. Arguments:\n{1!r}"
                 messagex = template.format(str(type(x).__name__), str(x))
