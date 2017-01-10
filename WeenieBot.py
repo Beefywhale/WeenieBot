@@ -138,7 +138,7 @@ async def on_message(message):
     if message.content == client.pfix + 'resume' and client.suspend == True:
         await commands.resume_logic(message, client)
     
-    if message.content == "prefix":
+    if message.content == "!prefix":
         await commands.get_prefix(message, client)
 
     if message.content == client.pfix + 'jfgi':
