@@ -246,7 +246,7 @@ async def about(message, client):
     a_details.add_field(name='Creator\'s GitHub:', value='https://github.com/Beefywhale', inline=True)
     a_details.add_field(name='My Website:', value='https://beefywhale.github.io/WeenieBot/', inline=True)
     a_details.add_field(name='Invite Me:', value='https://tiny.cc/weeniebot', inline=True)
-    a_details.add_field(name='People I can see:', value=len([', '.join(i.name for i in client.get_all_members())]), inline=True)
+    a_details.add_field(name='People I can see:', value=len(list([', '.join(i.name for i in client.get_all_members())])), inline=True)
     a_details.set_footer(text='Made in Python3.5+ with discord.py library!', icon_url='http://findicons.com/files/icons/2804/plex/512/python.png')
     a_details.set_image(url=message.server.me.avatar_url)
     a_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
