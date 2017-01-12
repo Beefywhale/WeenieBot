@@ -319,7 +319,7 @@ async def delquote_logic(message, client):
         pass
 
 async def prefix_logic(message, client):
-    if str(message.author) == prefix["bot_owner"]:
+    if str(message.author) == prefix["bot_owner"] or str(message.author) == message.server.owner:
         with open("database/prefixMap.json", "r") as infile:
             prefixMap = json.loads(infile.read())
         print(client.pfix)
@@ -620,7 +620,6 @@ async def user(message, client):
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         try:
             username = message.content.replace(client.pfix + 'user ', '')
-            print(username)
             roles_member = message.server.get_member_named(username).roles
             user_details = discord.Embed(title='', description='', colour=int(rr, 16))
             user_details.add_field(name='Username:', value=message.server.get_member_named(username).name, inline=True)
@@ -647,7 +646,6 @@ async def user(message, client):
                 user_details.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
                 await client.send_message(message.channel, embed=user_details)
             else:
-                print(username)
                 await client.send_message(message.channel, 'Invalid User Name')
 cmdDict = {
   "support": support,
