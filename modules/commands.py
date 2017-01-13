@@ -539,6 +539,21 @@ async def cats(message, client):
         if catr.status == 200:
             js = await catr.json()
             await client.send_message(message.channel, js['file'])
+            
+async def LoL_api(message, client):
+    summoner_name = message.content.lower().strip(client.pfix + 'lol ')
+    loop = asyncio.get_event_loop()
+    r = lambda: random.randint(0,255)
+    rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+    async with aiohttp.get('https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summoner_name + '?api_key=' + prefix["lolKey"]) as lolr:
+        if lolr.status == 200:
+            js = await lolr.json()
+            summoner_details = discord.Embed(title=js[summoner_name.lower()]['name'], description='', colour=int(rr, 16))
+            summoner_details.add_field(name='Summoner ID:', value=js[summoner_name.lower()]['id'])
+            summoner_details.add_field(name='Summoner Level:', value=js[summoner_name.lower()]['summonerLevel'])
+            await client.send_message(message.channel, embed=summoner_details)
+        else:
+            await client.send_message(message.channel, 'Something went wrong with the API! :scream:')
 
 async def dog(message, client):
     data = 'http://random.dog/woof'
@@ -670,6 +685,7 @@ cmdDict = {
   "googlefight": google_Fight,
   "sleep": sleep,
   "quoteadd": quoteadd_logic,
+  "lol": LoL_api,
   "messages": user_messages,
   "google": google_search,
   "repl": repl_logic,
