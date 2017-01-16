@@ -554,7 +554,25 @@ async def LoL_api(message, client):
             await client.send_message(message.channel, embed=summoner_details)
         else:
             await client.send_message(message.channel, 'Something went wrong with the API! :scream:')
+async def minecraft(message, client)        
+    r = lambda: random.randint(0,255)
+    rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+    loop = asyncio.get_event_loop()
+    mc_server = message.content.replace(client.pfix + 'minecraft ')
+    async with aiohttp.get('https://mcapi.us/server/status?ip=' + mc_server) as mcr:
+        if mcr.status == 200:
+            js = await mcr.json()
+            mc_details = discord.Embed(title='', description='', colour=int(rr, 16))
+            mc_details.add_field(name='Server Version: ', value=js['server']['name'])
+            mc_details.add_field(name='Server Online:', value=js['online'])
+            mc_details.add_field(name='Max Players:', value=js['players']['max'])
+            mc_details.add_field(name='Current Online Players:', value=js['players']['now'])
+            mc_details.add_field(name='Description:', value=js['motd'])
+            await client.send_message(message.channel, embed=mc_details)
+        else:
+            await client.send_message(message.channel, 'Something went wrong with the API! :scream:')
 
+            
 async def dog(message, client):
     data = 'http://random.dog/woof'
     loop = asyncio.get_event_loop()
@@ -698,6 +716,7 @@ cmdDict = {
   "suspend": suspend_logic,
   "help": help_logic,
   "clear": clear,
+  "minecraft": minecraft,
   "enterbot": bot_account,
   "endbot": cancel_bot_account,
   "evalt": eval_logic_block,
