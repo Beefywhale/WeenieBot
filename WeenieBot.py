@@ -222,7 +222,7 @@ async def on_message(message):
         await Voice.stop(message, client)
     if message.content.startswith(client.pfix + 'pause'):
         await Voice.pause(message, client)
-    if message.content.startswith(client.pfix + 'mresume'):
+    if message.content.startswith(client.pfix + 'unpause'):
         await Voice.mresume(message, client)
     if message.content.startswith(client.pfix + 'disconnect'):
         await Voice.disconnect(message, client)
