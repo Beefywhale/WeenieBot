@@ -17,6 +17,18 @@ import modules.commands as commands
 import modules.botToken as botToken
 from google import search
 
+if not discord.opus.is_loaded():
+    try:
+        discord.opus.load_opus('opus')
+    except OSError:
+        try:
+            discord.opus.load_opus('libopus')
+        except OSError:
+            print('ERORR, Voice Will be disabled do to opus loading error')
+
+if discord.opus.is_loaded():
+    print('Voice Loaded!')
+
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 logging.basicConfig(level=logging.INFO)
@@ -55,6 +67,7 @@ class Weenie(discord.Client):
         self.timer = 0
         self.suspend = False
         self.repl = False
+        self.voiceMap = {}
         super().__init__(*args, **kwargs) 
 
 status = {
@@ -69,7 +82,52 @@ client = Weenie()
 cb1 = commands.cb1
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
-        
+
+class Voice():
+    async def play(self, message, client):
+        if client.is_voice_connected(message.server):
+            voice = client.voice_client_in(message.server)
+            r_play = message.content.replace(client.pfix + 'play ', '')
+            await client.send_message(message.channel, "Getting Song...")
+            self.player = await voice.create_ytdl_player(r_play, ytdl_options={'quiet':True,'default_search':'auto'})
+            await client.send_message(message.channel, 'Playing top result for {}, **{}**'.format(r_play, self.player.title))
+            self.player.start()
+    
+    async def stop(self, message, client):
+        if client.is_voice_connected(message.server):
+            voice = client.voice_client_in(message.server)
+            if self.player.is_playing():
+                self.player.stop()
+        else:
+            await client.send_message(message.channel, 'Bot isn\'t in any voice channels')
+
+    async def pause(self, message, client):
+        if client.is_voice_connected(message.server):
+            if self.player.is_playing():
+                self.player.pause()
+    
+    async def disconnect(self, message, client):
+        if client.is_voice_connected(message.server):
+            voice = client.voice_client_in(message.server)
+            await voice.disconnect()
+        else:
+            await client.send_message(message.channel, 'Bot isn\'t in any voice channels')
+
+
+    async def mresume(self, message, client):
+        if client.is_voice_connected(message.server):
+            self.player.resume()
+
+    async def join(self, message, client):
+        channel_to_join= message.content.replace(client.pfix + 'join ', '')
+        print(channel_to_join)
+        try:
+            joining_channel = message.server.get_channel(client.voiceMap[channel_to_join])
+        except KeyError:
+            await client.send_message('Error couldn\'t join {} did you specify the right channel? is it a voice channel? '.format(channel_to_join))
+        await client.join_voice_channel(joining_channel)
+Voice = Voice()
+
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -102,6 +160,10 @@ async def on_member_join(member):
         
 @client.event
 async def on_message(message):
+    for channel in message.server.channels:
+        if str(channel.type) == 'voice':
+            client.voiceMap[channel.name] = channel.id
+            
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
     
@@ -137,6 +199,19 @@ async def on_message(message):
                 
     if message.content == client.pfix + 'resume' and client.suspend == True:
         await commands.resume_logic(message, client)
+        
+    if message.content.startswith(client.pfix + 'join'):
+        await Voice.join(message, client)
+    if message.content.startswith(client.pfix + 'play'):
+        await Voice.play(message, client)
+    if message.content.startswith(client.pfix + 'stop'):
+        await Voice.stop(message, client)
+    if message.content.startswith(client.pfix + 'pause'):
+        await Voice.pause(message, client)
+    if message.content.startswith(client.pfix + 'mresume'):
+        await Voice.mresume(message, client)
+    if message.content.startswith(client.pfix + 'disconnect'):
+        await Voice.disconnect(message, client)
     
     if message.content == "!prefix":
         await commands.get_prefix(message, client)
