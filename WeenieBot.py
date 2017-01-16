@@ -230,6 +230,8 @@ async def on_message(message):
         await Voice.mresume(message, client)
     if message.content.startswith(client.pfix + 'disconnect'):
         await Voice.disconnect(message, client)
+    if message.content.startswith(client.pfix + 'volume'):
+        await Voice.volume(message, client)
     
     if message.content == "!prefix":
         await commands.get_prefix(message, client)
