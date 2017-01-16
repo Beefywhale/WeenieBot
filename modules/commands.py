@@ -558,7 +558,7 @@ async def minecraft(message, client):
     r = lambda: random.randint(0,255)
     rr = ('0x%02X%02X%02X' % (r(),r(),r()))
     loop = asyncio.get_event_loop()
-    mc_server = message.content.replace(client.pfix + 'minecraft ')
+    mc_server = message.content.replace(client.pfix + 'minecraft ', '')
     async with aiohttp.get('https://mcapi.us/server/status?ip=' + mc_server) as mcr:
         if mcr.status == 200:
             js = await mcr.json()
