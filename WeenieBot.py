@@ -93,8 +93,8 @@ class Voice():
     async def player_task(self):
         while True:
             self.event.clear()
-            player = await self.queue.get()
-            player.start()
+            self.player = await self.queue.get()
+            self.player.start()
             # not enough info here to send message
             await self.event.wait()
 
