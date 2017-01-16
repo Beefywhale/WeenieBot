@@ -97,7 +97,11 @@ class Voice():
             self.player.start()
             # not enough info here to send message
             await self.event.wait()
-
+    async def volume(self, message, client):
+        if client.is_voice_connected(message.server):
+            self.player.volume = int(message.content.replace(client.pfix + 'volume ', ''))
+    
+    
     async def play(self, message, client):
         if client.is_voice_connected(message.server):
             voice = client.voice_client_in(message.server)
