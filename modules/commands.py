@@ -566,11 +566,14 @@ async def minecraft(message, client):
             mc_details = discord.Embed(title='', description='', colour=int(rr, 16))
             if js['server']['name'] != '':
                 mc_details.add_field(name='Server Version: ', value=js['server']['name'])
-            if js['online'] != '':
-                mc_details.add_field(name='Server Online:', value=js['online'])
+            if js['online'] == 'True':
+                mc_details.add_field(name='Server Online:', value=':thumbsup:')
+            elif js['online'] == 'False':
+                mc_details.add_field(name='Server Online:', value=':thumbsdown:')
+            
             mc_details.add_field(name='Players:', value=str(js['players']['now']) + '/' + str(js['players']['max']))
             if js['motd'] != '':
-                mc_details.add_field(name='Description:', value=js['motd'].strip('§'))
+                mc_details.add_field(name='Description:', value=js['motd'].replace('§', ''))
             await client.send_message(message.channel, embed=mc_details)
         else:
             await client.send_message(message.channel, 'Something went wrong with the API! :scream:')
