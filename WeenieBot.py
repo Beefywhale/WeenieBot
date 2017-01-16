@@ -99,8 +99,8 @@ class Voice():
             await self.event.wait()
     
     async def volume(self, message, client):
-        self.player.volume = float(message.content.replace(client.pfix + 'volume ', ''))
-        await client.send_message(message.channel, 'Set Volume to {}'.format(int(message.content.replace(client.pfix + 'volume ', ''))))
+        self.player.volume = message.content.replace(client.pfix + 'volume ', '')
+        await client.send_message(message.channel, 'Set Volume to {}'.format(message.content.replace(client.pfix + 'volume ', '')))
     
     
     async def play(self, message, client):
