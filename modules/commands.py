@@ -565,9 +565,8 @@ async def minecraft(message, client):
             mc_details = discord.Embed(title='', description='', colour=int(rr, 16))
             mc_details.add_field(name='Server Version: ', value=js['server']['name'])
             mc_details.add_field(name='Server Online:', value=js['online'])
-            mc_details.add_field(name='Max Players:', value=js['players']['max'])
-            mc_details.add_field(name='Current Online Players:', value=js['players']['now'])
-            mc_details.add_field(name='Description:', value=js['motd'])
+            mc_details.add_field(name='Players:', value=str(js['players']['now']) + '/' + str(js['players']['max']))
+            mc_details.add_field(name='Description:', value=js['motd'].strip('§'))
             await client.send_message(message.channel, embed=mc_details)
         else:
             await client.send_message(message.channel, 'Something went wrong with the API! :scream:')
