@@ -566,7 +566,7 @@ async def minecraft(message, client):
             mc_details.add_field(name='Server Version: ', value=js['server']['name'])
             mc_details.add_field(name='Server Online:', value=js['online'])
             mc_details.add_field(name='Players:', value=str(js['players']['now']) + '/' + str(js['players']['max']))
-            mc_details.add_field(name='Description:', value=js['motd'].strip('§'))
+            mc_details.add_field(name='Description:', value=js['motd'])
             await client.send_message(message.channel, embed=mc_details)
         else:
             await client.send_message(message.channel, 'Something went wrong with the API! :scream:')
