@@ -90,7 +90,7 @@ class Voice():
         self.loop = client.loop
         self.play_task = client.loop.create_task(self.player_task())
 
-    async def play_task(self):
+    async def player_task(self):
         while True:
             self.event.clear()
             player = await self.queue.get()
