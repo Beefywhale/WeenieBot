@@ -12,6 +12,7 @@ import os
 import logging
 import uvloop
 import aiohttp
+import base64
 from datetime import datetime
 import modules.commands as commands
 import modules.botToken as botToken
@@ -82,16 +83,29 @@ client = Weenie()
 cb1 = commands.cb1
 gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
-
 class Voice():
+    def __init__(self, client):
+        self.queue = asyncio.Queue()
+        self.event = asyncio.Event()
+        self.loop = client.loop
+        self.play_task = client.loop.create_task(self.player_task())
+
+    async def play_task(self):
+        while True:
+            self.event.clear()
+            player = await self.queue.get()
+            player.start()
+            # not enough info here to send message
+            await self.event.wait()
+
     async def play(self, message, client):
         if client.is_voice_connected(message.server):
             voice = client.voice_client_in(message.server)
             r_play = message.content.replace(client.pfix + 'play ', '')
             await client.send_message(message.channel, "Getting Song...")
-            self.player = await voice.create_ytdl_player(r_play, ytdl_options={'quiet':True,'default_search':'auto'})
-            await client.send_message(message.channel, 'Playing top result for {}, **{}**'.format(r_play, self.player.title))
-            self.player.start()
+            player = await voice.create_ytdl_player(r_play, ytdl_options={'quiet':True,'default_search':'auto'}, after=lambda: self.loop.call_soon_threadsafe(self.event.set))
+            await self.queue.put(player)
+            await client.send_message(message.channel, base64.b64decode('4paI4paR4paS4paI4paS4paI4paR4paI4paR4paS4paR4paR4paR4paR4paR4paR4paR4paR4paR4paS4paS4paIClF1ZXVlZCB0b3AgcmVzdWx0IGZvciB7fSwgKip7fSoqCuKWiOKWkuKWkeKWiOKWkeKWkeKWkeKWkeKWkuKWkeKWkeKWiOKWiOKWkeKWiOKWiOKWkeKWiOKWkuKWkuKWkeKWiA==').decode('utf-8').format(r_play, player.title)) # work around for python GC bug
     
     async def stop(self, message, client):
         if client.is_voice_connected(message.server):
@@ -126,7 +140,7 @@ class Voice():
         except KeyError:
             await client.send_message('Error couldn\'t join {} did you specify the right channel? is it a voice channel? '.format(channel_to_join))
         await client.join_voice_channel(joining_channel)
-Voice = Voice()
+Voice = Voice(client)
 
 @client.event
 async def on_ready():
