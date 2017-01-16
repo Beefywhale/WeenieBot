@@ -554,7 +554,7 @@ async def LoL_api(message, client):
             await client.send_message(message.channel, embed=summoner_details)
         else:
             await client.send_message(message.channel, 'Something went wrong with the API! :scream:')
-async def minecraft(message, client)        
+async def minecraft(message, client):        
     r = lambda: random.randint(0,255)
     rr = ('0x%02X%02X%02X' % (r(),r(),r()))
     loop = asyncio.get_event_loop()
