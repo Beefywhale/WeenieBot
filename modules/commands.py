@@ -54,7 +54,7 @@ status = {
 botaccount = False
 counter1 = len(Quotes_All) + 1
 counter2 = len(Quotes_All) + 1
-cb1 = cleverbot.Cleverbot()
+cb1 = cleverbot.Cleverbot('WeenieBot')
 x33 = '%m-%d-%Y'
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
