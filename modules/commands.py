@@ -136,37 +136,49 @@ async def help_logic(message, client):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         help_details = discord.Embed(title='Commands:', description='', colour=int(rr, 16))
-        help_details.add_field(name='__**Quotes**:__', value='\n'+
-    '\n' + client.pfix + 'quote --- picks a random quote to tell everyone.\n'+
-    '\n' + client.pfix + 'quote <number> --- picks a specific quote to tell everyone.\n'+
-    '\n' + client.pfix + 'quoteadd --- adds a new quote\n'+
-    '\n' + client.pfix + 'delquote <number> --- deletes specific quote\n'+
-    '\n' + client.pfix + 'editquote <number> --- next message you send changes the quote you specified\n', inline=True)
+        help_details.add_field(name='__**Quotes**:__', value='''Info Commands
+    server --- get info about server
+    user <name>--- get's info about a user
+    help --- brings up help dialog
+    ping --- testing command to see if bot is up!
+    admins --- list of all the admins!
+    prefix --- just say this without a prefix infront to figure out the current command prefix!
 
+Quotes:
+    quote --- picks a random quote to tell everyone.
+    quote <number> --- picks a specific quote to tell everyone.
 
-        help_details.add_field(name='__**Random**:__', value='\n'+
-    '\n' + client.pfix + 'support --- links to weeniebot\'s support channel! \n'+
-    '\n' + client.pfix + 'sleep --- bot goes to sleep for 5 seconds.\n'+
-    '\n' + client.pfix + 'jfgi --- just fucking google it.\n'+
-    '\n' + client.pfix + 'googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)\n'+
-    '\n' + client.pfix + 'messages --- tells you how many messages there are in the channel you are in.\n'+
-    '\n' + client.pfix + 'cat --- random cat picture!.\n', inline=True)
+Random:
+    sleep --- bot goes to sleep for 5 seconds.
+    jfgi --- just fucking google it.
+    messages --- tells you how many messages there are in the channel you are in.
+    dog --- random dog picture.
+    cat --- random cat picture
+    hotdog --- find out ;)
+    googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched       more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
 
+Admin:
+    clear <number> --- deletes amount of messages specified
+    quoteadd --- adds a new quote
+    delquote <number> --- deletes specific quote
+    editquote <number> --- next message you send changes the quote you specified
+    admintest --- check if you are admin!
+    deladmin --- deletes admin by user name.
+    addadmin <Discord Name> --- adds admin by user name.
 
-        help_details.add_field(name='__**Admin**:__', value='\n'+
-    '\n' + client.pfix + 'admintest --- check if you are admin!\n'+
-    '\n' + client.pfix + 'deladmin --- deletes admin by user name.\n'+
-    '\n' + client.pfix + 'addadmin <Persons Discord Name> --- adds admin by user name.\n'+
-    '\n' + client.pfix + 'clear <number> --- clears a given amount of messages.\n', inline=True)
+Bot Owner:
+    suspend --- suspends ALL commands
+    resume --- resume's all commands!
+    setprefix <prefix> --- set the prefix for the current server!
+    set_welcome_msg <off/on> --- turns welcome message off or on.
+    eval --- evaluates some code!
+    update --- updates bot to newest version!
+    broadcast --- boradcast message to all servers!
+    restart --- restarts bot!
 
-        
-        help_details.add_field(name='__**Bot Owner**:__', value='\n'+
-    '\n' + client.pfix + 'update --- updates bot to newest version! (do this frequently!!!)\n'+
-    '\n' + client.pfix + 'eval --- evaluates code in python\n', inline=True)
-
-        help_details.add_field(name='__**WeenieBot**:__', value='\n'+
-    '\n' + 'hello weeniebot --- bot greets you.\n'+
-    '\n' + client.pfix + 'WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :)\n', inline=True)
+WeenieBot:
+    hello weeniebot --- bot greets you.
+    WeenieBot <question> --- asks weeniebot a question, that he will do his best to answer :smiley:''', inline=True)
 
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
         await client.send_message(message.channel, '**I\'ve private messaged you my help!**')
