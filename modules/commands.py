@@ -159,7 +159,7 @@ Random:
     googlefight <entry 1> <entry 2> --- a link to see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)''', inline=True)
         
         help_details2 = discord.Embed(title='', description='', colour=int(rr, 16))
-        help_details2.add_field(name='__***Commands:***__', value='''
+        help_details2.add_field(name='__***Commands 2:***__', value='''
 Admin:
     clear <number> --- deletes amount of messages specified
     quoteadd --- adds a new quote
