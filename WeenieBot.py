@@ -179,10 +179,13 @@ async def on_member_join(member):
         
 @client.event
 async def on_message(message):
-    for channel in message.server.channels:
-        if str(channel.type) == 'voice':
-            client.voiceMap[channel.name] = channel.id
-            
+    try:
+        for channel in message.server.channels:
+            if str(channel.type) == 'voice':
+                client.voiceMap[channel.name] = channel.id
+    except:
+        print('Errored: Most likely due to Private DM\'s')
+    
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
     
