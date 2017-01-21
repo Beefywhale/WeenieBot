@@ -136,13 +136,13 @@ async def help_logic(message, client):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
         help_details = discord.Embed(title='Commands:', description='', colour=int(rr, 16))
-        help_details.add_field(name='__**Quotes**:__', value='''Info Commands
+        help_details.add_field(name='__***Commands:***__', value='''Info Commands
     server --- get info about server
     user <name>--- get's info about a user
     help --- brings up help dialog
     ping --- testing command to see if bot is up!
     admins --- list of all the admins!
-    prefix --- just say this without a prefix infront to figure out the current command prefix!
+    !prefix --- figure out the current command prefix!
 
 Quotes:
     quote --- picks a random quote to tell everyone.
@@ -153,9 +153,9 @@ Random:
     jfgi --- just fucking google it.
     messages --- tells you how many messages there are in the channel you are in.
     dog --- random dog picture.
-    cat --- random cat picture
+    cat --- random cat picture.
     hotdog --- find out ;)
-    googlefight <entry 1> <entry 2> --- generates a google fight link too see what is searched       more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
+    googlefight <entry 1> <entry 2> --- a link to see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
 
 Admin:
     clear <number> --- deletes amount of messages specified
@@ -164,7 +164,7 @@ Admin:
     editquote <number> --- next message you send changes the quote you specified
     admintest --- check if you are admin!
     deladmin --- deletes admin by user name.
-    addadmin <Discord Name> --- adds admin by user name.
+    addadmin <DiscordName#Dicrim> --- adds admin by user name and discrim.
 
 Bot Owner:
     suspend --- suspends ALL commands
