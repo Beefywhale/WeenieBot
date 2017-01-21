@@ -156,8 +156,10 @@ Random:
     dog --- random dog picture.
     cat --- random cat picture.
     hotdog --- find out ;)
-    googlefight <entry 1> <entry 2> --- a link to see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
-
+    googlefight <entry 1> <entry 2> --- a link to see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)''', inline=True)
+        
+        help_details2 = discord.Embed(title='', description='', colour=int(rr, 16))
+        help_details2.add_field(name='__***Commands:***__', value='''
 Admin:
     clear <number> --- deletes amount of messages specified
     quoteadd --- adds a new quote
@@ -165,10 +167,8 @@ Admin:
     editquote <number> --- next message you send changes the quote you specified
     admintest --- check if you are admin!
     deladmin --- deletes admin by user name.
-    addadmin <DiscordName#Dicrim> --- adds admin by user name and discrim.''', inline=True)
-        
-        help_details2 = discord.Embed(title='', description='', colour=int(rr, 16))
-        help_details2.add_field(name='__***Commands:***__', value='''
+    addadmin <DiscordName#Dicrim> --- adds admin by user name and discrim.
+
 Bot Owner:
     suspend --- suspends ALL commands
     resume --- resume's all commands!
