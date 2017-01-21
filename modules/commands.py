@@ -135,8 +135,9 @@ async def cancel_bot_account(message, client):
 async def help_logic(message, client):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
-        help_details = discord.Embed(title='Commands:', description='', colour=int(rr, 16))
-        help_details.add_field(name='__***Commands:***__', value='''Info Commands
+        help_details = discord.Embed(title='', description='', colour=int(rr, 16))
+        help_details.add_field(name='__***Commands:***__', value='''
+Info Commands
     server --- get info about server
     user <name>--- get's info about a user
     help --- brings up help dialog
@@ -164,8 +165,10 @@ Admin:
     editquote <number> --- next message you send changes the quote you specified
     admintest --- check if you are admin!
     deladmin --- deletes admin by user name.
-    addadmin <DiscordName#Dicrim> --- adds admin by user name and discrim.
-
+    addadmin <DiscordName#Dicrim> --- adds admin by user name and discrim.''', inline=True)
+        
+        help_details2 = discord.Embed(title='', description='', colour=int(rr, 16))
+        help_details2.add_field(name='__***Commands:***__', value='''
 Bot Owner:
     suspend --- suspends ALL commands
     resume --- resume's all commands!
@@ -183,6 +186,8 @@ WeenieBot:
         help_details.set_author(name=message.server.me, icon_url=message.server.me.avatar_url)
         await client.send_message(message.channel, '**I\'ve private messaged you my help!**')
         await client.send_message(message.author, embed=help_details)
+        await client.send_message(message.author, embed=help_details2)
+
 
 async def support(message, client):
     await client.send_message(message.channel, 'Check out my support channel if you need help, have questions or suggestions! https://discord.gg/5VcPZMj')
