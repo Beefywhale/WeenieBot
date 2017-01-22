@@ -115,7 +115,7 @@ class Voice():
             await self.queue.put(self.new_player)
             await client.send_message(message.channel, message.author.mention + ' Added **{}** to the queue!'.format(self.new_player.title))
         else:
-            await client.send_message(message.channel, message.author.mention + 'you aren\'t in a voice channel!!')
+            await client.send_message(message.channel, message.author.mention + ' you aren\'t in a voice channel!!')
             
     async def playing(self, message, client):
         await client.send_message(message.channel, 'Now Playing: ' + self.player.title)
