@@ -105,15 +105,18 @@ class Voice():
             await client.send_message(message.channel, 'Set Volume to {}'.format(message.content.replace(client.pfix + 'volume ', '')))
 
     async def play(self, message, client):
-        if client.is_voice_connected(message.server):
+        if message.author.is_voice_connected(message.server):
+            await client.join_voice_channel(message.author.voice_channel)
             voice = client.voice_client_in(message.server)
             r_play = message.content.replace(client.pfix + 'play ', '')
             await client.send_message(message.channel, "Getting Song...")
             self.new_player = await voice.create_ytdl_player(r_play, ytdl_options={'quiet':True,'default_search':'auto'}, after=lambda: self.loop.call_soon_threadsafe(self.event.set))
             self.new_player.volume = float(self.volume_set)
             await self.queue.put(self.new_player)
-            await client.send_message(message.channel, message.author.mention + ' Added **{}** to the queue!'.format(self.new_player.title)) # work around for python GC bug
-    
+            await client.send_message(message.channel, message.author.mention + ' Added **{}** to the queue!'.format(self.new_player.title))
+        else:
+            await client.send_message(message.channel, message.author.mention + 'you aren\'t in a voice channel!!')
+            
     async def playing(self, message, client):
         await client.send_message(message.channel, 'Now Playing: ' + self.player.title)
     
