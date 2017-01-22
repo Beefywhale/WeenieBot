@@ -85,6 +85,7 @@ gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 class Voice():
     def __init__(self, client):
+        self.volume_set = 0.1
         self.queue = asyncio.Queue()
         self.event = asyncio.Event()
         self.loop = client.loop
@@ -95,23 +96,26 @@ class Voice():
             self.event.clear()
             self.player = await self.queue.get()
             self.player.start()
-            # not enough info here to send message
             await self.event.wait()
-    
+
     async def volume(self, message, client):
         if str(message.author) in admin:
-            self.player.volume = float(message.content.replace(client.pfix + 'volume ', ''))
+            self.volume_set = float(message.content.replace(client.pfix + 'volume ', ''))
+            self.player.volume = self.volume_set
             await client.send_message(message.channel, 'Set Volume to {}'.format(message.content.replace(client.pfix + 'volume ', '')))
-    
-    
+
     async def play(self, message, client):
         if client.is_voice_connected(message.server):
             voice = client.voice_client_in(message.server)
             r_play = message.content.replace(client.pfix + 'play ', '')
             await client.send_message(message.channel, "Getting Song...")
-            player = await voice.create_ytdl_player(r_play, ytdl_options={'quiet':True,'default_search':'auto'}, after=lambda: self.loop.call_soon_threadsafe(self.event.set))
-            await self.queue.put(player)
-            await client.send_message(message.channel, base64.b64decode('4paI4paR4paS4paI4paS4paI4paR4paI4paR4paS4paR4paR4paR4paR4paR4paR4paR4paR4paR4paS4paS4paIClF1ZXVlZCB0b3AgcmVzdWx0IGZvciB7fSwgKip7fSoqCuKWiOKWkuKWkeKWiOKWkeKWkeKWkeKWkeKWkuKWkeKWkeKWiOKWiOKWkeKWiOKWiOKWkeKWiOKWkuKWkuKWkeKWiA==').decode('utf-8').format(r_play, player.title)) # work around for python GC bug
+            self.new_player = await voice.create_ytdl_player(r_play, ytdl_options={'quiet':True,'default_search':'auto'}, after=lambda: self.loop.call_soon_threadsafe(self.event.set))
+            self.new_player.volume = float(self.volume_set)
+            await self.queue.put(self.new_player)
+            await client.send_message(message.channel, message.author.mention + ' Added **{}** to the queue!'.format(self.new_player.title)) # work around for python GC bug
+    
+    async def playing(self, message, client):
+        await client.send_message(message.channel, 'Now Playing: ' + self.player.title)
     
     async def stop(self, message, client):
         if client.is_voice_connected(message.server):
@@ -236,7 +240,8 @@ async def on_message(message):
         await Voice.disconnect(message, client)
     if message.content.startswith(client.pfix + 'volume'):
         await Voice.volume(message, client)
-    
+    if message.content.startswith(client.pfix + 'nowplaying'):
+        await Voice.playing(message, client)
     if message.content == "!prefix":
         await commands.get_prefix(message, client)
 
