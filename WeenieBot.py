@@ -105,7 +105,7 @@ class Voice():
             await client.send_message(message.channel, 'Set Volume to {}'.format(message.content.replace(client.pfix + 'volume ', '')))
 
     async def play(self, message, client):
-        if message.author.voice.is_connected(message.server):
+        if message.author.voice_channel != None:
             await client.join_voice_channel(message.author.voice_channel)
             voice = client.voice_client_in(message.server)
             r_play = message.content.replace(client.pfix + 'play ', '')
