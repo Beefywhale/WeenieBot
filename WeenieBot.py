@@ -106,7 +106,10 @@ class Voice():
 
     async def play(self, message, client):
         if message.author.voice_channel != None:
-            await client.join_voice_channel(message.author.voice_channel)
+            try:
+                await client.join_voice_channel(message.author.voice_channel)
+            except:
+                pass
             voice = client.voice_client_in(message.server)
             r_play = message.content.replace(client.pfix + 'play ', '')
             await client.send_message(message.channel, "Getting Song...")
