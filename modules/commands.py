@@ -160,6 +160,15 @@ Random:
         
         help_details2 = discord.Embed(title='', description='', colour=int(rr, 16))
         help_details2.add_field(name='__***Commands 2:***__', value='''
+Music/Voice:
+    join <channelname> --- Makes bot join specified voice channel.
+    play <songname/link/token> --- Bot plays music specified.
+    currentsong --- Tells ya current song that it playing.
+    volume --- Sets volume. (EX: `!volume 0.5` = 50% voulme.)
+    disconnect --- Disconnects bot from current voice channel.
+    pause --- Pauses Music.
+    unpause -- Unpases Music.
+
 Admin:
     clear <number> --- deletes amount of messages specified
     quoteadd --- adds a new quote
