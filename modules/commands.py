@@ -135,7 +135,8 @@ async def cancel_bot_account(message, client):
 async def help_logic(message, client):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
-        help_details = discord.Embed(title='', description='''Info Commands
+        help_details = discord.Embed(title='__***Commands***__', description='''
+Info Commands
     server --- get info about server
     user <name>--- get's info about a user
     help --- brings up help dialog
@@ -147,7 +148,7 @@ Quotes:
     quote --- picks a random quote to tell everyone.
     quote <number> --- picks a specific quote to tell everyone.''', colour=int(rr, 16))
         
-        help_details.add_field(name='__***Commands:***__', value='''
+        help_details.add_field(name='__***Commands 2:***__', value='''
 Random:
     sleep --- bot goes to sleep for 5 seconds.
     jfgi --- just fucking google it.
@@ -168,7 +169,7 @@ Music/Voice:
 
         
         help_details2 = discord.Embed(title='', description='', colour=int(rr, 16))
-        help_details2.add_field(name='__***Commands 2:***__', value='''
+        help_details2.add_field(name='__***Commands 3:***__', value='''
 Admin:
     clear <number> --- deletes amount of messages specified
     quoteadd --- adds a new quote
