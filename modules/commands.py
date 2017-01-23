@@ -135,9 +135,7 @@ async def cancel_bot_account(message, client):
 async def help_logic(message, client):
         r = lambda: random.randint(0,255)
         rr = ('0x%02X%02X%02X' % (r(),r(),r()))
-        help_details = discord.Embed(title='', description='', colour=int(rr, 16))
-        help_details.add_field(name='__***Commands:***__', value='''
-Info Commands
+        help_details = discord.Embed(title='', description='''Info Commands
     server --- get info about server
     user <name>--- get's info about a user
     help --- brings up help dialog
@@ -147,8 +145,9 @@ Info Commands
 
 Quotes:
     quote --- picks a random quote to tell everyone.
-    quote <number> --- picks a specific quote to tell everyone.
-
+    quote <number> --- picks a specific quote to tell everyone.''', colour=int(rr, 16))
+        
+        help_details.add_field(name='__***Commands:***__', value='''
 Random:
     sleep --- bot goes to sleep for 5 seconds.
     jfgi --- just fucking google it.
@@ -156,10 +155,8 @@ Random:
     dog --- random dog picture.
     cat --- random cat picture.
     hotdog --- find out ;)
-    googlefight <entry 1> <entry 2> --- a link to see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)''', inline=True)
-        
-        help_details2 = discord.Embed(title='', description='', colour=int(rr, 16))
-        help_details2.add_field(name='__***Commands 2:***__', value='''
+    googlefight <entry 1> <entry 2> --- a link to see what is searched more.(use + for spaces EX: !googlefight Space+Jam Smash+Mouth)
+
 Music/Voice:
     join <channelname> --- Makes bot join specified voice channel.
     play <songname/link/token> --- Bot plays music specified.
@@ -167,8 +164,11 @@ Music/Voice:
     volume --- Sets volume. (EX: `!volume 0.5` = 50% voulme.)
     disconnect --- Disconnects bot from current voice channel.
     pause --- Pauses Music.
-    unpause -- Unpases Music.
+    unpause -- Unpases Music.''', inline=True)
 
+        
+        help_details2 = discord.Embed(title='', description='', colour=int(rr, 16))
+        help_details2.add_field(name='__***Commands 2:***__', value='''
 Admin:
     clear <number> --- deletes amount of messages specified
     quoteadd --- adds a new quote
