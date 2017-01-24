@@ -305,10 +305,10 @@ async def repl_logic(message, client):
                 if evalt.content == client.pfix + 'rexit':
                     client.repl = False
                 else:
-                    if len(str(eval(evalt))) >= 2000:
-                        await client.send_message(message.channel, '```Python\n' + eval(str(evalt))[:1950] + '```' + '__Truncated!__')
+                    if len(str(exec(evalt))) >= 1990:
+                        await client.send_message(message.channel, '```Python\n' + exec(str(evalt))[:1950] + '```' + '__Truncated!__')
                     else:
-                        await client.send_message(message.channel, '```Python\n' + eval(str(evalt)) + '```')
+                        await client.send_message(message.channel, '```Python\n' + exec(str(evalt)) + '```')
             except Exception as x:
                 template = "An exception of type {0} occured. Arguments:\n{1!r}"
                 messagex = template.format(str(type(x).__name__), str(x))
@@ -319,7 +319,7 @@ async def eval_logic_block(message, client):
     if str(message.author) in prefix["bot_owner"]:
         try:
             evalt = message.content.replace(client.pfix + 'evalt ', '')
-            await client.send_message(message.channel, str(eval(evalt)))
+            await client.send_message(message.channel, str(exec(evalt)))
             print(str(message.author) + ': ' + message.content)
         except Exception as x:
             template = "An exception of type {0} occured. Arguments:\n{1!r}"
