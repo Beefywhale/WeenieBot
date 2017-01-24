@@ -2,7 +2,7 @@ import discord
 import asyncio
 import random
 import json
-import chatterbot
+from chatterbot import ChatBot
 import time
 import cleverbot
 import requests
