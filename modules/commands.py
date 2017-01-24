@@ -424,7 +424,7 @@ async def chatterbot_logic(message, client):
     q = message.content.split(' ')
     question = str(q[1:])
     answer = chatbot.get_response(question)
-    await client.send_message(message.channel, message.author.mention + ' ' + answer)
+    await client.send_message(message.channel, message.author.mention + ' ' + str(answer))
         
 async def cleverbot_logic(message, client):
     global cb1
