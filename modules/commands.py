@@ -284,10 +284,10 @@ async def eval_logic(message, client):
         print(str(message.author) + ': ' + message.content)
         try:
             evalt = message.content.replace(client.pfix + 'eval ', '')
-            if len(str(eval(evalt))) >= 2000:
-                await client.send_message(message.channel, '```Python\n' + str(eval(evalt))[:1950] + '```' + '__Truncated!__')
+            if len(str(exec(evalt))) >= 2000:
+                await client.send_message(message.channel, '```Python\n' + str(exec(evalt))[:1950] + '```' + '__Truncated!__')
             else:
-                await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
+                await client.send_message(message.channel, '```Python\n' + str(exec(evalt)) + '```')
         except Exception as x:
             template = "An exception of type {0} occured. Arguments:\n{1!r}"
             messagex = template.format(str(type(x).__name__), str(x))
