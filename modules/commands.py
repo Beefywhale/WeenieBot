@@ -2,7 +2,6 @@ import discord
 import asyncio
 import random
 import json
-from chatterbot import ChatBot
 import time
 import cleverbot
 import requests
@@ -56,10 +55,6 @@ botaccount = False
 counter1 = len(Quotes_All) + 1
 counter2 = len(Quotes_All) + 1
 cb1 = cleverbot.Cleverbot('WeenieBot')
-chatbot = ChatBot('WeenieBot', trainer='chatterbot.trainers.ChatterBotCorpusTrainer')
-chatbot.train("chatterbot.corpus.english")
-chatbot.train("chatterbot.corpus.english.greetings")
-chatbot.train("chatterbot.corpus.english.conversations")
 x33 = '%m-%d-%Y'
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 BASE_URL = 'http://pokeapi.co'
@@ -418,13 +413,6 @@ async def editquote_logic(message, client):
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
     elif str(message.author) not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + prefix["bot_owner"])
-
-async def chatterbot_logic(message, client):
-    global chatbot
-    q = message.content.split(' ')
-    question = str(q[1:])
-    answer = chatbot.get_response(question)
-    await client.send_message(message.channel, message.author.mention + ' ' + str(answer))
         
 async def cleverbot_logic(message, client):
     global cb1
@@ -767,6 +755,5 @@ cmdDict = {
   "evalt": eval_logic_block,
   "server": server_info,
   "dog": dog,
-  "broadcast": broadcast_server,
-  "cb": chatterbot_logic
+  "broadcast": broadcast_server
 }
