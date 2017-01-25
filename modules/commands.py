@@ -305,7 +305,7 @@ async def repl_logic(message, client):
                 evalt = await client.wait_for_message(author=message.author)
                 if evalt.content == '|rexit':
                     client.repl = False
-                     await client.send_message(message.channel, 'Ending REPL session.')
+                    await client.send_message(message.channel, 'Ending REPL session.')
                 elif evalt.content.startswith('|'):
                     if len(str(eval(evalt.content[1:]))) >= 1990:
                         await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content[1:]))[:1950] + '```' + '__Truncated!__')
