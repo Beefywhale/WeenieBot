@@ -305,7 +305,7 @@ async def repl_logic(message, client):
                 if evalt.content == client.pfix + 'rexit':
                     client.repl = False
                 else:
-                    if len(str(exec(evalt))) >= 1990:
+                    if len(str(eval(evalt.content))) >= 1990:
                         await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content))[:1950] + '```' + '__Truncated!__')
                     else:
                         await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content)) + '```')
