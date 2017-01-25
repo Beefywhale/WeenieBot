@@ -285,9 +285,9 @@ async def eval_logic(message, client):
         try:
             evalt = message.content.replace(client.pfix + 'eval ', '')
             if len(str(exec(evalt))) >= 2000:
-                await client.send_message(message.channel, '```Python\n' + str(exec(evalt))[:1950] + '```' + '__Truncated!__')
+                await client.send_message(message.channel, '```Python\n' + str(eval(evalt))[:1950] + '```' + '__Truncated!__')
             else:
-                await client.send_message(message.channel, '```Python\n' + str(exec(evalt)) + '```')
+                await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
         except Exception as x:
             template = "An exception of type {0} occured. Arguments:\n{1!r}"
             messagex = template.format(str(type(x).__name__), str(x))
@@ -304,11 +304,11 @@ async def repl_logic(message, client):
                 evalt = await client.wait_for_message(author=message.author)
                 if evalt.content == client.pfix + 'rexit':
                     client.repl = False
-                elif evalt.content.startswith('|'):
+                else:
                     if len(str(exec(evalt))) >= 1990:
-                        await client.send_message(message.channel, '```Python\n' + exec(str(evalt.content))[:1950] + '```' + '__Truncated!__')
+                        await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content))[:1950] + '```' + '__Truncated!__')
                     else:
-                        await client.send_message(message.channel, '```Python\n' + exec(str(evalt.content)) + '```')
+                        await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content)) + '```')
             except Exception as x:
                 template = "An exception of type {0} occured. Arguments:\n{1!r}"
                 messagex = template.format(str(type(x).__name__), str(x))
