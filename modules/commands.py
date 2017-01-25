@@ -297,18 +297,20 @@ async def eval_logic(message, client):
 
 async def repl_logic(message, client):
     if str(message.author) in prefix["bot_owner"]:
+        await client.send_message(message.channel, 'Starting REPL session.')
         client.repl = True
         print(str(message.author) + ': ' + message.content)
         while client.repl is True:
             try:
                 evalt = await client.wait_for_message(author=message.author)
-                if evalt.content == client.pfix + 'rexit':
+                if evalt.content == '|rexit':
                     client.repl = False
-                else:
-                    if len(str(eval(evalt.content))) >= 1990:
-                        await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content))[:1950] + '```' + '__Truncated!__')
+                     await client.send_message(message.channel, 'Ending REPL session.')
+                elif evalt.content.startswith('|'):
+                    if len(str(eval(evalt.content[1:]))) >= 1990:
+                        await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content[1:]))[:1950] + '```' + '__Truncated!__')
                     else:
-                        await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content)) + '```')
+                        await client.send_message(message.channel, '```Python\n' + str(eval(evalt.content[1:])) + '```')
             except Exception as x:
                 template = "An exception of type {0} occured. Arguments:\n{1!r}"
                 messagex = template.format(str(type(x).__name__), str(x))
