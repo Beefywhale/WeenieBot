@@ -685,7 +685,7 @@ async def admin_amount(message, client):
     temp_list = []
     for i in admin:
         admins_list = message.server.get_member_named(i)
-        temp_list.append(i)
+        temp_list.append(admins_list.name)
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins: {}'.format(', '.join(temp_list)))
 
 async def user(message, client):
