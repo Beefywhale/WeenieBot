@@ -681,11 +681,13 @@ async def quote_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
-    try:
-        names = [message.server.get_member(i).name for i in admin]
-    except:
-        pass
-    await client.send_message(message.channel, message.author.mention + ' ' + 'Admins: {}'.format(', '.join(names)))
+    names = []
+    for i in admin:
+        try:
+            names.append('Name: ' + message.server.get_member(i).name + ' ID: ' + i)  
+        except:
+            names.append('**Not in current server!**')
+    await client.send_message(message.channel, message.author.mention + ' ' + 'Admins: {}'.format('\n '.join(names)))
 
 async def user(message, client):
     if message.content.startswith(client.pfix + 'user'):
