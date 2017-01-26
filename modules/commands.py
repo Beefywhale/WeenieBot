@@ -684,10 +684,10 @@ async def admin_amount(message, client):
     names = []
     for i in admin:
         try:
-            names.append('Name: ' + message.server.get_member(i).name + ' ID: ' + i)  
+            names.append(message.server.get_member(i).name)  
         except:
             names.append('**Not in current server!**')
-    admin_details = discord.Embed(title='Admins', description='', colour=0x1f3A44)
+    admin_details = discord.Embed(title='Admins', description='', colour=0x79CDCD)
     admin_details.add_field(name='Names:', value='\n'.join(names), inline=True)
     admin_details.add_field(name='ID\'s:', value=[i for i in admin])
     await client.send_message(message.channel, embed=admin_details)
