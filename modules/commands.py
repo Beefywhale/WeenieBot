@@ -681,12 +681,8 @@ async def quote_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
-    open("database/quoteweenie.json","r")
-    temp_list = []
-    for i in admin:
-        admins_list = message.server.get_member_named(i)
-        temp_list.append(admins_list.name)
-    await client.send_message(message.channel, message.author.mention + ' ' + 'Admins: {}'.format(', '.join(temp_list)))
+    names = [message.server.get_member_named(i).display_name for i in admins]
+    await client.send_message(message.channel, message.author.mention + ' ' + 'Admins: {}'.format(', '.join(names)))
 
 async def user(message, client):
     if message.content.startswith(client.pfix + 'user'):
