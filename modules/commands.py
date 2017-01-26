@@ -62,7 +62,7 @@ open("database/prefix.json", "r")
 start = datetime.now()
 
 async def update_logic(message, client):
-    if str(message.id) in prefix["bot_owner"]:
+    if str(message.author.id) in prefix["bot_owner"]:
         await client.send_message(message.channel, 'Updating...')
         g = git.cmd.Git()
         u = g.pull('-v')
@@ -76,7 +76,7 @@ async def update_logic(message, client):
         await client.send_message(message.channel, 'Error Didn\'t update maybe you aren\'t an admin?')
 
 async def restart_logic(message, client):
-    if str(message.id) == prefix["bot_owner"]:
+    if str(message.author.id) == prefix["bot_owner"]:
         await client.send_message(message.channel, 'Restarting... Please wait 5-10 seconds before trying to run any commands!')
         os.execl(sys.executable,  sys.executable, *sys.argv)
     else:
@@ -86,19 +86,19 @@ async def broadcast_server(message, client):
     broadcast_message = message.content.replace(client.pfix + 'broadcast', '')
     for server in client.servers:
         try:
-            if storage[message.server.id] == "broadcast0" and str(message.id) == prefix["bot_owner"]:
+            if storage[message.server.id] == "broadcast0" and str(message.author.id) == prefix["bot_owner"]:
                 await client.send_message(server.default_channel, broadcast_message)
         except discord.Forbidden:
-            if storage[message.server.id] == "broadcast0"  and str(message.id) == prefix["bot_owner"]:
+            if storage[message.server.id] == "broadcast0"  and str(message.author.id) == prefix["bot_owner"]:
                 await client.send_message(message.channel, server.name + ' couldn\'t send broadcast!')
         
 async def broadcast_server_toggle(message, client):
     if message.content.split(' ')[1] == 'off':
-        if message.id == message.server.owner or str(message.id) == prefix["bot_owner"]:
+        if message.author.id == message.server.owner or str(message.author.id) == prefix["bot_owner"]:
             storage[message.server.id] = "broadcast1"
             await client.send_message(message.channel, "you set broadcasts off!")
     if message.content.split(' ')[1] == 'on':
-        if message.id == message.server.owner or str(message.id) == prefix["bot_owner"]:
+        if message.author.id == message.server.owner or str(message.author.id) == prefix["bot_owner"]:
             storage[message.server.id] = "broadcast0"
             await client.send_message(message.channel, "you set broadcasts on!")
     with open("database/storage.json", "w+") as outfile:
@@ -106,30 +106,30 @@ async def broadcast_server_toggle(message, client):
 
 async def welcome_msg_toggle(message, client):
     if message.content.split(' ')[1] == 'off':
-        if message.id == message.server.owner or str(message.id) == prefix["bot_owner"]:
+        if message.author.id == message.server.owner or str(message.author.id) == prefix["bot_owner"]:
             storage2[message.server.id] = "message1"
             await client.send_message(message.channel, "you set welcome message off!")
     if message.content.split(' ')[1] == 'on':
-        if message.id == message.server.owner or str(message.id) == prefix["bot_owner"]:
+        if message.author.id == message.server.owner or str(message.author.id) == prefix["bot_owner"]:
             storage2[message.server.id] = "message0"
             await client.send_message(message.channel, "you set welcome message on!")
     with open("database/storage2.json", "w+") as outfile:
         outfile.write(json.dumps(storage2)) 
         
 async def bot_account(message, client):
-    if str(message.id) == prefix["bot_owner"]:
+    if str(message.author.id) == prefix["bot_owner"]:
         botaccount = True
         bot_say_input = input('Beefywhale: ')
         await client.send_message(message.channel, bot_say_input)
         if bot_say_input in 'endbot':
-            if str(message.id) == prefix["bot_owner"]:
+            if str(message.author.id) == prefix["bot_owner"]:
                 botaccount = False
                 print('Exited')   
         else:
             await bot_account(message, client)
 
 async def cancel_bot_account(message, client):
-    if str(message.id) == prefix["bot_owner"]:
+    if str(message.author.id) == prefix["bot_owner"]:
         botaccount = False
         print('Exited')    
 async def help_logic(message, client):
@@ -206,20 +206,20 @@ async def ping_logic(message, client):
     await client.send_message(message.channel, 'Pong')
 
 async def suspend_logic(message, client):
-    if str(message.id) in prefix["bot_owner"]:
+    if str(message.author.id) in prefix["bot_owner"]:
         client.suspend = True
         await client.send_message(message.channel, 'Commands Suspended!')
     else:
         await client.send_message(message.channel, 'Error couldn\'t suspend , maybe you aren\'t bot owner? ')
 async def resume_logic(message, client):
-    if str(message.id) in prefix["bot_owner"]:
+    if str(message.author.id) in prefix["bot_owner"]:
         client.suspend = False
         await client.send_message(message.channel, 'Commands Resumed!')
     else:
         await client.send_message(message.channel, 'Error couldn\'t resume, maybe you aren\'t bot owner?')
 
 async def clear(message, client):
-    if str(message.id) in admin:
+    if str(message.author.id) in admin:
         try:
             amount = message.content.split(' ')
             amount_number = amount[1]
@@ -232,7 +232,7 @@ async def clear(message, client):
 
         except ValueError:
             await client.send_message(message.channel, 'Error, Did you specify number?')
-    elif str(message.id) not in admin:
+    elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'Only Admins can Clear channels! If you would like to get admin please contact ' + prefix["bot_owner"])
 
         
@@ -251,9 +251,9 @@ async def afinn_logic(message, client):
 
 async def admintest(message, client):
     open("database/adminweenie.json","r")
-    if str(message.id) in admin:
+    if str(message.author.id) in admin:
         await client.send_message(message.channel, 'Hello Admin!')
-    elif str(message.id) not in admin:
+    elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'Not Admin!')
 
 async def say(message, client):
@@ -280,7 +280,7 @@ async def about(message, client):
     await client.send_message(message.channel, embed=a_details)
 
 async def eval_logic(message, client):
-    if str(message.id) in prefix["bot_owner"]:
+    if str(message.author.id) in prefix["bot_owner"]:
         print(str(message.author) + ': ' + message.content)
         try:
             evalt = message.content.replace(client.pfix + 'eval ', '')
@@ -296,7 +296,7 @@ async def eval_logic(message, client):
 
 
 async def repl_logic(message, client):
-    if str(message.id) in prefix["bot_owner"]:
+    if str(message.author.id) in prefix["bot_owner"]:
         await client.send_message(message.channel, 'Starting REPL session.')
         client.repl = True
         print(str(message.author) + ': ' + message.content)
@@ -318,11 +318,11 @@ async def repl_logic(message, client):
 ''' + messagex + '```')            
             
 async def eval_logic_block(message, client):
-    if str(message.id) in prefix["bot_owner"]:
+    if str(message.author.id) in prefix["bot_owner"]:
         try:
             evalt = message.content.replace(client.pfix + 'evalt ', '')
             await client.send_message(message.channel, str(exec(evalt)))
-            print(str(message.id) + ': ' + message.content)
+            print(str(message.author.id) + ': ' + message.content)
         except Exception as x:
             template = "An exception of type {0} occured. Arguments:\n{1!r}"
             messagex = template.format(str(type(x).__name__), str(x))
@@ -334,7 +334,7 @@ async def delquote_logic(message, client):
     try:
         del_q = message.content.split(' ')
         del_quote = int(del_q[1])
-        if str(message.id) in admin:
+        if str(message.author.id) in admin:
             try:
                 del Quotes_All[del_quote]
                 await client.send_message(message.channel, 'Quote {} Deleted'.format(del_quote))
@@ -342,13 +342,13 @@ async def delquote_logic(message, client):
                     outfile.write(json.dumps(Quotes_All))
             except IndexError:
                  await client.send_message(message.channel, 'That quote doesn\'t exist!')
-        elif str(message.id) not in admin:
+        elif str(message.author.id) not in admin:
             await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + prefix["bot_owner"])
     except:
         pass
 
 async def prefix_logic(message, client):
-    if str(message.id) == prefix["bot_owner"]:
+    if str(message.author.id) == prefix["bot_owner"]:
         with open("database/prefixMap.json", "r") as infile:
             prefixMap = json.loads(infile.read())
         print(client.pfix)
@@ -367,7 +367,7 @@ async def deladmin_logic(message, client):
     open("database/adminweenie.json","r")
     try:
         del_admin = str(message.content.replace(client.pfix + 'deladmin ', ''))
-        if str(message.id) in admin:
+        if str(message.author.id) in admin:
             if del_admin in admin:
                 deleted_admin = message.server.get_member_named(del_admin)
                 await client.send_message(message.channel, 'Admin Removed')
@@ -376,7 +376,7 @@ async def deladmin_logic(message, client):
                     outfile.write(json.dumps(admin))
             else:
                 await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
-        elif str(message.id) not in admin:
+        elif str(message.author.id) not in admin:
              await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + prefix["bot_owner"])
     except:
         pass
@@ -404,7 +404,7 @@ async def editquote_logic(message, client):
     open("database/quoteweenie.json", "r")
     e_quote = message.content.split(' ')
     edit_quote = int(e_quote[1])
-    if str(message.id) in admin:
+    if str(message.author.id) in admin:
         try:
             await client.send_message(message.channel, 'Editing Quote {}'.format(edit_quote))
             msg = await client.wait_for_message(author=message.author)
@@ -414,7 +414,7 @@ async def editquote_logic(message, client):
                 outfile.write(json.dumps(Quotes_All))
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
-    elif str(message.id) not in admin:
+    elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + prefix["bot_owner"])
         
 async def cleverbot_logic(message, client):
@@ -433,7 +433,7 @@ async def cleverbot_logictwo(message, client):
 
 async def add_admin_logic(message, client):
     open("database/adminweenie.json","r")
-    if str(message.id) in admin:
+    if str(message.author.id) in admin:
         await client.send_message(message.channel, 'Type the name you want to make admin. WARNING once someone has access to admin they can do commands like Clear! add admins at your own expense!')
         username = message.content.split(' ')[1]
         msg3 = message.server.get_member_named(username)
@@ -441,7 +441,7 @@ async def add_admin_logic(message, client):
         admin.append(msg3.id)
         with open("database/adminweenie.json", "w+") as outfile:
             outfile.write(json.dumps(admin))
-    elif str(message.id) not in admin:
+    elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + prefix["bot_owner"])
 
 async def fetch(session, url):
@@ -628,10 +628,10 @@ async def google_Fight(message, client):
     print(result[2])
 
 async def purge(message, client):
-    if str(message.id) in admin:
+    if str(message.author.id) in admin:
         deleted = await client.purge_from(message.channel, limit=500, check=None)
         await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
-    elif str(message.id) not in admin:
+    elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'Only Admins can Purge channels!. If you would like to get admin please contact ' + prefix["bot_owner"])
 
 async def sleep(message, client):
@@ -645,7 +645,7 @@ async def cooldown(message, client, num):
 
 async def quoteadd_logic(message, client):
     open("database/quoteweenie.json","r")
-    if str(message.id) in admin:
+    if str(message.author.id) in admin:
         msg = message.content.replace(client.pfix + 'quoteadd', '')
         global counter1
         counter1 = len(Quotes_All)
@@ -655,7 +655,7 @@ async def quoteadd_logic(message, client):
         Quotes_All.append(str(len(Quotes_All)) +': ' + msg)
         with open("database/quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
-    elif str(message.id) not in admin:
+    elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'Only Admins can Add Quotes! If you would like to get admin please contact ' + prefix["bot_owner"])
 
 async def user_messages(message, client):
