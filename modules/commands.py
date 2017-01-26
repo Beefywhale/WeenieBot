@@ -681,7 +681,7 @@ async def quote_amount(message, client):
     await client.send_message(message.channel, message.author.mention + ' ' + 'There Are {} Quotes!'.format(counter2))
 
 async def admin_amount(message, client):
-    names = [message.server.get_member_named(i).display_name for i in admins]
+    names = [message.server.get_member_named(i).display_name for i in admin]
     await client.send_message(message.channel, message.author.mention + ' ' + 'Admins: {}'.format(', '.join(names)))
 
 async def user(message, client):
