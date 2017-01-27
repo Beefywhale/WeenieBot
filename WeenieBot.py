@@ -199,17 +199,23 @@ async def on_message(message):
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
     
-    if message.server.id not in storage:
-        storage[message.server.id] = 'broadcast0'
-
+    try:
+        if message.server.id not in storage:
+            storage[message.server.id] = 'broadcast0'
+    except:
+        print('Errored: Most likely due to Private DM\'s')
+        
     with open("database/storage.json", "w+") as outfile:
         outfile.write(json.dumps(storage))
     
-    if message.server.id not in prefixMap:
-        prefixMap[message.server.id] = '!'
-        client.pfix = prefixMap[message.server.id]
-    else:
-        client.pfix = prefixMap[message.server.id]
+    try:
+        if message.server.id not in prefixMap:
+            prefixMap[message.server.id] = '!'
+            client.pfix = prefixMap[message.server.id]
+        else:
+            client.pfix = prefixMap[message.server.id]
+    except:
+        print('Errored: Most likely due to Private DM\'s')
     
     if message.content.startswith(client.pfix)  and client.suspend == False:
         try:
@@ -226,8 +232,6 @@ async def on_message(message):
 
     if message.content.lower().startswith('weeniebot'):
         await commands.cleverbot_logic(message, client)
-    elif message.content.lower().startswith('wb') and message.server.id != '110373943822540800':
-        await commands.cleverbot_logictwo(message, client)
                 
     if message.content == client.pfix + 'resume' and client.suspend == True:
         await commands.resume_logic(message, client)
