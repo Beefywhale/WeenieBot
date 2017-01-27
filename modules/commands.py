@@ -687,7 +687,7 @@ async def admin_amount(message, client):
         try:
             user = message.server.get_member(i)
             names.append(user.name)
-            ids.append(user)
+            ids.append(user.id)
         except:
             names.append('**User not in current server!***')
             ids.append('**User not in current server!***')
