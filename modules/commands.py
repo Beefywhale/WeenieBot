@@ -415,7 +415,7 @@ async def editquote_logic(message, client):
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + prefix["bot_owner"])
+        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin contact another admin or ' + prefix["bot_owner"])
         
 async def cleverbot_logic(message, client):
     global cb1
@@ -434,10 +434,9 @@ async def cleverbot_logictwo(message, client):
 async def add_admin_logic(message, client):
     open("database/adminweenie.json","r")
     if str(message.author.id) in admin:
-        await client.send_message(message.channel, 'Type the name you want to make admin. WARNING once someone has access to admin they can do commands like Clear! add admins at your own expense!')
         username = message.content.split(' ')[1]
         msg3 = message.server.get_member_named(username)
-        await client.send_message(message.channel, 'Admin Added')
+        await client.send_message(message.channel, msg3.name + 'added as an admin')
         admin.append(msg3.id)
         with open("database/adminweenie.json", "w+") as outfile:
             outfile.write(json.dumps(admin))
