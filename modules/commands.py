@@ -682,12 +682,18 @@ async def quote_amount(message, client):
 
 async def admin_amount(message, client):
     names = []
+    ids = []
     for i in admin:
-        x = await client.get_user_info(i)
-        names.append(x.name)
+        try:
+            user = message.server.get_member(i)
+            names.append(user.name)
+            ids.append(user)
+        except:
+            names.append('**User not in current server!***')
+            ids.append('**User not in current server!***')
     admin_details = discord.Embed(title='Admins', description='', colour=0x79CDCD)
     admin_details.add_field(name='Names:', value='\n'.join(names), inline=True)
-    admin_details.add_field(name='ID\'s:', value='\n'.join(admin), inline=False)
+    admin_details.add_field(name='ID\'s:', value='\n'.join(ids), inline=False)
     await client.send_message(message.channel, embed=admin_details)
 
 async def user(message, client):
