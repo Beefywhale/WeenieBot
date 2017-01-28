@@ -64,16 +64,16 @@ open("database/prefix.json", "r")
 start = datetime.now()
 
 async def ccipher(message, client):
-    if message.content.split(' ')[1] == 'e':
+    if message.content.split()[1] == 'e':
         encode = True
-    elif message.content.split(' ')[1] == 'd':
+    elif message.content.split()[1] == 'd':
         encode = False
     else:
         await client.send_message(message.channel, 'You didn\'t specify a mode!')
 
-    key = message.content.split(' ')[2]
+    key = message.content.split()[2]
 
-    phrase = message.content.split(' ')[3:]
+    phrase = message.content.replace[message.content.split()[:2], '']
     x = ''
     for i in phrase:
         if i.lower() in alphabet:
