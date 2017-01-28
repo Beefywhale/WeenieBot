@@ -69,6 +69,7 @@ class Weenie(discord.Client):
         self.suspend = False
         self.repl = False
         self.voiceMap = {}
+        self.bot_info = self.application_info()
         super().__init__(*args, **kwargs) 
 
 status = {
