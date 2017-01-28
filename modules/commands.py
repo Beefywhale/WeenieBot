@@ -464,11 +464,15 @@ async def add_admin_logic(message, client):
     open("database/adminweenie.json","r")
     if str(message.author.id) in admin:
         username = message.content.split(' ')[1]
-        msg3 = message.server.get_member_named(username)
-        await client.send_message(message.channel, msg3.display_name + 'added as an admin')
-        admin.append(msg3.id)
-        with open("database/adminweenie.json", "w+") as outfile:
-            outfile.write(json.dumps(admin))
+        try:
+            msg3 = message.server.get_member_named(username)
+            await client.send_message(message.channel, msg3.display_name + ' has been added as an admin')
+            admin.append(msg3.id)
+            with open("database/adminweenie.json", "w+") as outfile:
+                outfile.write(json.dumps(admin))
+        except:
+            await client.send_message(message.channel, 'Could not find user with this name, try doing name#discrim')
+
     elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + prefix["bot_owner"])
 
