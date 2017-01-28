@@ -465,7 +465,7 @@ async def add_admin_logic(message, client):
     if str(message.author.id) in admin:
         username = message.content.split(' ')[1]
         msg3 = message.server.get_member_named(username)
-        await client.send_message(message.channel, msg3.name + 'added as an admin')
+        await client.send_message(message.channel, msg3.display_name + 'added as an admin')
         admin.append(msg3.id)
         with open("database/adminweenie.json", "w+") as outfile:
             outfile.write(json.dumps(admin))
@@ -714,7 +714,7 @@ async def admin_amount(message, client):
     for i in admin:
         try:
             user = message.server.get_member(i)
-            names.append(user.display_name)
+            names.append(user.name)
             ids.append(user.id)
         except:
             names.append('**User not in current server!***')
