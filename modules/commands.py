@@ -82,6 +82,7 @@ async def ccipher(message, client):
             elif encode is False:
                 word = alphabet.index(i.lower()) - int(key)
             x += alphabet[word % len(alphabet)]
+            print(x)
         else:
             x += i
         print(x)
