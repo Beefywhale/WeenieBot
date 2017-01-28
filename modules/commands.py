@@ -73,7 +73,7 @@ async def ccipher(message, client):
 
     key = message.content.split()[2]
 
-    phrase = message.content.replace[message.content.split()[:2], '']
+    phrase = message.content.replace(message.content.split()[:2], '')
     x = ''
     for i in phrase:
         if i.lower() in alphabet:
