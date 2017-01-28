@@ -12,7 +12,7 @@ import os
 import aiohttp
 from datetime import datetime
 from google import search
-alphabet = list('abcdefghijklmnopqrstuvwxyz�')
+alphabet = list('abcdefghijklmnopqrstuvwxyz')
 
 with open("database/AFINN-111.json", "r") as infile:
     words = json.loads(infile.read())
@@ -74,17 +74,17 @@ async def ccipher(message, client):
     key = message.content.split(' ')[2]
 
     phrase = message.content.split(' ')[3:]
-    x = []
+    x = ''
     for i in phrase:
         if i.lower() in alphabet:
             if encode is True:
                 word = alphabet.index(i.lower()) + int(key)
             elif encode is False:
                 word = alphabet.index(i.lower()) - int(key)
-            x.append(alphabet[word % len(alphabet)])
+            x += alphabet[word % len(alphabet)]
         else:
-            x.append(i)
-    await client.send_message(message.channel, ''.join(x))
+            x + = i
+    await client.send_message(message.channel, x)
 
 async def update_logic(message, client):
     if str(message.author.id) in prefix["bot_owner"]:
