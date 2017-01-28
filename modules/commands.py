@@ -10,6 +10,7 @@ import subprocess
 import sys
 import os
 import aiohttp
+import re
 from datetime import datetime
 from google import search
 alphabet = list('abcdefghijklmnopqrstuvwxyz')
@@ -73,7 +74,7 @@ async def ccipher(message, client):
 
     key = message.content.split()[2]
 
-    phrase = message.content.replace(message.content.split()[:2], '')
+    phrase = re.search(r'.+\s+.\s+.\s+(.+)', message.content).group(1)
     x = ''
     for i in phrase:
         if i.lower() in alphabet:
