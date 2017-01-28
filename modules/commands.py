@@ -84,6 +84,7 @@ async def ccipher(message, client):
             x += alphabet[word % len(alphabet)]
         else:
             x += i
+        print(x)
     await client.send_message(message.channel, x)
 
 async def update_logic(message, client):
