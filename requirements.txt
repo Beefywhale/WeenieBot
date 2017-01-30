@@ -3,5 +3,3 @@ cleverbot
 google
 requests
 gitpython
-uvloop
-
