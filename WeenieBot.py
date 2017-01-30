@@ -66,7 +66,6 @@ class Weenie(discord.Client):
         self.suspend = False
         self.repl = False
         self.voiceMap = {}
-        self.bot_info = self.application_info()
         super().__init__(*args, **kwargs) 
 
 status = {
@@ -157,6 +156,8 @@ Voice = Voice(client)
 
 @client.event
 async def on_ready():
+    client.bot_info = await client.application_info()
+    print(str(client.bot_info.owner.id))
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
