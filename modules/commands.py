@@ -314,7 +314,7 @@ async def eval_logic(message, client):
         try:
             evalt = message.content.replace(client.pfix + 'eval ', '')
             if len(str(exec(evalt))) >= 2000:
-                await client.send_message(message.channel, '```Python\n' + str(eval(evalt))[:1950] + '```' + '__Truncated!__')
+                await client.send_message(message.channel, '```Python\n' + str(eval(evalt))[:1990] + '```' + '__Truncated!__')
             else:
                 await client.send_message(message.channel, '```Python\n' + str(eval(evalt)) + '```')
         except Exception as x:
