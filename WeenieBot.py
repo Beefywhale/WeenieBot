@@ -10,7 +10,6 @@ import subprocess
 import sys
 import os
 import logging
-import uvloop
 import aiohttp
 import base64
 from datetime import datetime
@@ -29,8 +28,6 @@ if not discord.opus.is_loaded():
 
 if discord.opus.is_loaded():
     print('Voice Loaded!')
-
-asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 logging.basicConfig(level=logging.INFO)
 
