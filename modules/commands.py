@@ -90,7 +90,7 @@ async def ccipher(message, client):
     await client.send_message(message.channel, x)
 
 async def update_logic(message, client):
-    if str(message.author.id) in prefix["bot_owner"]:
+    if str(message.author.id) in str(str(client.bot_info.owner.id)):
         await client.send_message(message.channel, 'Updating...')
         g = git.cmd.Git()
         u = g.pull('-v')
@@ -104,7 +104,7 @@ async def update_logic(message, client):
         await client.send_message(message.channel, 'Error Didn\'t update maybe you aren\'t an admin?')
 
 async def restart_logic(message, client):
-    if str(message.author.id) == prefix["bot_owner"]:
+    if str(message.author.id) == str(str(client.bot_info.owner.id)):
         await client.send_message(message.channel, 'Restarting... Please wait 5-10 seconds before trying to run any commands!')
         os.execl(sys.executable,  sys.executable, *sys.argv)
     else:
@@ -114,19 +114,19 @@ async def broadcast_server(message, client):
     broadcast_message = message.content.replace(client.pfix + 'broadcast', '')
     for server in client.servers:
         try:
-            if storage[message.server.id] == "broadcast0" and str(message.author.id) == prefix["bot_owner"]:
+            if storage[message.server.id] == "broadcast0" and str(message.author.id) == str(str(client.bot_info.owner.id)):
                 await client.send_message(server.default_channel, broadcast_message)
         except discord.Forbidden:
-            if storage[message.server.id] == "broadcast0"  and str(message.author.id) == prefix["bot_owner"]:
+            if storage[message.server.id] == "broadcast0"  and str(message.author.id) == str(str(client.bot_info.owner.id)):
                 await client.send_message(message.channel, server.name + ' couldn\'t send broadcast!')
         
 async def broadcast_server_toggle(message, client):
     if message.content.split(' ')[1] == 'off':
-        if message.author.id == message.server.owner or str(message.author.id) == prefix["bot_owner"]:
+        if message.author.id == message.server.owner or str(message.author.id) == str(str(client.bot_info.owner.id)):
             storage[message.server.id] = "broadcast1"
             await client.send_message(message.channel, "you set broadcasts off!")
     if message.content.split(' ')[1] == 'on':
-        if message.author.id == message.server.owner or str(message.author.id) == prefix["bot_owner"]:
+        if message.author.id == message.server.owner or str(message.author.id) == str(str(str(client.bot_info.owner.id))):
             storage[message.server.id] = "broadcast0"
             await client.send_message(message.channel, "you set broadcasts on!")
     with open("database/storage.json", "w+") as outfile:
@@ -134,30 +134,30 @@ async def broadcast_server_toggle(message, client):
 
 async def welcome_msg_toggle(message, client):
     if message.content.split(' ')[1] == 'off':
-        if message.author.id == message.server.owner or str(message.author.id) == prefix["bot_owner"]:
+        if message.author.id == message.server.owner or str(message.author.id) == str(str(str(client.bot_info.owner.id))):
             storage2[message.server.id] = "message1"
             await client.send_message(message.channel, "you set welcome message off!")
     if message.content.split(' ')[1] == 'on':
-        if message.author.id == message.server.owner or str(message.author.id) == prefix["bot_owner"]:
+        if message.author.id == message.server.owner or str(message.author.id) == str(str(str(client.bot_info.owner.id))):
             storage2[message.server.id] = "message0"
             await client.send_message(message.channel, "you set welcome message on!")
     with open("database/storage2.json", "w+") as outfile:
         outfile.write(json.dumps(storage2)) 
         
 async def bot_account(message, client):
-    if str(message.author.id) == prefix["bot_owner"]:
+    if str(message.author.id) == str(str(str(client.bot_info.owner.id))):
         botaccount = True
         bot_say_input = input('Beefywhale: ')
         await client.send_message(message.channel, bot_say_input)
         if bot_say_input in 'endbot':
-            if str(message.author.id) == prefix["bot_owner"]:
+            if str(message.author.id) == str(str(str(client.bot_info.owner.id))):
                 botaccount = False
                 print('Exited')   
         else:
             await bot_account(message, client)
 
 async def cancel_bot_account(message, client):
-    if str(message.author.id) == prefix["bot_owner"]:
+    if str(message.author.id) == str(str(str(client.bot_info.owner.id))):
         botaccount = False
         print('Exited')    
 async def help_logic(message, client):
@@ -235,13 +235,13 @@ async def ping_logic(message, client):
     await client.send_message(message.channel, 'Pong')
 
 async def suspend_logic(message, client):
-    if str(message.author.id) in prefix["bot_owner"]:
+    if str(message.author.id) in str(str(str(client.bot_info.owner.id))):
         client.suspend = True
         await client.send_message(message.channel, 'Commands Suspended!')
     else:
         await client.send_message(message.channel, 'Error couldn\'t suspend , maybe you aren\'t bot owner? ')
 async def resume_logic(message, client):
-    if str(message.author.id) in prefix["bot_owner"]:
+    if str(message.author.id) in str(str(str(client.bot_info.owner.id))):
         client.suspend = False
         await client.send_message(message.channel, 'Commands Resumed!')
     else:
@@ -262,7 +262,7 @@ async def clear(message, client):
         except ValueError:
             await client.send_message(message.channel, 'Error, Did you specify number?')
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'Only Admins can Clear channels! If you would like to get admin please contact ' + prefix["bot_owner"])
+        await client.send_message(message.channel, 'Only Admins can Clear channels! If you would like to get admin please contact ' + str(str(str(str(client.bot_info.owner.id)))))
 
         
 
@@ -309,7 +309,7 @@ async def about(message, client):
     await client.send_message(message.channel, embed=a_details)
 
 async def eval_logic(message, client):
-    if str(message.author.id) in prefix["bot_owner"]:
+    if str(message.author.id) in str(str(str(client.bot_info.owner.id))):
         print(str(message.author) + ': ' + message.content)
         try:
             evalt = message.content.replace(client.pfix + 'eval ', '')
@@ -325,7 +325,7 @@ async def eval_logic(message, client):
 
 
 async def repl_logic(message, client):
-    if str(message.author.id) in prefix["bot_owner"]:
+    if str(message.author.id) in str(str(client.bot_info.owner.id)):
         await client.send_message(message.channel, 'Starting REPL session.')
         client.repl = True
         print(str(message.author) + ': ' + message.content)
@@ -347,7 +347,7 @@ async def repl_logic(message, client):
 ''' + messagex + '```')            
             
 async def eval_logic_block(message, client):
-    if str(message.author.id) in prefix["bot_owner"]:
+    if str(message.author.id) in str(str(client.bot_info.owner.id)):
         try:
             evalt = message.content.replace(client.pfix + 'evalt ', '')
             await client.send_message(message.channel, str(exec(evalt)))
@@ -372,12 +372,12 @@ async def delquote_logic(message, client):
             except IndexError:
                  await client.send_message(message.channel, 'That quote doesn\'t exist!')
         elif str(message.author.id) not in admin:
-            await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + prefix["bot_owner"])
+            await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + str(str(str(client.bot_info.owner.id))))
     except:
         pass
 
 async def prefix_logic(message, client):
-    if str(message.author.id) == prefix["bot_owner"]:
+    if str(message.author.id) == str(str(str(client.bot_info.owner.id))):
         with open("database/prefixMap.json", "r") as infile:
             prefixMap = json.loads(infile.read())
         print(client.pfix)
@@ -406,7 +406,7 @@ async def deladmin_logic(message, client):
             else:
                 await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
         elif str(message.author.id) not in admin:
-             await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + prefix["bot_owner"])
+             await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + str(str(str(client.bot_info.owner.id))))
     except:
         pass
 
@@ -444,7 +444,7 @@ async def editquote_logic(message, client):
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin contact another admin or ' + prefix["bot_owner"])
+        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin contact another admin or ' + str(str(str(client.bot_info.owner.id))))
         
 async def cleverbot_logic(message, client):
     global cb1
@@ -474,7 +474,7 @@ async def add_admin_logic(message, client):
             await client.send_message(message.channel, 'Could not find user with this name, try doing name#discrim')
 
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + prefix["bot_owner"])
+        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + str(str(str(client.bot_info.owner.id))))
 
 async def fetch(session, url):
     with aiohttp.Timeout(10, loop=session.loop):
@@ -664,7 +664,7 @@ async def purge(message, client):
         deleted = await client.purge_from(message.channel, limit=500, check=None)
         await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'Only Admins can Purge channels!. If you would like to get admin please contact ' + prefix["bot_owner"])
+        await client.send_message(message.channel, 'Only Admins can Purge channels!. If you would like to get admin please contact ' + str(str(str(client.bot_info.owner.id))))
 
 async def sleep(message, client):
     tmp = await client.send_message(message.channel, 'ZzzzzzzZZzzzz...')
@@ -688,7 +688,7 @@ async def quoteadd_logic(message, client):
         with open("database/quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'Only Admins can Add Quotes! If you would like to get admin please contact ' + prefix["bot_owner"])
+        await client.send_message(message.channel, 'Only Admins can Add Quotes! If you would like to get admin please contact ' + str(str(str(client.bot_info.owner.id))))
 
 async def user_messages(message, client):
     counter = 0
