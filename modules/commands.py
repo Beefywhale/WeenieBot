@@ -89,7 +89,10 @@ async def ccipher(message, client):
 
     key = message.content.split()[2]
 
-    phrase = re.search(r'.+\s+[ed]\s+[0-9]+\s+(.+)', message.content).group(1)
+    try:
+        phrase = re.search(r'.+\s+[ed]\s+[0-9]+\s+(.+)', message.content).group(1)
+    except:
+        pass
     x = ''
     for i in phrase:
         if i.lower() in alphabet:
@@ -98,7 +101,6 @@ async def ccipher(message, client):
             elif encode is False:
                 word = alphabet.index(i.lower()) - int(key)
             x += alphabet[word % len(alphabet)]
-            print(x)
         else:
             x += i
         print(x)
