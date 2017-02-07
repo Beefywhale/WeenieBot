@@ -788,7 +788,6 @@ cmdDict = {
   "sleep": sleep,
   "quoteadd": quoteadd_logic,
   "lol": LoL_api,
-  "messages": user_messages,
   "google": google_search,
   "repl": repl_logic,
   "quotes": quote_amount,
