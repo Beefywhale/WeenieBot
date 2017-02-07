@@ -236,21 +236,30 @@ async def on_message(message):
         await commands.resume_logic(message, client)
         
     if message.content.startswith(client.pfix + 'join'):
-        await Voice.join(message, client)
+        await client.send_message(message.channel, 'All Music commands are disabled due to a flaw!')
+        #await Voice.join(message, client)
     if message.content.startswith(client.pfix + 'play'):
-        await Voice.play(message, client)
+        await client.send_message(message.channel, 'All Music commands are disabled due to a flaw!')        
+        #await Voice.play(message, client)
     if message.content.startswith(client.pfix + 'stop'):
-        await Voice.stop(message, client)
+        await client.send_message(message.channel, 'All Music commands are disabled due to a flaw!')
+        #await Voice.stop(message, client)
     if message.content.startswith(client.pfix + 'pause'):
-        await Voice.pause(message, client)
+        await client.send_message(message.channel, 'All Music commands are disabled due to a flaw!')
+        #await Voice.pause(message, client)
     if message.content.startswith(client.pfix + 'unpause'):
-        await Voice.mresume(message, client)
+        await client.send_message(message.channel, 'All Music commands are disabled due to a flaw!')
+        #await Voice.mresume(message, client)
     if message.content.startswith(client.pfix + 'disconnect'):
-        await Voice.disconnect(message, client)
+        await client.send_message(message.channel, 'All Music commands are disabled due to a flaw!')
+        #await Voice.disconnect(message, client)
     if message.content.startswith(client.pfix + 'volume'):
-        await Voice.volume(message, client)
+        await client.send_message(message.channel, 'All Music commands are disabled due to a flaw!')
+        #await Voice.volume(message, client)
     if message.content.startswith(client.pfix + 'nowplaying'):
-        await Voice.playing(message, client)
+        await client.send_message(message.channel, 'All Music commands are disabled due to a flaw!')
+        #await Voice.playing(message, client)
+    
     if message.content == "!prefix":
         await commands.get_prefix(message, client)
 
