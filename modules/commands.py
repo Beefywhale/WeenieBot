@@ -195,7 +195,6 @@ Quotes:
 Random:
     sleep --- bot goes to sleep for 5 seconds.
     jfgi --- just fucking google it.
-    messages --- tells you how many messages there are in the channel you are in.
     dog --- random dog picture.
     cat --- random cat picture.
     hotdog --- find out ;)
@@ -704,15 +703,6 @@ async def quoteadd_logic(message, client):
             outfile.write(json.dumps(Quotes_All))
     elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'Only Admins can Add Quotes! If you would like to get admin please contact ' + str(str(str(client.bot_info.owner.id))))
-
-async def user_messages(message, client):
-    counter = 0
-    tmp = await client.send_message(message.channel, 'Calculating messages...')
-    async for log in client.logs_from(message.channel, limit=500):
-        if log.author == message.author:
-            counter += 1
-            await client.edit_message(tmp, 'You have {} messages.'.format(counter))
-            print(counter)
 
 async def google_search(message, client):
     search_google = message.content.replace(client.pfix + 'google ', '')
