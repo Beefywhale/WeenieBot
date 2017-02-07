@@ -89,7 +89,7 @@ async def ccipher(message, client):
 
     key = message.content.split()[2]
 
-    phrase = re.search(r'.+\s+.\s+.\s+(.+)', message.content).group(1)
+    phrase = re.search(r'.+\s+[ed]\s+[0-9]+\s+(.+)', message.content).group(1)
     x = ''
     for i in phrase:
         if i.lower() in alphabet:
