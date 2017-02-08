@@ -72,7 +72,6 @@ def add_command(*, command_name=None, command_function=None, alias=None):
     else:
         command_final = command_name.split()
     cmdDict[tuple(command_final)] = command_function
-    print(cmdDict)
     
 async def g_search_custom(message, client, search):
     loop = asyncio.get_event_loop()
