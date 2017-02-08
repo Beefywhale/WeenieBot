@@ -674,7 +674,7 @@ async def dog(message, client):
             dog = dog.decode()
             print(str(dog))
             await client.send_message(message.channel, 'http://random.dog/' + str(dog))
-add_command(command_name='dog', command_function=dog, alias='dawg', 'pupper', 'doggy')
+add_command(command_name='dog', command_function=dog, alias='dawg, pupper, doggy')
 
 async def google_fight(message, client):
     fight = message.content.replace(message.content.split()[0],'')
