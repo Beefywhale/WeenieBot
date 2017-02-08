@@ -433,7 +433,7 @@ async def deladmin_logic(message, client):
              await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + str(str(str(client.bot_info.owner.id))))
     except:
         pass
-add_command(command_name='deladmin', command_function=del_admin_logic, alias='admindel, removeadmin, remove_admin')
+add_command(command_name='deladmin', command_function=deladmin_logic, alias='admindel, removeadmin, remove_admin')
 
 async def quote_logic(message, client):
     if message.content.split(' ')[0] == client.pfix + 'quote':
