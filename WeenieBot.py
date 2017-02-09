@@ -193,6 +193,8 @@ async def on_member_join(member):
         
 @client.event
 async def on_message(message):
+    if message.server.id not in client.voice_class_clients:
+        client.voice_class_clients[message.server.id] = Voice = VoiceS(client)
     try:
         for channel in message.server.channels:
             if str(channel.type) == 'voice':
@@ -243,8 +245,6 @@ async def on_message(message):
         await client.voice_class_clients[message.server.id].join(message, client)
         
     if message.content.startswith(client.pfix + 'play'):
-        if message.server.id not in client.voice_class_clients:
-            client.voice_class_clients[message.server.id] = Voice = VoiceS(client)
         await client.voice_class_clients[message.server.id].play(message, client)
         
     if message.content.startswith(client.pfix + 'stop'):
