@@ -166,7 +166,7 @@ async def on_message(message):
         await client.voice_clients[message.server.id].join(message, client)
     if message.content.startswith(client.pfix + 'play'):
         if message.server.id not in client.voice_class_clients:
-            client.voice_class_clients[message.server.id] = Voice = VoiceS(client)
+            client.voice_class_clients[message.server.id] = Voice = commands.VoiceS(client)
         await client.voice_clients[message.server.id].play(message, client)
     if message.content.startswith(client.pfix + 'stop'):
         await client.voice_clients[message.server.id].stop(message, client)
