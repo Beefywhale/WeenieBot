@@ -76,6 +76,7 @@ def add_command(*, command_name=None, command_function=None, alias=None):
 async def g_search_custom(message, client, search):
     loop = asyncio.get_event_loop()
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    search = search.replace(' ', '+')
     async with aiohttp.get('https://www.google.com/search?q={}&start=1&num=1'.format(search), headers=headers) as gr:
         try: 
             from BeautifulSoup import BeautifulSoup
