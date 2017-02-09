@@ -66,7 +66,7 @@ class Weenie(discord.Client):
         self.suspend = False
         self.repl = False
         self.voiceMap = {}
-        self.voice_class_clients = {}
+        self.voiceQ = {}
         super().__init__(*args, **kwargs) 
 
 status = {
@@ -193,8 +193,8 @@ async def on_member_join(member):
         
 @client.event
 async def on_message(message):
-    if message.server.id not in client.voice_class_clients:
-        client.voice_class_clients[message.server.id] = Voice = VoiceS(client)
+    if message.server.id not in client.voiceQ:
+        client.voiceQ[message.server.id] = Voice = VoiceS(client)
     try:
         for channel in message.server.channels:
             if str(channel.type) == 'voice':
@@ -242,29 +242,29 @@ async def on_message(message):
         await commands.resume_logic(message, client)
         
     if message.content.startswith(client.pfix + 'join'):
-        await client.voice_class_clients[message.server.id].join(message, client)
-        
+        await client.voiceQ[message.server.id].join(message, client)
+
     if message.content.startswith(client.pfix + 'play'):
-        await client.voice_class_clients[message.server.id].play(message, client)
-        
+        await client.voiceQ[message.server.id].play(message, client)
+
     if message.content.startswith(client.pfix + 'stop'):
-        await client.voice_class_clients[message.server.id].stop(message, client)
-        
+        await client.voiceQ[message.server.id].stop(message, client)
+
     if message.content.startswith(client.pfix + 'pause'):
-        await client.voice_class_clients[message.server.id].pause(message, client)
-        
+        await client.voiceQ[message.server.id].pause(message, client)
+
     if message.content.startswith(client.pfix + 'unpause'):
-        await client.voice_class_clients[message.server.id].mresume(message, client)
-        
+        await client.voiceQ[message.server.id].mresume(message, client)
+
     if message.content.startswith(client.pfix + 'disconnect'):
-        await client.voice_class_clients[message.server.id].disconnect(message, client)
-        
+        await client.voiceQ[message.server.id].disconnect(message, client)
+
     if message.content.startswith(client.pfix + 'volume'):
-        await client.voice_class_clients[message.server.id].volume(message, client)
-        
+        await client.voiceQ[message.server.id].volume(message, client)
+
     if message.content.startswith(client.pfix + 'nowplaying'):
-        await client.voice_class_clients[message.server.id].playing(message, client)
-    
+        await client.voiceQ[message.server.id].playing(message, client)
+
     if message.content == "!prefix":
         await commands.get_prefix(message, client)
 
