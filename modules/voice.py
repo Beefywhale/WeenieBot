@@ -1,5 +1,6 @@
 import discord
 import asyncio
+import json
 
 with open("database/adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
