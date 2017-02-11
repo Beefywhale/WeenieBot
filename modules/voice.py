@@ -1,6 +1,9 @@
 import discord
 import asyncio
 
+with open("database/adminweenie.json","r") as infile:
+    admin = json.loads(infile.read())
+
 class Voice():
     def __init__(self, client):
         self.volume_set = 0.1

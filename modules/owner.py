@@ -6,6 +6,9 @@ import git
 import sys
 import asyncio
 
+with open("database/adminweenie.json","r") as infile:
+    admin = json.loads(infile.read())
+
 with open("database/storage.json", "r") as infile:
     storage = json.loads(infile.read())
 
