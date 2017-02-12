@@ -142,7 +142,7 @@ async def on_message(message):
     except:
         print('Errored: Most likely due to Private DM\'s')
     
-    if message.content.startswith(client.pfix)  and client.suspend == False and str(message.author) != str(client.user):
+    if message.content.startswith(client.pfix)  and client.suspend == False and message.author.bot is False:
         try:
             if message.content == client.pfix + 'quote' :
                 await misc.rand_quote(message, client)
