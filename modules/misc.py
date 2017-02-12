@@ -54,7 +54,7 @@ commands.add_command(command_name='prefix', command_function=get_prefix_logic)
 
 '''Change current prefix'''
 async def prefix_logic(message, client):
-    if message.author.id == client.bot_info.owner.id:
+    if message.author.id == client.bot_info.owner.id or message.author.id == message.server.owner.id:
         with open("database/prefixMap.json", "r") as infile:
             prefixMap = json.loads(infile.read())
         print(client.pfix)
