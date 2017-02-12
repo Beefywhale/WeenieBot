@@ -112,8 +112,12 @@ async def on_member_join(member):
         
 @client.event
 async def on_message(message):
-    if message.server.id not in client.voiceQ:
-        client.voiceQ[message.server.id] = Voice = voice.Voice(client)
+    try:
+        if message.server.id not in client.voiceQ:
+            client.voiceQ[message.server.id] = Voice = voice.Voice(client)
+    except:
+        print('Errored: Most likely due to Private DM\'s')
+        
     try:
         for channel in message.server.channels:
             if str(channel.type) == 'voice':

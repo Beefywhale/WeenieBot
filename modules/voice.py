@@ -21,10 +21,12 @@ class Voice():
             await self.event.wait()
 
     async def volume(self, message, client):
-        if message.author.id in admin:
+        try:
             self.volume_set = float(message.content.replace(client.pfix + 'volume ', ''))
-            self.player.volume = self.volume_set
-            await client.send_message(message.channel, 'Set Volume to {}'.format(message.content.replace(client.pfix + 'volume ', '')))
+           	self.player.volume = self.volume_set
+           	await client.send_message(message.channel, 'Set Volume to {}'.format(message.content.replace(client.pfix + 'volume ', '')))
+        except:
+        	await client.send_message(message.channel, 'Could not set the volume!')
 
     async def play(self, message, client):
         if message.author.voice_channel != None:
@@ -77,6 +79,6 @@ class Voice():
         print(channel_to_join)
         try:
             joining_channel = message.server.get_channel(client.voiceMap[channel_to_join])
-        except KeyError:
+        except:
             await client.send_message('Error couldn\'t join {} did you specify the right channel? is it a voice channel? '.format(channel_to_join))
         await client.join_voice_channel(joining_channel)

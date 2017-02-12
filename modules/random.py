@@ -44,7 +44,6 @@ async def ccipher(message, client):
             x += alphabet[word % len(alphabet)]
         else:
             x += i
-        print(x)
     await client.send_message(message.channel, x)
 commands.add_command(command_name='ccipher', command_function=ccipher, alias='ceasercipher')
 
