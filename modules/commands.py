@@ -1,6 +1,6 @@
 import discord
 import asyncio
-
+import random
 
 #cb1 = cleverbot.Cleverbot('WeenieBot')
 cmdDict = {}
