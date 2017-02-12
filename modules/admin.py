@@ -1,6 +1,7 @@
 '''Admin commands'''
 import modules.commands as commands
 import json
+import discord
 import asyncio
 
 with open("database/adminweenie.json","r") as infile:
@@ -9,19 +10,23 @@ with open("database/adminweenie.json","r") as infile:
 '''Clear/Removes a given amount of messages.'''
 async def clear_logic(message, client):
     if str(message.author.id) in admin:
-        try:
-            amount = message.content.split(' ')
-            amount_number = amount[1]
-            amount = int(amount_number) + 1
-            print(message.author.name + ' cleared {} messages'.format(amount))
-            deleted = await client.purge_from(message.channel, limit=int(amount), check=None)
-            tbd = await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
-            await asyncio.sleep(5)
-            await client.delete_message(tbd)
-        except ValueError:
-            await client.send_message(message.channel, 'Error, Did you specify number?')
+        if message.author.permissions_in(message.channel).manage_messages:
+            try:
+                amount = message.content.split(' ')
+                amount_number = amount[1]
+                amount = int(amount_number) + 1
+                print(message.author.name + ' cleared {} messages'.format(amount))
+                deleted = await client.purge_from(message.channel, limit=int(amount), check=None)
+                tbd = await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
+                await asyncio.sleep(5)
+                await client.delete_message(tbd)
+            except ValueError:
+                await client.send_message(message.channel, 'Error, Did you specify number?')
+        else:
+            await client.send_message(message.channel, 'You need manage messages permission on this server, to use this commands')
     elif str(message.author.id) not in admin:
         await client.send_message(message.channel, 'Only Admins can Clear channels! If you would like to get admin please contact ' + client.bot_info.owner.id)
+
 commands.add_command(command_name='clear', command_function=clear_logic)
 
 async def admintest_logic(message, client):
