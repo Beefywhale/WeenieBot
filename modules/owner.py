@@ -45,7 +45,7 @@ commands.add_command(command_name='update', command_function=update_logic, alias
 '''Broadcast a message to ALL servers the bot is in.'''
 async def broadcast_server(message, client):
     broadcast_message = message.content.replace(message.content.split()[0] + ' ', '')
-    for server in client.servers[:]:
+    for server in list(client.servers)[:]:
         try:
             if storage[message.server.id] == "broadcast0" and message.author.id == client.bot_info.owner.id:
                 await client.send_message(server.default_channel, broadcast_message)

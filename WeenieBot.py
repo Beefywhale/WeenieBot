@@ -93,7 +93,7 @@ async def on_ready():
 
 @client.event
 async def on_server_join(server):
-    await client.send_message(server, 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type ' + client.pfix + 'help to see what I can do for you!')
+    await client.send_message(server, 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type `!help` to see what I can do for you!')
 
 @client.event
 async def on_member_join(member):
@@ -117,7 +117,7 @@ async def on_message(message):
             client.voiceQ[message.server.id] = Voice = voice.Voice(client)
     except:
         print('Errored: Most likely due to Private DM\'s')
-        
+
     try:
         for channel in message.server.channels:
             if str(channel.type) == 'voice':
