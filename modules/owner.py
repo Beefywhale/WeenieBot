@@ -4,6 +4,7 @@ import os
 import json
 import git
 import sys
+import discord
 import asyncio
 
 with open("database/adminweenie.json","r") as infile:
