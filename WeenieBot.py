@@ -3,7 +3,6 @@ import asyncio
 import random
 import json
 import time
-import cleverbot
 import requests
 import git
 import subprocess
@@ -195,7 +194,7 @@ async def on_message(message):
         await client.voiceQ[message.server.id].playing(message, client)
 
     if message.content == "!prefix":
-        await commands.get_prefix(message, client)
+        await misc.get_prefix_logic(message, client)
 
     if message.content == client.pfix + 'turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')

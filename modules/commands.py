@@ -1,8 +1,10 @@
 import discord
 import asyncio
 import random
+import modules.custom_cleverbot.cleverbot as cleverbot
 
-#cb1 = cleverbot.Cleverbot('WeenieBot')
+cb1 = cleverbot.Cleverbot('WeenieBot')
+
 cmdDict = {}
 
 def add_command(*, command_name=None, command_function=None, alias=None):
@@ -80,11 +82,10 @@ WeenieBot:
         await client.send_message(message.author, embed=help_details2)
 add_command(command_name='help', command_function=help_logic)
     
-'''disabled due to new cleverbot api changes'''
-'''async def cleverbot_logic(message, client):
+async def cleverbot_logic(message, client):
     global cb1
     q = message.content.split(' ')
     question = str(q[1:])
     answer = cb1.ask(question)
     await client.send_message(message.channel, message.author.mention + ' ' + answer)
-add_command(command_name='weeniebot', command_function=cleverbot_logic, alias='wbot')'''
+add_command(command_name='weeniebot', command_function=cleverbot_logic, alias='wbot')
