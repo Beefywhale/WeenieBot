@@ -14,7 +14,6 @@ import aiohttp
 import base64
 from datetime import datetime
 import modules.commands as commands
-import modules.botToken as botToken
 import modules.misc as misc
 import modules.pokemon as pokemon
 import modules.admin as admin
@@ -39,7 +38,12 @@ if discord.opus.is_loaded():
     print('Voice Loaded!')
 
 logging.basicConfig(level=logging.INFO)
-
+try:
+    with open("settings.json", "r") as infile:
+        settings = json.loads(infile.read())
+except:
+    print('No Settings.json file located! please run setup.py first!')
+    sys.exit()
 with open("database/quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
@@ -77,7 +81,7 @@ def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 @client.event
 async def on_ready():
     client.bot_info = await client.application_info()
-    print(str(client.bot_info.owner.id))
+    print('Bot owner:\n' + client.bot_info.owner.id)
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
@@ -90,6 +94,8 @@ async def on_ready():
         await client.change_nickname(message.server.me, 'WeenieBot')
     except:
         pass
+    if client.bot_info.owner.id not in admin:
+        admin.append(client.bot_info.owner.id)
 
 @client.event
 async def on_server_join(server):
@@ -194,4 +200,4 @@ async def on_message(message):
     if message.content == client.pfix + 'turtles':
         await client.send_message(message.channel, 'https://www.youtube.com/watch?v=o4PBYRN-ndI')
 
-client.run(botToken.token)
+client.run(settings['token'])

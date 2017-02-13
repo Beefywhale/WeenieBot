@@ -88,10 +88,11 @@ ENV/
 # Rope project settings
 .ropeproject
 
-# token
-modules/botToken.py
+#settings
+settings.json
 
 #data storage
+/database/
 database/adminweenie.json
 database/quoteweenie.json
 database/prefix.json
