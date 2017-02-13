@@ -19,6 +19,5 @@ now just `run python WeenieBot.py`
 For more info on commands, use the !help command once the bot is up and running!
 If you have any questions, or need help. Feel Free to ask!
 
-
 Made by: Beefywhale @ https://github.com/Beefywhale
 Special thanks to: Dragon5232/Armored-Dragon @https://github.com/Armored-Dragon 
