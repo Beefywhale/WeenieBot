@@ -157,6 +157,7 @@ async def on_message(message):
                 await misc.rand_quote(message, client)
             elif message.content.split(' ')[0] == client.pfix + 'quote':
                 await misc.quote_logic(message, client)
+            elif message.content.lower().startswith('weeniebot')
             else:
                 cmd = bdel(message.content.lower(), client.pfix)
                 cmd = cmd.split(' ')
