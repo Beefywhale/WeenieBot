@@ -157,8 +157,6 @@ async def on_message(message):
                 await misc.rand_quote(message, client)
             elif message.content.split(' ')[0] == client.pfix + 'quote':
                 await misc.quote_logic(message, client)
-            elif message.content.lower().startswith('weeniebot'):
-                await commands.cleverbot_logic(message, client)
             else:
                 cmd = bdel(message.content.lower(), client.pfix)
                 cmd = cmd.split(' ')
@@ -195,6 +193,8 @@ async def on_message(message):
     if message.content.startswith(client.pfix + 'nowplaying'):
         await client.voiceQ[message.server.id].playing(message, client)
 
+    if message.content.lower().startswith('weeniebot'):
+                await commands.cleverbot_logic(message, client)
     if message.content == "!prefix":
         await misc.get_prefix_logic(message, client)
 
