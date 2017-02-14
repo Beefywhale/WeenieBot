@@ -77,5 +77,8 @@ class Voice():
 	async def join(self, message, client):
 		channel_to_join= message.content.replace(client.pfix + 'join ', '')
 		print(channel_to_join)
-		joining_channel = message.server.get_channel(client.voiceMap[channel_to_join])
-		await client.join_voice_channel(joining_channel)
+		try:
+			joining_channel = message.server.get_channel(client.voiceMap[channel_to_join])
+			await client.join_voice_channel(joining_channel)
+		except:
+			await client.send_message(message.channel, 'Error couldn\'t join {} did you specify the right channel? is it a voice channel? '.format(channel_to_join))
