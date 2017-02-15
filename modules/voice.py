@@ -49,7 +49,11 @@ class Voice():
             
 	async def playing(self, message, client):
 		await client.send_message(message.channel, 'Now Playing: ' + self.player.title)
-    
+
+	async def skip(self, message, client):
+		if self.player.is_playing():
+			self.player.stop()
+			await client.send_message(message.channle, 'Skipping song...')
 	async def stop(self, message, client):
 		if client.is_voice_connected(message.server):
 			voice = client.voice_client_in(message.server)
