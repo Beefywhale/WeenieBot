@@ -169,6 +169,9 @@ async def on_message(message):
     if message.content == client.pfix + 'resume' and client.suspend == True:
         await commands.resume_logic(message, client)
         
+    if message.content.startswith(client.pfix + 'skip'):
+        await client.voiceQ[message.server.id].skip(message, client)
+        
     if message.content.startswith(client.pfix + 'join'):
         await client.voiceQ[message.server.id].join(message, client)
 
