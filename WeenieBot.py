@@ -36,7 +36,7 @@ if not discord.opus.is_loaded():
 if discord.opus.is_loaded():
     print('Voice Loaded!')
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(asctime)s: %(message)s')
 try:
     with open("settings.json", "r") as infile:
         settings = json.loads(infile.read())
@@ -113,7 +113,7 @@ async def on_member_join(member):
         try:
             await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
         except discord.Forbidden:
-            print('Couldn\'t welcome {} in server {} do to perms error.'.format(member, member.server))
+            print('Couldn\'t welcome {} in server {} due to perms error.'.format(member, member.server))
         
 @client.event
 async def on_message(message):
