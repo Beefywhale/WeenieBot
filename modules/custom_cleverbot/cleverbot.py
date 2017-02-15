@@ -28,7 +28,7 @@ class Cleverbot(object):
 
     HOST = "www.boibot.com"
     PROTOCOL = "http://"
-    RESOURCE = "/webservicemin?uc=777&botapi=see%20www.cleverbot.com%2Fapis&t=18205"
+    RESOURCE = "/webservicemin?uc=UseOfficialAPI&t=7295&re=yes&"
 
     def __init__(self, botapi, uc='3210'):
         """Cleverbot requests that bots identify themselves when
