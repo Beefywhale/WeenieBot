@@ -11,7 +11,7 @@ with open("database/quoteweenie.json","r") as infile:
 with open("database/AFINN-111.json", "r") as infile:
     words = json.loads(infile.read())
 
-t = time.process_time()
+start = datetime.now()
 counter1 = len(Quotes_All) + 1
 counter2 = len(Quotes_All) + 1
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
@@ -24,7 +24,7 @@ commands.add_command(command_name='ping', command_function=ping_logic, alias='te
 
 '''Gets bots current uptime.'''
 async def uptime_logic(message, client):
-    await client.send_message(message.channel, "I have been awake for: " + str(time.process_time() - t))
+    await client.send_message(message.channel, "I have been awake for: " + {'%d:%H%M%S'}.format(start - datetime.now()))
 commands.add_command(command_name='uptime', command_function=uptime_logic)
 
 
