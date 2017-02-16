@@ -74,7 +74,7 @@ status = {
 
 x33 = '%m-%d-%Y'
 client = Weenie()
-gamet = discord.Game(name='beefywhale.github.io/WeenieBot/')
+gamet = discord.Game(name='With Computers')
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 
 @client.event
@@ -89,10 +89,6 @@ async def on_ready():
         print(server)
     print('------')
     await client.change_presence(game=gamet, status='online', afk=False)
-    try:
-        await client.change_nickname(message.server.me, 'WeenieBot')
-    except:
-        pass
     if client.bot_info.owner.id not in admin:
         admin.append(client.bot_info.owner.id)
 
