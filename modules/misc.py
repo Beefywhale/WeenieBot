@@ -24,7 +24,7 @@ commands.add_command(command_name='ping', command_function=ping_logic, alias='te
 
 '''Gets bots current uptime.'''
 async def uptime_logic(message, client):
-    await client.send_message(message.channel, "I have been awake for: " + {'%d:%H%M%S'}.format(start - datetime.now()))
+    await client.send_message(message.channel, "I have been awake for: " + '{%d:%H%M%S}'.format(start - datetime.now()))
 commands.add_command(command_name='uptime', command_function=uptime_logic)
 
 
