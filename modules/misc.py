@@ -20,7 +20,8 @@ def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
 
 '''A simple ping testing command.'''
 async def ping_logic(message, client):
-    await client.send_message(message.channel, 'Pong')
+    start2 = time.time()
+    await client.send_message(message.channel, 'Pong (Latency `{}`)'.format(time.time() - start2))
 commands.add_command(command_name='ping', command_function=ping_logic, alias='test')
 
 '''displays bots current uptime.'''
