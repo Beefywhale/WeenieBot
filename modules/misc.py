@@ -6,12 +6,13 @@ import time
 from datetime import datetime
 import asyncio
 
+start = time.time()
+
 with open("database/quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 with open("database/AFINN-111.json", "r") as infile:
     words = json.loads(infile.read())
 
-start = datetime.now()
 counter1 = len(Quotes_All) + 1
 counter2 = len(Quotes_All) + 1
 def bdel(s, r): return (s[len(r):] if s.startswith(r) else s)
@@ -22,9 +23,10 @@ async def ping_logic(message, client):
     await client.send_message(message.channel, 'Pong')
 commands.add_command(command_name='ping', command_function=ping_logic, alias='test')
 
-'''Gets bots current uptime.'''
+'''displays bots current uptime.'''
 async def uptime_logic(message, client):
-    await client.send_message(message.channel, "I have been awake for: " + start.isoformat)
+    uptime = time.time() - start
+    await client.send_message(message.channel, "I have been awake for: " +  uptime.strftime('Days:%d Hours:%H  Minutes:%M  Seconds:%S'))
 commands.add_command(command_name='uptime', command_function=uptime_logic)
 
 
