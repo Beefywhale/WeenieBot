@@ -33,7 +33,7 @@ commands.add_command(command_name='clear', command_function=clear_logic)
 async def warning_add(message, client):
     if message.author.permissions_in(message.channel).ban_members:
         person = re.sub('[!@<>]', '', message.content)
-        person = person.replace('warn', '')
+        person = person.replace('warn ', '')
         r_person = person.split(person)[0]
         print(r_person)
         if r_person not in warnings:
@@ -54,7 +54,7 @@ commands.add_command(command_name='warn', command_function=warning_add)
 
 async def warning_amount(message, client):
     person = re.sub('[!@<>]', '', message.content)
-    person = person.replace('warnings', '')
+    person = person.replace('warnings ', '')
     person = person.split(person)[0]
     if person in warnings:
         await client.send_message(message.channel, '\n'.join(warnings[person]))
