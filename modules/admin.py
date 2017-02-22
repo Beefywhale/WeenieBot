@@ -34,19 +34,19 @@ async def warning_add(message, client):
     if message.author.permissions_in(message.channel).ban_members:
         person = re.sub('[!@<>]', '', message.content)
         person = person.replace('warn ', '')
-        r_person = person.split(person)[1]
+        r_person = person.split()[0]
         print(person)
         if r_person not in warnings:
             warnings[r_person] = []
         warnings[r_person].append(person.split(person)[1])
         if len(warnings[r_person]) > 3:
             if len(warnings[r_person]) > 2:
-                await client.send_message(message.server.get_member(r_person), person.split(person)[2])
+                await client.send_message(message.server.get_member(r_person), person.split()[1:])
             else:
-                await client.send_message(message.server.get_member(r_person), person.split(person)[2])
+                await client.send_message(message.server.get_member(r_person), person.split()[1:])
                 await client.send_message(message.channel, 'The next warning this person gets will result in a ban!')
         else:
-            await client.send_message(message.server.get_member(person), person.split(person)[2])
+            await client.send_message(message.server.get_member(person), person.split()[1:])
             await client.send_message(message.channel, 'Banning is not added yet! D:')
     else:
         await client.send_message(message.channel, '`ban_members` permission is needed for this command!')
