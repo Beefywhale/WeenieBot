@@ -2,6 +2,7 @@
 import modules.commands as commands
 import json
 import discord
+import re
 import asyncio
 
 with open("database/adminweenie.json","r") as infile:
@@ -31,7 +32,8 @@ commands.add_command(command_name='clear', command_function=clear_logic)
 
 async def warning_add(message, client):
     if message.author.permissions_in(message.channel).ban_members:
-        person = message.content.strip('<>@!')
+        person =re.sub('[^\w]', '', message.content)
+        person = person.split()[1]
         print(person)
         if person not in warnings:
             warnings[person] = []
