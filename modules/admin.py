@@ -37,7 +37,7 @@ async def warning_add(message, client):
         print(person)
         if person not in warnings:
             warnings[person] = []
-        warnings[person].append(message.content.split(person)[1])
+        warnings[person].append(person.split(person)[1])
         if len(warnings[person]) > 3:
             if len(warnings[person]) > 2:
                 await client.send_message(message.server.get_member(person), person.split(person)[1])
