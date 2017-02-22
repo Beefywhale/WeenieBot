@@ -7,6 +7,9 @@ import asyncio
 with open("database/adminweenie.json","r") as infile:
     admin = json.loads(infile.read())
 
+with open("database/warn.json","r") as infile:
+    warnings = json.loads(infile.read())    
+    
 '''Clear/Removes a given amount of messages.'''
 async def clear_logic(message, client):
     if message.author.permissions_in(message.channel).manage_messages:
@@ -26,6 +29,33 @@ async def clear_logic(message, client):
         await client.send_message(message.channel, 'You need manage messages permission on this server, to use this commands')
 commands.add_command(command_name='clear', command_function=clear_logic)
 
+async def warning_add(message, client):
+    if message.author.permissions_in(message.channel).ban_members:
+        person = message.content.strip('<>@!')
+        if person not in warnings:
+            warnings[person] = []
+        warnings[person].append(message.content.split(person)[1])
+        if len(warnings[person]) > 3:
+            if len(warnings[person]) > 2:
+                await client.send_message(get_member(person), message.content.split(person)[1])
+            else:
+                await client.send_message(get_member(person), message.content.split(person)[1])
+                await client.send_message(message.channel, 'The next warning this person gets will result in a ban!')
+        else:
+            await client.send_message(get_member(person), message.content.split(person)[1])
+            await client.send_message(message.channel, 'Banning is not added yet! D:')
+    else:
+        await client.send_message(message.channel, '`ban_members` permission is needed for this command!')
+commands.add_command(command_name='warn', command_function=warning_add)
+
+async def warning_amount(message, client):
+    person = message.content.strip('<>@!')
+    if person in warnings:
+        await client.send_message(message.channel, '\n'.join(warnings[person]))
+    else:
+        await client.send_message(message.channel, 'That person has no warnings!')
+commands.add_command(command_name='warnings', command_function=warning_amount, alias='warns')
+        
 async def admintest_logic(message, client):
     if str(message.author.id) in admin:
         await client.send_message(message.channel, 'Hello Admin!')
