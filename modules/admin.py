@@ -35,7 +35,7 @@ async def warning_add(message, client):
         person = re.sub('[!@<>]', '', message.content)
         person = person.replace('warn ', '')
         r_person = person.split(person)[1]
-        print(r_person)
+        print(person)
         if r_person not in warnings:
             warnings[r_person] = []
         warnings[r_person].append(person.split(person)[1])
