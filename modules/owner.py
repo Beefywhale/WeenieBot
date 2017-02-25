@@ -83,7 +83,7 @@ async def welcome_msg_toggle(message, client):
             await client.send_message(message.channel, "you set welcome message on!")
     with open("database/storage2.json", "w+") as outfile:
         outfile.write(json.dumps(storage2))
-commands.add_command(command_name='set_welcome_msg', command_function=broadcast_server_toggle, alias='setwelcomemsg, welcomeset')
+commands.add_command(command_name='set_welcome_msg', command_function=welcome_msg_toggle, alias='setwelcomemsg, welcomeset')
 
 '''Suspend commands.'''
 async def suspend_logic(message, client):
