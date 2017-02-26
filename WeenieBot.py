@@ -117,7 +117,7 @@ async def on_server_join(server):
 @client.event
 async def on_channel_delete(channel):
     for i in channel.server.channels:
-        if i.name == await client.get_channel(log_channel[member.server.id]).name:
+        if i.name == await client.get_channel(log_channel[channel.server.id]).name:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             cd_details = discord.Embed(title='Channel Deleted!', description='', colour=int(rr, 16))
@@ -131,7 +131,7 @@ async def on_channel_delete(channel):
 @client.event
 async def on_channel_create(channel):
     for i in channel.server.channels:
-        if i.name == await client.get_channel(log_channel[member.server.id]).name:
+        if i.name == await client.get_channel(log_channel[channel.server.id]).name:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             cc_details = discord.Embed(title='Channel Created!', description='', colour=int(rr, 16))
@@ -144,7 +144,7 @@ async def on_channel_create(channel):
 @client.event
 async def on_message_edit(before, after):
     for i in before.server.channels:
-        if i.name == await client.get_channel(log_channel[member.server.id]).name:
+        if i.name == await client.get_channel(log_channel[before.server.id]).name:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             em_details = discord.Embed(title='Message Edited!', description='', colour=int(rr, 16))
@@ -157,7 +157,7 @@ async def on_message_edit(before, after):
 @client.event
 async def on_message_delete(message):
     for i in message.server.channels:
-        if i.name == await client.get_channel(log_channel[member.server.id]).name:
+        if i.name == await client.get_channel(log_channel[message.server.id]).name:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             md_details = discord.Embed(title='Message Deleted!', description='', colour=int(rr, 16))
