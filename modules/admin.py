@@ -12,7 +12,7 @@ with open("database/warn.json","r") as infile:
     warnings = json.loads(infile.read())    
 with open("database/quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
-    
+
 '''Clear/Removes a given amount of messages.'''
 async def clear_logic(message, client):
     if message.author.permissions_in(message.channel).manage_messages:
@@ -36,8 +36,7 @@ async def warning_add(message, client):
     if message.author.permissions_in(message.channel).ban_members:
         if message.author.id in admin:
             person = re.sub('[!@<>]', '', message.content)
-            person = person.replace(client.pfix + 'warn ', '')
-            r_person = person.split()[0]
+            r_person = person.split()[1]
             print(r_person)
             if r_person not in warnings.keys():
                 warnings[r_person] = []
