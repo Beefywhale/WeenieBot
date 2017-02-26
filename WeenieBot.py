@@ -98,7 +98,7 @@ async def on_ready():
 
 @client.event
 async def on_member_ban(member):
-    if leavemsg[member.server] == 1:
+    if leavemsg[member.server.id] == 1:
         for i in channel.server.channels:
             if i.name == 'logs':
                     await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
@@ -186,7 +186,7 @@ async def on_member_join(member):
 
 @client.event  
 async def on_member_remove(member):
-    if leavemsg[member.server] == 1:
+    if leavemsg[member.server.id] == 1:
         for i in member.server.channels:
             if i.name == 'logs':
                 r = lambda: random.randint(0,255)
