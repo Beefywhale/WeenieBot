@@ -19,7 +19,7 @@ import modules.admin as admin
 import modules.embed_commands as embed_commands
 import modules.google_search as google_search
 import modules.owner as owner
-import modules.random as random
+import modules.random as random_cmds
 import modules.voice as voice
 
 from google import search
@@ -107,26 +107,52 @@ async def on_server_join(server):
 async def on_channel_delete(channel):
     for i in channel.server.channels:
         if i.name == 'logs':
-            await client.send_message(i, 'A channel was deleted! :eyes:\nChannel name:{}'.format(channel.name))
+            r = lambda: random.randint(0,255)
+            rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+            cd_details = discord.Embed(title='Channel Deleted!', description='', colour=int(rr, 16))
+            cd_details.add_field(name='Channel Name:', value=channel.name, inline=True)
+            cd_details.add_field(name='Channel ID:', value=channel.id, inline=True)
+            cd_details.add_field(name='Channel Topic:', value=channel.topic, inline=True)
+            cd_details.set_author(name='Removed channel...', icon_url=message.author.avatar_url)
+            await client.send_message(i, embed=cd_details)   
 
 
 @client.event
 async def on_channel_create(channel):
     for i in channel.server.channels:
         if i.name == 'logs':
-            await client.send_message(i, 'A channel was created! :eyes:\nChannel name:{}'.format(channel.name))
+            r = lambda: random.randint(0,255)
+            rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+            cc_details = discord.Embed(title='Channel Created!', description='', colour=int(rr, 16))
+            cc_details.add_field(name='Channel Name:', value=channel.name, inline=True)
+            cc_details.add_field(name='Channel ID:', value=channel.id, inline=True)
+            cc_details.add_field(name='Channel Topic:', value=channel.topic, inline=True)
+            cc_details.set_author(name='New channel...', icon_url=message.author.avatar_url)
+            await client.send_message(i, embed=cc_details)   
 
 @client.event
 async def on_message_edit(before, after):
     for i in before.server.channels:
         if i.name == 'logs':
-            await client.send_message(i, 'A message was edited! :eyes:\nBefore: {}\nAfter: {}'.format(before.content, after.content))
+            r = lambda: random.randint(0,255)
+            rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+            em_details = discord.Embed(title='Message Edited!', description='', colour=int(rr, 16))
+            em_details.add_field(name='Author:', value=before.author, inline=True)
+            em_details.add_field(name='Before:', value=before.content, inline=True)
+            em_details.add_field(name='After:', value=after.content, inline=True)
+            em_details.set_author(name='Edited message...', icon_url=before.author.avatar_url)
+            await client.send_message(i, embed=em_details)   
 
 @client.event
 async def on_message_delete(message):
     for i in message.server.channels:
         if i.name == 'logs':
-            await client.send_message(i, 'A message was deleted! :eyes:\nMessage: {}'.format(message.content))
+            r = lambda: random.randint(0,255)
+            rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+            md_details = discord.Embed(title='Message Deleted!', description='', colour=int(rr, 16))
+            md_details.add_field(name='Author:', value=message.author, inline=True)
+            md_details.set_author(name='Deleted message...', icon_url=message.author.avatar_url)
+            await client.send_message(i, embed=md_details)   
 
 @client.event
 async def on_member_join(member):
@@ -142,7 +168,7 @@ async def on_member_join(member):
             for i in message.server.channels:
                 if i.name == 'logs':
                     await client.send_message(i, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
-            await client.send_message(imessage.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
+            await client.send_message(message.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
         except discord.Forbidden:
             print('Couldn\'t welcome {} in server {} due to perms error.'.format(member, member.server))
 
@@ -150,7 +176,15 @@ async def on_member_join(member):
 async def on_member_remove(member):
     for i in member.server.channels:
         if i.name == 'logs':
-            await client.send_message(i, "{0.mention} has left {0.server.name} we will miss you!".format(member))    
+            r = lambda: random.randint(0,255)
+            rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+            rm_details = discord.Embed(title='Member left!', description='', colour=int(rr, 16))
+            rm_details.add_field(name='Username:', value=member.name, inline=True)
+            rm_details.add_field(name='Nick:', value=member.nick, inline =True)
+            rm_details.add_field(name='Joined Server:', value=member.joined_at.strftime(x33), inline =True)
+            rm_details.add_field(name='Account Created:', value=member.created_at.strftime(x33), inline=True)
+            rm_details.set_author(name='We lost a member :(', icon_url=message.server.get_member_named(username).avatar_url)
+            await client.send_message(i, embed=rm_details)    
         await client.send_message(message.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
 
 @client.event
