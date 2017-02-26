@@ -169,7 +169,10 @@ async def on_member_join(member):
             for i in member.server.channels:
                 if i.name == 'logs':
                     await client.send_message(i, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
-            await client.send_message(member.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
+            try:
+                await client.send_message(member.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
+            except discord.Forbidden:
+                print('Couldn\'t welcome {} in server {} due to perms error.'.format(member, member.server))
         except discord.Forbidden:
             print('Couldn\'t welcome {} in server {} due to perms error.'.format(member, member.server))
 
@@ -179,7 +182,7 @@ async def on_member_remove(member):
         if i.name == 'logs':
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
-            rm_details = discord.Embed(title='Member left!', description='', colour=int(rr, 16))
+            rm_details = discord.Embed(title='Member left!', colour=int(rr, 16))
             rm_details.add_field(name='Username:', value=member.name, inline=True)
             rm_details.add_field(name='Nick:', value=member.nick, inline =True)
             rm_details.add_field(name='Joined Server:', value=member.joined_at.strftime(x33), inline =True)
