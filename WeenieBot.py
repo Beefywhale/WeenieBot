@@ -151,6 +151,7 @@ async def on_message_delete(message):
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             md_details = discord.Embed(title='Message Deleted!', description='', colour=int(rr, 16))
             md_details.add_field(name='Author:', value=message.author, inline=True)
+            md_details.add_field(name='Message:', calue=message.content, inline=True)
             md_details.set_author(name='Deleted message...', icon_url=message.author.avatar_url)
             await client.send_message(i, embed=md_details)   
 
