@@ -191,7 +191,7 @@ async def on_member_join(member):
 async def on_member_remove(member):
     if leavemsg[member.server.id] == 1:
         for i in member.server.channels:
-            if i.name == await client.get_channel(log_channel[member.server.id]).name:
+            if i.id == log_channel[member.server.id]:
                 r = lambda: random.randint(0,255)
                 rr = ('0x%02X%02X%02X' % (r(),r(),r()))
                 rm_details = discord.Embed(title='Member left!', colour=int(rr, 16))

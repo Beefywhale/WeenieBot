@@ -91,7 +91,8 @@ commands.add_command(command_name='set_leave', command_function=leave_message_to
 
 async def log_channel_toggle(message, client):
     if message.author.id == message.server.owner.id or message.author.id == client.bot_info.owner.id:
-        log_channel[message.server.id] = message.content.split()[1]
+        x = await client.get_channel(client.textMap[message.content.split()[1]])
+        log_channel[message.server.id] = x.id
         with open("database/log_channel", "w+") as outfile:
             outfile.write(json.dumps(log_channel))   
 commands.add_command(command_name='set_log', command_function=log_channel_toggle, alias='setlog, set_logging, set_log_channel')
