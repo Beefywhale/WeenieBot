@@ -103,7 +103,7 @@ async def on_ready():
 async def on_member_ban(member):
     if leavemsg[member.server.id] == 1:
         for i in channel.server.channels:
-            if i.name == await client.get_channel(log_channel[member.server.id]).name:
+            if i.id == log_channel[message.server.id]:
                     await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
         try:
             await client.send_message(member.server.default_channel, '{} Has just been banned from the server :( Bye!'.format(member.name))
@@ -117,7 +117,7 @@ async def on_server_join(server):
 @client.event
 async def on_channel_delete(channel):
     for i in channel.server.channels:
-        if i.name == await client.get_channel(log_channel[channel.server.id]).name:
+        if i.id == log_channel[message.server.id]:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             cd_details = discord.Embed(title='Channel Deleted!', description='', colour=int(rr, 16))
@@ -131,7 +131,7 @@ async def on_channel_delete(channel):
 @client.event
 async def on_channel_create(channel):
     for i in channel.server.channels:
-        if i.name == await client.get_channel(log_channel[channel.server.id]).name:
+        if i.id == log_channel[message.server.id]:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             cc_details = discord.Embed(title='Channel Created!', description='', colour=int(rr, 16))
@@ -144,7 +144,7 @@ async def on_channel_create(channel):
 @client.event
 async def on_message_edit(before, after):
     for i in before.server.channels:
-        if i.name == await client.get_channel(log_channel[before.server.id]).name:
+        if i.id == log_channel[message.server.id]:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             em_details = discord.Embed(title='Message Edited!', description='', colour=int(rr, 16))
@@ -157,7 +157,7 @@ async def on_message_edit(before, after):
 @client.event
 async def on_message_delete(message):
     for i in message.server.channels:
-        if i.name == await client.get_channel(log_channel[message.server.id]).name:
+        if i.id == log_channel[message.server.id]:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             md_details = discord.Embed(title='Message Deleted!', description='', colour=int(rr, 16))
@@ -178,7 +178,7 @@ async def on_member_join(member):
     if storage2[member.server.id] == 'message0':
         try:
             for i in member.server.channels:
-                if i.name == await client.get_channel(log_channel[member.server.id]).name:
+                if i.id == log_channel[message.server.id]:
                     await client.send_message(i, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
             try:
                 await client.send_message(member.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
@@ -191,7 +191,7 @@ async def on_member_join(member):
 async def on_member_remove(member):
     if leavemsg[member.server.id] == 1:
         for i in member.server.channels:
-            if i.id == log_channel[member.server.id]:
+            if i.id == log_channel[message.server.id]:
                 r = lambda: random.randint(0,255)
                 rr = ('0x%02X%02X%02X' % (r(),r(),r()))
                 rm_details = discord.Embed(title='Member left!', colour=int(rr, 16))
