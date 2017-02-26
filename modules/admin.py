@@ -10,6 +10,8 @@ with open("database/adminweenie.json","r") as infile:
 
 with open("database/warn.json","r") as infile:
     warnings = json.loads(infile.read())    
+with open("database/quoteweenie.json","r") as infile:
+    Quotes_All = json.loads(infile.read())
     
 '''Clear/Removes a given amount of messages.'''
 async def clear_logic(message, client):
