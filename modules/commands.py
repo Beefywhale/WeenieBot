@@ -69,7 +69,7 @@ Bot Owner:
     set_welcome_msg <off/on> --- turns welcome message off or on.
     eval --- evaluates some code!
     update --- updates bot to newest version!
-    broadcast --- boradcast message to all servers!
+    broadcast --- broadcast message to all servers!
     restart --- restarts bot!
 
 WeenieBot:

@@ -165,7 +165,7 @@ async def on_member_join(member):
     
     if storage2[member.server.id] == 'message0':
         try:
-            for i in message.server.channels:
+            for i in member.server.channels:
                 if i.name == 'logs':
                     await client.send_message(i, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
             await client.send_message(message.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
