@@ -229,7 +229,7 @@ async def on_message(message):
         pass        
     with open("database/storage.json", "w+") as outfile:
         outfile.write(json.dumps(storage))
-        
+
     try:
         if message.server.id not in prefixMap:
             prefixMap[message.server.id] = '!'
