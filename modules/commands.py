@@ -61,7 +61,9 @@ Admin:
     admintest --- check if you are admin!
     deladmin --- deletes admin by user name.
     addadmin <DiscordName#Dicrim> --- adds admin by user name and discrim.
-
+    warn <@mention> <message> --- warns a person
+    warns <@mention> --- check the warnings of someone
+    clearnwarns <@mention> --- clear a persons warnings
 Bot Owner:
     suspend --- suspends ALL commands
     resume --- resume's all commands!

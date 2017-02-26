@@ -32,35 +32,58 @@ commands.add_command(command_name='clear', command_function=clear_logic)
 
 async def warning_add(message, client):
     if message.author.permissions_in(message.channel).ban_members:
-        person = re.sub('[!@<>]', '', message.content)
-        person = person.replace('warn ', '')
-        r_person = person.split()[0]
-        print(person)
-        if r_person not in warnings:
-            warnings[r_person] = []
-        warnings[r_person].append(person.split(person)[1])
-        if len(warnings[r_person]) > 3:
-            if len(warnings[r_person]) > 2:
-                await client.send_message(message.server.get_member(r_person), person.split()[1:])
-            else:
-                await client.send_message(message.server.get_member(r_person), person.split()[1:])
+        if message.author.id in admin:
+            person = re.sub('[!@<>]', '', message.content)
+            person = person.replace(client.pfix + 'warn ', '')
+            r_person = person.split()[0]
+            print(r_person)
+            if r_person not in warnings.keys():
+                warnings[r_person] = []
+            warnings[r_person].append(' '.join(person.split()[1:]))
+            with open("database/warn.json", "w+") as outfile:
+                outfile.write(json.dumps(warnings))
+            x = message.server.get_member(r_person)
+            await asyncio.sleep(1)
+            if len(warnings[r_person]) == 1:
+                await client.send_message(x, ' '.join(person.split()[1:]))
+            elif len(warnings[r_person]) == 2:
+                await client.send_message(message.server.get_member(r_person), ' '.join(person.split()[1:]))
                 await client.send_message(message.channel, 'The next warning this person gets will result in a ban!')
-        elif len(warnings[r_person]) >= 3:
-            await client.send_message(message.server.get_member(r_person), person.split()[1:])
-            await client.send_message(message.channel, 'Banning is not added yet! D:')
+            elif len(warnings[r_person]) == 3:
+                await client.send_message(message.server.get_member(r_person), ' '.join(person.split()[1:]))
+                await client.send_message(message.channel, 'Banning is not added yet! D:')
+        else:
+            await client.send_message(message.channel, 'You must be a bot admin to use this command!')
     else:
         await client.send_message(message.channel, '`ban_members` permission is needed for this command!')
 commands.add_command(command_name='warn', command_function=warning_add)
 
 async def warning_amount(message, client):
     person = re.sub('[!@<>]', '', message.content)
-    person = person.replace('warnings ', '')
-    person = person.split(person)[0]
-    if person in warnings:
-        await client.send_message(message.channel, '\n'.join(warnings[person]))
+    person = person.split()[1]
+    print(person)
+    if person in warnings.keys() and len(wanrings[person]) != 0:
+        await client.send_message(message.channel, '```'+ '\n'.join(warnings[person])+ '```')
     else:
         await client.send_message(message.channel, 'That person has no warnings!')
 commands.add_command(command_name='warnings', command_function=warning_amount, alias='warns')
+
+async def clear_warning(message, client):
+    if message.author.id in admin:
+        person = re.sub('[!@<>]', '', message.content)
+        person = person.split()[1]
+        print(person)
+        if person in warnings.keys():
+            warnings[person] = []
+            with open("database/warn.json", "w+") as outfile:
+                outfile.write(json.dumps(warnings))
+            await client.send_message(message.channel,'Cleared all warnings!')
+        else:
+            await client.send_message(message.channel, 'That person has no warnings!')
+    else:
+        await client.send_message(message.channel, 'You must be a bot admin to use this command!')
+commands.add_command(command_name='clearwarns', command_function=clear_warning)
+
         
 async def admintest_logic(message, client):
     if str(message.author.id) in admin:
@@ -84,7 +107,7 @@ async def deladmin_logic(message, client):
             else:
                 await client.send_message(message.channel, 'ERROR {} was never an Admin!'.format('`' + del_admin + '`'))
         elif str(message.author.id) not in admin:
-             await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + client.bot_info.owner.id)
+             await client.send_message(message.channel, 'ERROR You are not Admin.  If you would like to get admin please contact ' + client.bot_info.owner)
     except:
         pass
 commands.add_command(command_name='deladmin', command_function=deladmin_logic, alias='admindel, removeadmin, remove_admin')
@@ -92,7 +115,7 @@ commands.add_command(command_name='deladmin', command_function=deladmin_logic, a
 
 '''Adds Admin.'''
 async def add_admin_logic(message, client):
-    if str(message.author.id) in admin:
+    if str(message.author.id) in admin or message.author.id == client.bot_info.owner.id:
         username = message.content.split(' ')[1]
         try:
             msg3 = message.server.get_member_named(username)
@@ -104,7 +127,7 @@ async def add_admin_logic(message, client):
             await client.send_message(message.channel, 'Could not find user with this name, try doing name#discrim')
 
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + client.bot_info.owner.id)
+        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + client.bot_info.owner)
 commands.add_command(command_name='addadmin', command_function=add_admin_logic, alias='adminadd')
 
 
@@ -121,7 +144,7 @@ async def quoteadd_logic(message, client):
         with open("database/quoteweenie.json", "w+") as outfile:
             outfile.write(json.dumps(Quotes_All))
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'Only Admins can Add Quotes! If you would like to get admin please contact ' + client.bot_info.owner.id)
+        await client.send_message(message.channel, 'Only Admins can Add Quotes! If you would like to get admin please contact ' + client.bot_info.owner)
 commands.add_command(command_name='quoteadd', command_function=quoteadd_logic, alias='addquote')
 
 
@@ -140,7 +163,7 @@ async def editquote_logic(message, client):
         except IndexError:
             await client.send_message(message.channel, 'That quote doesn\'t exist!')
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin contact another admin or ' + client.bot_info.owner.id)
+        await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin contact another admin or ' + client.bot_info.owner)
 commands.add_command(command_name='editquote', command_function=editquote_logic, alias='quoteedit')
 
 
@@ -159,7 +182,7 @@ async def delquote_logic(message, client):
             except IndexError:
                  await client.send_message(message.channel, 'That quote doesn\'t exist!')
         elif str(message.author.id) not in admin:
-            await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + client.bot_info.owner.id)
+            await client.send_message(message.channel, 'ERROR You are not Admin. If you would like to get admin please contact ' + client.bot_info.owner)
     except:
         pass
 commands.add_command(command_name='delquote', command_function=delquote_logic, alias='quotedel')
@@ -191,5 +214,5 @@ async def purge(message, client):
         await asyncio.sleep(1)
         await client.send_message(message.channel, 'Deleted {} message(s)'.format(len(deleted)))
     elif str(message.author.id) not in admin:
-        await client.send_message(message.channel, 'Only Admins can Purge channels!. If you would like to get admin please contact ' + client.bot_info.owner.id)
+        await client.send_message(message.channel, 'Only Admins can Purge channels!. If you would like to get admin please contact ' + client.bot_info.owner)
 commands.add_command(command_name='purge', command_function=purge, alias='nuke')
