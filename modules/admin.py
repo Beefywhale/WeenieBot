@@ -58,6 +58,34 @@ async def warning_add(message, client):
         await client.send_message(message.channel, '`ban_members` permission is needed for this command!')
 commands.add_command(command_name='warn', command_function=warning_add)
 
+async def warning_add(message, client):
+    if message.author.permissions_in(message.channel).ban_members:
+        if message.author.id in admin:
+            person = re.sub('[!@<>]', '', message.content)
+            person = person.replace(client.pfix + 'warn ', '')
+            r_person = person.split()[0]
+            print(r_person)
+            if r_person not in warnings.keys():
+                warnings[r_person] = []
+            warnings[r_person].append(' '.join(person.split()[1:]))
+            with open("database/warn.json", "w+") as outfile:
+                outfile.write(json.dumps(warnings))
+            x = message.server.get_member(r_person)
+            await asyncio.sleep(1)
+            if len(warnings[r_person]) == 1:
+                await client.send_message(x, ' '.join(person.split()[1:]))
+            elif len(warnings[r_person]) == 2:
+                await client.send_message(message.server.get_member(r_person), ' '.join(person.split()[1:]))
+                await client.send_message(message.channel, 'The next warning this person gets will result in a ban!')
+            elif len(warnings[r_person]) == 3:
+                await client.send_message(message.server.get_member(r_person), ' '.join(person.split()[1:]))
+                await client.send_message(message.channel, 'Banning is not added yet! D:')
+        else:
+            await client.send_message(message.channel, 'You must be a bot admin to use this command!')
+    else:
+        await client.send_message(message.channel, '`ban_members` permission is needed for this command!')
+commands.add_command(command_name='warn', command_function=warning_add)
+
 async def warning_amount(message, client):
     person = re.sub('[!@<>]', '', message.content)
     person = person.split()[1]

@@ -10,6 +10,9 @@ start = time.time()
 
 with open("database/quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
+
+with open("database/quoteweenie.json","r") as infile:
+    Quotes_All = json.loads(infile.read())
 with open("database/AFINN-111.json", "r") as infile:
     words = json.loads(infile.read())
 
