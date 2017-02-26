@@ -169,7 +169,7 @@ async def on_member_join(member):
             for i in member.server.channels:
                 if i.name == 'logs':
                     await client.send_message(i, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
-            await client.send_message(message.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
+            await client.send_message(member.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
         except discord.Forbidden:
             print('Couldn\'t welcome {} in server {} due to perms error.'.format(member, member.server))
 
@@ -184,9 +184,9 @@ async def on_member_remove(member):
             rm_details.add_field(name='Nick:', value=member.nick, inline =True)
             rm_details.add_field(name='Joined Server:', value=member.joined_at.strftime(x33), inline =True)
             rm_details.add_field(name='Account Created:', value=member.created_at.strftime(x33), inline=True)
-            rm_details.set_author(name='We lost a member :(', icon_url=message.server.get_member_named(username).avatar_url)
+            rm_details.set_author(name='We lost a member :(', icon_url=member.server.get_member_named(username).avatar_url)
             await client.send_message(i, embed=rm_details)    
-        await client.send_message(message.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
+        await client.send_message(member.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
 
 @client.event
 async def on_message(message):
