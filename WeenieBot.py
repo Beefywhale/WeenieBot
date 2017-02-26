@@ -43,6 +43,10 @@ try:
 except:
     print('No Settings.json file located! please run setup.py first!')
     sys.exit()
+
+with open("database/leave_toggle.json","r") as infile:
+    leavemsg = json.loads(infile.read())
+
 with open("database/quoteweenie.json","r") as infile:
     Quotes_All = json.loads(infile.read())
 
@@ -94,10 +98,12 @@ async def on_ready():
 
 @client.event
 async def on_member_ban(member):
-    for i in channel.server.channels:
-        if i.name == 'logs':
-            await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
-    await client.send_message(member.server.default_channel, '{} Has just been banned from the server :( Bye!'.format(member.name))
+    if leavemsg[member.server] == 1:
+        for i in channel.server.channels:
+            if i.name == 'logs':
+                try:
+                    await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
+        await client.send_message(member.server.default_channel, '{} Has just been banned from the server :( Bye!'.format(member.name))
 
 @client.event
 async def on_server_join(server):
@@ -178,18 +184,19 @@ async def on_member_join(member):
 
 @client.event  
 async def on_member_remove(member):
-    for i in member.server.channels:
-        if i.name == 'logs':
-            r = lambda: random.randint(0,255)
-            rr = ('0x%02X%02X%02X' % (r(),r(),r()))
-            rm_details = discord.Embed(title='Member left!', colour=int(rr, 16))
-            rm_details.add_field(name='Username:', value=member.name, inline=True)
-            rm_details.add_field(name='Nick:', value=member.nick, inline =True)
-            rm_details.add_field(name='Joined Server:', value=member.joined_at.strftime(x33), inline =True)
-            rm_details.add_field(name='Account Created:', value=member.created_at.strftime(x33), inline=True)
-            rm_details.set_author(name='We lost a member :(', icon_url=member.server.get_member_named(username).avatar_url)
-            await client.send_message(i, embed=rm_details)    
-    await client.send_message(member.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
+    if leavemsg[member.server] == 1:
+        for i in member.server.channels:
+            if i.name == 'logs':
+                r = lambda: random.randint(0,255)
+                rr = ('0x%02X%02X%02X' % (r(),r(),r()))
+                rm_details = discord.Embed(title='Member left!', colour=int(rr, 16))
+                rm_details.add_field(name='Username:', value=member.name, inline=True)
+                rm_details.add_field(name='Nick:', value=member.nick, inline =True)
+                rm_details.add_field(name='Joined Server:', value=member.joined_at.strftime(x33), inline =True)
+                rm_details.add_field(name='Account Created:', value=member.created_at.strftime(x33), inline=True)
+                rm_details.set_author(name='We lost a member :(', icon_url=member.server.get_member_named(username).avatar_url)
+                await client.send_message(i, embed=rm_details)    
+        await client.send_message(member.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
 
 @client.event
 async def on_message(message):
@@ -204,8 +211,7 @@ async def on_message(message):
             if str(channel.type) == 'voice':
                 client.voiceMap[channel.name] = channel.id
     except:
-        print('Errored: Most likely due to Private DM\'s')
-    
+        pass    
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
     
@@ -213,11 +219,17 @@ async def on_message(message):
         if message.server.id not in storage:
             storage[message.server.id] = 'broadcast0'
     except:
-        print('Errored: Most likely due to Private DM\'s')
-        
+        pass        
     with open("database/storage.json", "w+") as outfile:
         outfile.write(json.dumps(storage))
-    
+    try:
+        if message.server.id not in leavemsg:
+            leavemsg[message.server.id] = '1'
+    except:
+        pass        
+    with open("database/storage.json", "w+") as outfile:
+        outfile.write(json.dumps(storage))
+        
     try:
         if message.server.id not in prefixMap:
             prefixMap[message.server.id] = '!'

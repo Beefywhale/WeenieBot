@@ -16,6 +16,9 @@ with open("database/storage.json", "r") as infile:
 with open("database/storage2.json", "r") as infile:
     storage2 = json.loads(infile.read())
 
+with open("database/leave_toggle.json","r") as infile:
+    leavemsg = json.loads(infile.read())
+
 '''Restart bot.'''
 async def restart_logic(message, client):
     if message.author.id == client.bot_info.owner.id:
@@ -69,6 +72,20 @@ async def broadcast_server_toggle(message, client):
     with open("database/storage.json", "w+") as outfile:
         outfile.write(json.dumps(storage))    
 commands.add_command(command_name='set_broadcast', command_function=broadcast_server_toggle, alias='setbroadcast, broadcastset, broadcast_set')
+
+async def leave_message_toggle(message, client):
+    if message.content.split(' ')[1] == 'off':
+        if message.author.id == message.server.owner.id or message.author.id == client.bot_info.owner.id:
+            leavemsg[message.server.id] = "0"
+            await client.send_message(message.channel, "you set leave messages off!")
+    if message.content.split(' ')[1] == 'on':
+        if message.author.id == message.server.owner.id or message.author.id == client.bot_info.owner.id:
+            leavemsg[message.server.id] = "1"
+            await client.send_message(message.channel, "you set leave messages on!")
+    with open("database/leave_toggle.json", "w+") as outfile:
+        outfile.write(json.dumps(leavemsg))    
+commands.add_command(command_name='set_leave', command_function=leave_message_toggle, alias='setleave, leavemessageset, leave_message_set')
+
 
 
 '''Toggle if the bot will welcome new people.'''
