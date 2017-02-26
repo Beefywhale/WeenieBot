@@ -231,8 +231,8 @@ async def on_message(message):
             leavemsg[message.server.id] = '1'
     except:
         pass        
-    with open("database/storage.json", "w+") as outfile:
-        outfile.write(json.dumps(storage))
+    with open("database/leave-toggle.json", "w+") as outfile:
+        outfile.write(json.dumps(leavemsg))
 
     try:
         if message.server.id not in prefixMap:
@@ -242,8 +242,7 @@ async def on_message(message):
             client.pfix = prefixMap[message.server.id]
     except:
         print('Errored: Most likely due to Private DM\'s')
-    with open("database/leave_toggle.json", "w+") as outfile:
-        outfile.write(json.dumps(leavemsg))
+
 
     if message.content.startswith(client.pfix)  and client.suspend == False and message.author.bot is False:
         try:
