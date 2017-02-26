@@ -58,8 +58,10 @@ with open("database/storage.json", "r") as infile:
 
 with open("database/storage2.json", "r") as infile:
     storage2 = json.loads(infile.read())
-    
-    
+
+with open("database/log_channel.json","r") as infile:
+    log_channel = json.loads(infile.read())
+
 class Weenie(discord.Client):
     def __init__(self, *args, **kwargs):
         self.timer = 0
@@ -67,6 +69,7 @@ class Weenie(discord.Client):
         self.repl = False
         self.voiceMap = {}
         self.voiceQ = {}
+        self.textMap = {}
         super().__init__(*args, **kwargs) 
 
 status = {
@@ -100,7 +103,7 @@ async def on_ready():
 async def on_member_ban(member):
     if leavemsg[member.server.id] == 1:
         for i in channel.server.channels:
-            if i.name == 'logs':
+            if i.name == await client.get_channel(log_channel[member.server.id]).name:
                     await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
         try:
             await client.send_message(member.server.default_channel, '{} Has just been banned from the server :( Bye!'.format(member.name))
@@ -114,7 +117,7 @@ async def on_server_join(server):
 @client.event
 async def on_channel_delete(channel):
     for i in channel.server.channels:
-        if i.name == 'logs':
+        if i.name == await client.get_channel(log_channel[member.server.id]).name:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             cd_details = discord.Embed(title='Channel Deleted!', description='', colour=int(rr, 16))
@@ -128,7 +131,7 @@ async def on_channel_delete(channel):
 @client.event
 async def on_channel_create(channel):
     for i in channel.server.channels:
-        if i.name == 'logs':
+        if i.name == await client.get_channel(log_channel[member.server.id]).name:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             cc_details = discord.Embed(title='Channel Created!', description='', colour=int(rr, 16))
@@ -141,7 +144,7 @@ async def on_channel_create(channel):
 @client.event
 async def on_message_edit(before, after):
     for i in before.server.channels:
-        if i.name == 'logs':
+        if i.name == await client.get_channel(log_channel[member.server.id]).name:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             em_details = discord.Embed(title='Message Edited!', description='', colour=int(rr, 16))
@@ -154,7 +157,7 @@ async def on_message_edit(before, after):
 @client.event
 async def on_message_delete(message):
     for i in message.server.channels:
-        if i.name == 'logs':
+        if i.name == await client.get_channel(log_channel[member.server.id]).name:
             r = lambda: random.randint(0,255)
             rr = ('0x%02X%02X%02X' % (r(),r(),r()))
             md_details = discord.Embed(title='Message Deleted!', description='', colour=int(rr, 16))
@@ -175,7 +178,7 @@ async def on_member_join(member):
     if storage2[member.server.id] == 'message0':
         try:
             for i in member.server.channels:
-                if i.name == 'logs':
+                if i.name == await client.get_channel(log_channel[member.server.id]).name:
                     await client.send_message(i, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
             try:
                 await client.send_message(member.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
@@ -188,7 +191,7 @@ async def on_member_join(member):
 async def on_member_remove(member):
     if leavemsg[member.server.id] == 1:
         for i in member.server.channels:
-            if i.name == 'logs':
+            if i.name == await client.get_channel(log_channel[member.server.id]).name:
                 r = lambda: random.randint(0,255)
                 rr = ('0x%02X%02X%02X' % (r(),r(),r()))
                 rm_details = discord.Embed(title='Member left!', colour=int(rr, 16))
@@ -215,7 +218,14 @@ async def on_message(message):
             if str(channel.type) == 'voice':
                 client.voiceMap[channel.name] = channel.id
     except:
-        pass    
+        pass
+
+    try:
+        for channel in message.server.channels:
+            if str(channel.type) == 'text':
+                client.textMap[channel.name] = channel.id
+    except:
+        pass 
     with open("database/prefixMap.json", "r") as infile:
         prefixMap = json.loads(infile.read())
     

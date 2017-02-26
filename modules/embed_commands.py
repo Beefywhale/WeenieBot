@@ -45,6 +45,7 @@ async def user(message, client):
             user_details.add_field(name='Joined Server:', value=message.server.get_member_named(username).joined_at.strftime(x33), inline =True)
             user_details.add_field(name='User Roles:', value= ', '.join([i.name.replace('@', '') for i in roles_member]), inline=True)
             user_details.add_field(name='Account Created:', value=message.server.get_member_named(username).created_at.strftime(x33), inline=True)
+            user_details.add_field(name='ID:', value=message.author.id, inline=True)                            
             user_details.set_author(name=message.server.get_member_named(username).display_name, icon_url=message.server.get_member_named(username).avatar_url)
             await client.send_message(message.channel, embed=user_details)
 
@@ -59,6 +60,7 @@ async def user(message, client):
                 user_details.add_field(name='Joined Server:', value=message.author.joined_at.strftime(x33), inline =True)
                 user_details.add_field(name='User Roles:', value= ', '.join([i.name.replace('@', '') for i in roles_member]), inline=True)
                 user_details.add_field(name='Account Created:', value=message.author.created_at.strftime(x33), inline=True)
+                user_details.add_field(name='ID:', value=message.author.id, inline=True)                
                 user_details.set_author(name=message.author.display_name, icon_url=message.author.avatar_url)
                 await client.send_message(message.channel, embed=user_details)
             else:

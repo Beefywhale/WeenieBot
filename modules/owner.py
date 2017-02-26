@@ -19,6 +19,9 @@ with open("database/storage2.json", "r") as infile:
 with open("database/leave_toggle.json","r") as infile:
     leavemsg = json.loads(infile.read())
 
+with open("database/log_channel.json","r") as infile:
+    log_channel = json.loads(infile.read())
+
 '''Restart bot.'''
 async def restart_logic(message, client):
     if message.author.id == client.bot_info.owner.id:
@@ -86,6 +89,12 @@ async def leave_message_toggle(message, client):
         outfile.write(json.dumps(leavemsg))    
 commands.add_command(command_name='set_leave', command_function=leave_message_toggle, alias='setleave, leavemessageset, leave_message_set')
 
+async def log_channel_toggle(message, client):
+    if message.author.id == message.server.owner.id or message.author.id == client.bot_info.owner.id:
+        log_channel[message.server.id] = message.content.split()[1]
+        with open("database/log_channel", "w+") as outfile:
+            outfile.write(json.dumps(log_channel))   
+commands.add_command(command_name='set_log', command_function=log_channel_toggle, alias='setlog, set_logging, set_log_channel')
 
 
 '''Toggle if the bot will welcome new people.'''
