@@ -94,9 +94,9 @@ async def on_ready():
 
 @client.event
 async def on_member_ban(member):
-        for i in channel.server.channels:
-            if i.name == 'logs':
-                    await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
+    for i in channel.server.channels:
+        if i.name == 'logs':
+            await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
     await client.send_message(member.server.default_channel, '{} Has just been banned from the server :( Bye!'.format(member.name))
 
 @client.event
