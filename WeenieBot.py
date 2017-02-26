@@ -148,7 +148,7 @@ async def on_member_join(member):
 
 @client.event  
 async def on_member_remove(member):
-    for i in message.server.channels:
+    for i in member.server.channels:
         if i.name == 'logs':
             await client.send_message(i, "{0.mention} has left {0.server.name} we will miss you!".format(member))    
         await client.send_message(message.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
