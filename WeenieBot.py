@@ -93,8 +93,40 @@ async def on_ready():
         admin.append(client.bot_info.owner.id)
 
 @client.event
+async def on_member_ban(member):
+        for i in channel.server.channels:
+            if i.name == 'logs':
+                    await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
+    await client.send_message(member.server.default_channel, '{} Has just been banned from the server :( Bye!'.format(member.name))
+
+@client.event
 async def on_server_join(server):
     await client.send_message(server, 'Hello! I am WeenieBot, your robot friend, here to help you with your needs on this server! type `!help` to see what I can do for you!')
+
+@client.event
+async def on_channel_delete(channel):
+    for i in channel.server.channels:
+        if i.name == 'logs':
+            await client.send_message(i, 'A channel was deleted! :eyes:\nChannel name:{}'.format(channel.name))
+
+
+@client.event
+async def on_channel_create(channel):
+    for i in channel.server.channels:
+        if i.name == 'logs':
+            await client.send_message(i, 'A channel was created! :eyes:\nChannel name:{}'.format(channel.name))
+
+@client.event
+async def on_message_edit(before, after):
+    for i in before.server.channels:
+        if i.name == 'logs':
+            await client.send_message(i, 'A message was edited! :eyes:\nBefore: {}\nAfter: {}'.format(before.content, after.content))
+
+@client.event
+async def on_message_delete(message):
+    for i in message.server.channels:
+        if i.name == 'logs':
+            await client.send_message(i, 'A message was deleted! :eyes:\nMessage: {}'.format(message.content))
 
 @client.event
 async def on_member_join(member):
@@ -107,10 +139,20 @@ async def on_member_join(member):
     
     if storage2[member.server.id] == 'message0':
         try:
-            await client.send_message(member.server.default_channel, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
+            for i in message.server.channels:
+                if i.name == 'logs':
+                    await client.send_message(i, "{0.mention} has joined {0.server.name} give them a warm welcome!".format(member))    
+            await client.send_message(imessage.server.default_channel,"{0.name} has joined {0.server.name} give them a warm welcome!".format(member))    
         except discord.Forbidden:
             print('Couldn\'t welcome {} in server {} due to perms error.'.format(member, member.server))
-        
+
+@client.event  
+async def on_member_remove(member):
+    for i in message.server.channels:
+        if i.name == 'logs':
+            await client.send_message(i, "{0.mention} has left {0.server.name} we will miss you!".format(member))    
+        await client.send_message(message.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
+
 @client.event
 async def on_message(message):
     try:
