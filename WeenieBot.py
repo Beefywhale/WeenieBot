@@ -101,9 +101,11 @@ async def on_member_ban(member):
     if leavemsg[member.server] == 1:
         for i in channel.server.channels:
             if i.name == 'logs':
-                try:
                     await client.send_message(i, '{} Has just been banned from the server :( Bye!'.format(member.name))
-        await client.send_message(member.server.default_channel, '{} Has just been banned from the server :( Bye!'.format(member.name))
+        try:
+            await client.send_message(member.server.default_channel, '{} Has just been banned from the server :( Bye!'.format(member.name))
+        except:
+            pass
 
 @client.event
 async def on_server_join(server):
@@ -196,8 +198,10 @@ async def on_member_remove(member):
                 rm_details.add_field(name='Account Created:', value=member.created_at.strftime(x33), inline=True)
                 rm_details.set_author(name='We lost a member :(', icon_url=member.server.get_member_named(username).avatar_url)
                 await client.send_message(i, embed=rm_details)    
-        await client.send_message(member.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
-
+        try:
+            await client.send_message(member.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
+        except:
+            pass
 @client.event
 async def on_message(message):
     try:
