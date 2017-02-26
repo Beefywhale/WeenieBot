@@ -226,11 +226,8 @@ async def on_message(message):
         pass        
     with open("database/storage.json", "w+") as outfile:
         outfile.write(json.dumps(storage))
-    try:
-        if message.server.id not in leavemsg.keys():
-            leavemsg[message.server.id] = '1'
-    except:
-        pass        
+    if message.server.id not in leavemsg.keys():
+        leavemsg[message.server.id] = '1'
     with open("database/leave-toggle.json", "w+") as outfile:
         outfile.write(json.dumps(leavemsg))
 
