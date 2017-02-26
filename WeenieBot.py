@@ -227,7 +227,7 @@ async def on_message(message):
     with open("database/storage.json", "w+") as outfile:
         outfile.write(json.dumps(storage))
     try:
-        if message.server.id not in leavemsg:
+        if message.server.id not in leavemsg.keys():
             leavemsg[message.server.id] = '1'
     except:
         pass        
@@ -240,6 +240,8 @@ async def on_message(message):
             client.pfix = prefixMap[message.server.id]
         else:
             client.pfix = prefixMap[message.server.id]
+    with open("database/leave_toggle.json", "w+") as outfile:
+        outfile.write(json.dumps(leavemsg))
     except:
         print('Errored: Most likely due to Private DM\'s')
     
