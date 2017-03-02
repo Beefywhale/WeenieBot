@@ -201,10 +201,7 @@ async def on_member_remove(member):
                 rm_details.add_field(name='Account Created:', value=member.created_at.strftime(x33), inline=True)
                 rm_details.set_author(name='We lost a member :(', icon_url=member.server.get_member_named(username).avatar_url)
                 await client.send_message(i, embed=rm_details)    
-        try:
-            await client.send_message(member.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
-        except:
-            pass
+        await client.send_message(member.server.default_channel, "{0.name} has left {0.server.name} we will miss you!".format(member))    
 @client.event
 async def on_message(message):
     try:
