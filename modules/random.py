@@ -6,7 +6,7 @@ import json
 import asyncio
 
 alphabet = list('abcdefghijklmnopqrstuvwxyz')
-wingdings = list('♋︎♌︎♍︎♎︎♏︎♐︎♑︎♒︎♓︎&︎&︎●︎❍︎■︎□︎◻︎❑︎❒︎⬧︎⧫︎◆︎❖︎')
+wingdings = ['♋︎','♌︎', '♍︎', '♎︎', '♏︎', '♐︎', '♑︎' ,'♒︎', '♓︎', '&︎', '&︎', '●︎', '❍︎', '■︎', '□︎', '◻︎', '❑︎', '❒︎', '⬧︎', '⧫︎', '◆︎', '❖︎')
 '''Just F#cking Google it!'''
 async def jfgi(message, client):
     await client.send_message(message.channel, 'http://www.justfuckinggoogleit.com/')
