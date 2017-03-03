@@ -49,12 +49,14 @@ commands.add_command(command_name='ccipher', command_function=ccipher, alias='ce
 
 async def wingdingcipher(message, client):
     phrase = ' '.join(message.content.split()[2:])
+    print('Phrase: ' + phrase)
     x = ''
     for i in phrase:
         if i.lower() in alphabet:
             word = alphabet.index(i.lower())
             x += wingdings[word]
     await client.send_message(message.channel, x)
+    print(x)
 commands.add_command(command_name='wingding', command_function=wingdingcipher, alias='wd')
 
 
