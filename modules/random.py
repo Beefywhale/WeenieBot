@@ -54,7 +54,7 @@ async def wingdingcipher(message, client):
     for i in phrase:
         if i.lower() in alphabet:
             word = alphabet.index(i.lower())
-            x += '\' + wingdings[word]
+            x += '\\' + wingdings[word]
     await client.send_message(message.channel, x)
     print(x)
 commands.add_command(command_name='wingding', command_function=wingdingcipher, alias='wd')
