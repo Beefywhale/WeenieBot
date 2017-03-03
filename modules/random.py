@@ -6,7 +6,7 @@ import json
 import asyncio
 
 alphabet = list('abcdefghijklmnopqrstuvwxyz')
-
+wingdings = list('♋︎♌︎♍︎♎︎♏︎♐︎♑︎♒︎♓︎&︎&︎●︎❍︎■︎□︎◻︎❑︎❒︎⬧︎⧫︎◆︎❖︎')
 '''Just F#cking Google it!'''
 async def jfgi(message, client):
     await client.send_message(message.channel, 'http://www.justfuckinggoogleit.com/')
@@ -46,6 +46,16 @@ async def ccipher(message, client):
             x += i
     await client.send_message(message.channel, x)
 commands.add_command(command_name='ccipher', command_function=ccipher, alias='ceasercipher')
+
+async def wingdingcipher(message, client):
+    phrase = ' '.join(message.content.split()[2:])
+    x = ''
+    for i in phrase:
+        if i.lower() in alphabet:
+            word = alphabet.index(i.lower())
+            x += wingdings[word]
+    await client.send_message(message.channel, x)
+commands.add_command(command_name='wingding', command_function=wingdingcipher, alias='wd')
 
 
 '''Compare two search results.'''
