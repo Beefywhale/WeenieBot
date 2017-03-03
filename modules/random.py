@@ -48,7 +48,7 @@ async def ccipher(message, client):
 commands.add_command(command_name='ccipher', command_function=ccipher, alias='ceasercipher')
 
 async def wingdingcipher(message, client):
-    phrase = ' '.join(message.content.split()[2:])
+    phrase = ' '.join(message.content.split()[1:])
     print('Phrase: ' + phrase)
     x = ''
     for i in phrase:
