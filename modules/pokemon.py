@@ -2,6 +2,7 @@ import modules.commands as commands
 import aiohttp
 import random
 import json
+import discord
 import asyncio
 
 BASE_URL = 'http://pokeapi.co'
