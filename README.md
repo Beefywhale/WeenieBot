@@ -1,6 +1,8 @@
 # WeenieBot
 <a HREF="https://discord.gg/4DYPYxc"><IMG SRC="https://discordapp.com/api/guilds/239772188649979904/widget.png?" alt="Discord Server"></a>
 
+![](https://github.com/Beefywhale/WeenieBot/blob/master/screenshots/WeenieBot_Banner_Discord.png "WeenieBot Banner")
+
 Your every day Discord Bot! Included Features: quotes, quote adding/deleting, Cleverbot integration, Admin whitelist for certain Commands, Adding admins by a person's Discord ID, and more!  
 
 # Installing WeenieBot
